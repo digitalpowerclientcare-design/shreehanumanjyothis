@@ -1,0 +1,157 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Ornament from '@/components/Ornament.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import { pandit, brand, locations, abs } from '@/data/business';
+import {
+  buildGraph, organizationSchema, personSchema, faqSchema, breadcrumbSchema,
+} from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'About Pandit Ji', url: '/about-pandit-ji/' },
+];
+const url = abs('/about-pandit-ji/');
+
+const faqs = [
+  {
+    question: 'How long has Pandit Ji been practising?',
+    answer: `More than ${pandit.yearsExperience} years. He practises Vedic astrology in the tradition followed in his family across generations, and consults from three centres — Sadashiva Nagar in Bengaluru, Kukatpally in Hyderabad, and Prabhadevi in Mumbai.`,
+  },
+  {
+    question: 'What does Pandit Ji specialise in?',
+    answer: 'Birth chart analysis, marriage compatibility through both the Ashtakoot and Porutham systems, Vastu for homes and commercial premises, Muhurtha, and traditional remedial guidance. Palmistry and numerology are offered as supporting readings alongside the chart rather than as standalone systems.',
+  },
+  {
+    question: 'Does Pandit Ji consult in person or online?',
+    answer: 'Both. In person at all three centres, and over call or video for clients elsewhere in India and abroad. The one exception is palmistry, which needs the hand in front of the reader.',
+  },
+  {
+    question: 'Which languages does Pandit Ji consult in?',
+    answer: 'English, Telugu, Hindi, Kannada and Marathi, depending on the centre. Say which you prefer when you call and the appointment will be arranged accordingly.',
+  },
+  {
+    question: 'Does Pandit Ji sell gemstones, yantras or remedy products?',
+    answer: 'No. Where a gemstone or a remedial item is genuinely indicated, you are told what it is and you buy it wherever you choose. Not being in that business is the simplest way to keep a recommendation honest.',
+  },
+];
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  faqSchema(faqs, url),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout
+  title={`${pandit.name} — Vedic Astrologer | ${brand.shortName}`}
+  description={`${pandit.name}, Vedic astrologer and Vastu consultant with over ${pandit.yearsExperience} years of practice. Consultations in Bengaluru, Hyderabad and Mumbai.`}
+  canonicalPath="/about-pandit-ji/"
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="pb-16 pt-10">
+    <div class="container-page">
+      <div class="grid items-start gap-14 lg:grid-cols-[1fr_0.8fr]">
+        <div>
+          <p class="eyebrow enter">About</p>
+          <h1 class="display-lg enter enter-d1 mt-5">{pandit.name}</h1>
+          <p class="lead-answer enter enter-d2">{pandit.bio}</p>
+
+          <div class="prose-shj enter enter-d3 mt-10">
+            <h2>Practice and approach</h2>
+            <p>
+              Every reading starts from the chart itself — date, exact time and place of
+              birth, worked through properly rather than run through software and read off
+              a summary. Where the birth time is uncertain, that is said at the start, and
+              the reading is limited to what an uncertain time can actually support.
+            </p>
+            <p>
+              The guidance that follows is deliberately plain. Charts contain difficult
+              periods as well as favourable ones, and both are described accurately. What
+              does not happen here is a difficult period being presented as a catastrophe,
+              or an expensive ritual being positioned as the only thing standing between a
+              family and misfortune.
+            </p>
+
+            <h2>Areas of practice</h2>
+            <ul>
+              <li><strong>Marriage and compatibility</strong> — Ashtakoot Guna Milan and South Indian Porutham, read against both full charts</li>
+              <li><strong>Birth chart analysis</strong> — career, marriage, family, education and timing questions</li>
+              <li><strong>Vastu Shastra</strong> — homes, apartments, offices and commercial premises</li>
+              <li><strong>Muhurtha</strong> — marriage, gruhapravesham, business openings and major purchases</li>
+              <li><strong>Prasna Jyotish</strong> — one focused question, where birth details are unavailable</li>
+              <li><strong>Supporting readings</strong> — palmistry and numerology, alongside the chart rather than in place of it</li>
+            </ul>
+
+            <h2>On remedies</h2>
+            <p>
+              Remedies are suggested only where a chart indicates them, and always with the
+              reasoning explained before they are recommended. Frequently the honest finding
+              is that nothing is required, and that is said as readily as anything else.
+            </p>
+            <p>
+              We do not sell gemstones, yantras or correction products. If something is
+              genuinely useful you will be told what it is, and you can buy it from whoever
+              you like. Removing that incentive is the point.
+            </p>
+
+            <h2>Where a consultation is not the right answer</h2>
+            <p>
+              Some of what people bring is properly a matter for a doctor, a lawyer or a
+              qualified counsellor. When that is the case it is said directly. Telling
+              someone that is more useful than taking a fee for a reading that was never
+              going to help them.
+            </p>
+          </div>
+        </div>
+
+        <aside class="lg:sticky lg:top-28">
+          <div class="reveal relative">
+            <div class="portrait">
+              <img src={pandit.photo} alt={pandit.photoAlt} width="640" height="800" loading="lazy" decoding="async" />
+            </div>
+            <Ornament variant="corner" class="absolute -left-3 -top-3 text-gold" />
+          </div>
+
+          <dl class="reveal mt-8 grid gap-4 rounded-xl border border-line bg-surface p-6">
+            <div><dt class="dt">Practice</dt><dd class="dd">{pandit.jobTitle}</dd></div>
+            <div><dt class="dt">Experience</dt><dd class="dd">{pandit.yearsExperience}+ years</dd></div>
+            <div><dt class="dt">Centres</dt><dd class="dd">{locations.map((l) => l.city).join(' · ')}</dd></div>
+            <div><dt class="dt">Languages</dt><dd class="dd">English, Telugu, Kannada, Hindi, Marathi</dd></div>
+            <div><dt class="dt">Consults on</dt><dd class="dd">{pandit.knowsAbout.join(' · ')}</dd></div>
+          </dl>
+
+          <a class="btn btn-primary reveal mt-5 w-full" href="/contact/">Book a consultation</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-t border-line bg-paper-warm">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading eyebrow="Questions" title="About Pandit Ji" class="mb-8" />
+        <FaqAccordion faqs={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .portrait {
+    position: relative; overflow: hidden;
+    border-radius: var(--radius-card); border: 1px solid var(--color-line);
+    background: var(--color-paper-warm); aspect-ratio: 4 / 5;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dt { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-maroon); }
+  .dd { margin-top: 0.25rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-ink-soft); }
+</style>

@@ -1,0 +1,187 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Ornament from '@/components/Ornament.astro';
+import { brand, locations, abs } from '@/data/business';
+import { buildGraph, organizationSchema, personSchema, faqSchema, breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'How a Consultation Works', url: '/how-a-consultation-works/' },
+];
+const url = abs('/how-a-consultation-works/');
+
+const steps = [
+  {
+    n: '01',
+    t: 'Send your birth details',
+    d: 'Date of birth, time of birth as accurately as you know it, and place of birth — on WhatsApp, or over the phone. For a compatibility reading, the same three for both people. Nothing else is needed.',
+  },
+  {
+    n: '02',
+    t: 'The chart is prepared beforehand',
+    d: 'Your chart is worked out before your appointment, so the time you spend with Pandit Ji goes on the discussion rather than the calculation. If your birth time is uncertain, you will be told at this stage which parts of the reading that affects.',
+  },
+  {
+    n: '03',
+    t: 'The consultation',
+    d: 'Around 45 to 60 minutes for a full reading, in person at one of the three centres or over call or video. Tell us at the start which areas matter most and the reading concentrates there rather than covering everything shallowly.',
+  },
+  {
+    n: '04',
+    t: 'What you take away',
+    d: 'A clear explanation of what the chart shows, the periods indicated, and — only where the chart calls for them — remedies with their reasoning explained. Where nothing is required, you will be told that plainly.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What should I bring to an astrology consultation?',
+    answer: 'Just your birth details — date, time and place of birth. If you have a specific question or decision in mind, bring that too; a focused question produces a considerably more useful reading than a general one.',
+  },
+  {
+    question: 'How long does a consultation take?',
+    answer: 'A full birth chart reading typically runs 45 to 60 minutes. A Prasna reading, which addresses one question, takes less. Vastu consultations depend on whether a site visit is involved and the size of the property.',
+  },
+  {
+    question: 'Will I get something in writing?',
+    answer: 'For Vastu consultations, yes — a written summary of the corrections in priority order. For chart readings, the consultation is verbal, and you are welcome to take notes or record it for your own reference.',
+  },
+  {
+    question: 'What if I need to follow up afterwards?',
+    answer: 'Follow-up questions on the same reading can be asked on WhatsApp. If a fresh reading is needed for a new matter, that is a new consultation and the fee is told to you first.',
+  },
+  {
+    question: 'Can I bring a family member?',
+    answer: 'Yes. For alliance and family matters it is common for several people to attend. Mention the number when you book so the appointment can be planned around it.',
+  },
+];
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  faqSchema(faqs, url),
+  breadcrumbSchema(crumbs),
+  {
+    '@type': 'HowTo',
+    '@id': `${url}#howto`,
+    name: 'How an astrology consultation works',
+    description: 'The four steps of booking and attending a consultation.',
+    step: steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.t,
+      text: s.d,
+    })),
+  },
+);
+---
+
+<BaseLayout
+  title={`How a Consultation Works | ${brand.shortName}`}
+  description="What to expect from an astrology consultation — what details to bring, how long it takes, what you take away, and what happens with remedies."
+  canonicalPath="/how-a-consultation-works/"
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="pb-14 pt-10">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <p class="eyebrow enter">Before you book</p>
+        <h1 class="display-lg enter enter-d1 mt-5">How a consultation works</h1>
+        <p class="lead-answer enter enter-d2">
+          A consultation needs three things from you — your date, time and place of birth.
+          The chart is prepared in advance, the reading takes about an hour, and remedies
+          are suggested only where the chart indicates them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-16">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <Ornament variant="rule" class="mb-14" />
+        <ol class="steps">
+          {steps.map((s) => (
+            <li class="step reveal">
+              <span class="step-n" aria-hidden="true">{s.n}</span>
+              <div>
+                <h2 class="step-t">{s.t}</h2>
+                <p class="step-d">{s.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-y border-line bg-paper-warm">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading eyebrow="Fees" title="What it costs, and what it does not" class="mb-7" />
+        <div class="prose-shj">
+          <p>
+            Fees vary by the type of consultation, and for Vastu by whether a site visit is
+            involved. The figure is told to you before anything is booked, and nothing is
+            added afterwards.
+          </p>
+          <p>
+            We do not sell gemstones, yantras or correction products. Where a remedial item
+            is genuinely indicated you are told what it is and you buy it wherever you
+            choose — which means no recommendation you receive is a pitch for something we
+            happen to stock.
+          </p>
+          <p>
+            If you have been quoted a large sum elsewhere for a puja or a dosha remedy,
+            you are welcome to bring the chart here for a second reading before you spend
+            anything.
+          </p>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          {locations.map((l) => (
+            <a class="btn btn-outline reveal" href={`/${l.slug}/`}>Ask {l.city}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading eyebrow="Questions" title="Before your appointment" class="mb-8" />
+        <FaqAccordion faqs={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.5rem; }
+  .step { display: flex; gap: 1.5rem; }
+  .step-n {
+    flex-shrink: 0;
+    display: grid; place-items: center;
+    width: 3.25rem; height: 3.25rem;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 16, 'opsz' 40;
+    font-size: 1.15rem; font-weight: 600;
+    color: var(--color-maroon);
+    background: var(--color-gold-tint);
+    border-radius: var(--radius-pill);
+  }
+  .step-t {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 16, 'opsz' 44;
+    font-size: 1.35rem; line-height: 1.25;
+  }
+  .step-d { margin-top: 0.6rem; line-height: 1.7; color: var(--color-ink-soft); }
+</style>

@@ -1,0 +1,58 @@
+---
+import { telLink, whatsappLink, type Location } from '@/data/business';
+
+interface Props { loc: Location; index?: number }
+const { loc, index = 0 } = Astro.props;
+---
+
+<article class="card card-hover reveal group relative overflow-hidden p-7" style={`--i:${index}`}>
+  <div class="pointer-events-none absolute -right-10 -top-10 h-32 w-32 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+    <div class="jaali-mini h-full w-full"></div>
+  </div>
+
+  <p class="eyebrow">{loc.locality}</p>
+
+  <h3 class="mt-3 font-display text-[1.7rem] leading-tight" style="font-variation-settings:'SOFT' 20,'opsz' 48">
+    <a href={`/${loc.slug}/`} class="after:absolute after:inset-0 after:content-['']">
+      {loc.city}
+    </a>
+  </h3>
+
+  <address class="mt-3 not-italic text-[0.93rem] leading-relaxed text-muted">
+    {loc.streetAddress},<br />{loc.city} {loc.postalCode}
+  </address>
+
+  <p class="mt-2.5 text-[0.86rem] text-muted">{loc.landmark}</p>
+
+  <dl class="mt-5 grid gap-1.5 border-t border-line pt-5 text-[0.86rem]">
+    <div class="flex gap-2">
+      <dt class="sr-only">Hours</dt>
+      <dd class="text-muted">{loc.hoursDisplay}</dd>
+    </div>
+    <div class="flex gap-2">
+      <dt class="sr-only">Languages</dt>
+      <dd class="text-muted">Consultations in {loc.languages.join(', ')}</dd>
+    </div>
+  </dl>
+
+  <div class="relative z-10 mt-6 flex flex-wrap gap-2">
+    <a class="btn btn-primary !min-h-11 !px-4 !text-[0.85rem]" href={telLink(loc)}>
+      {loc.phoneDisplay}
+    </a>
+    <a class="btn btn-outline !min-h-11 !px-4 !text-[0.85rem]" href={whatsappLink(loc)}>
+      WhatsApp
+    </a>
+    <a class="btn btn-outline !min-h-11 !px-4 !text-[0.85rem]" href={loc.mapUrl} target="_blank" rel="noopener">
+      Directions
+    </a>
+  </div>
+</article>
+
+<style>
+  .jaali-mini {
+    background-image:
+      repeating-linear-gradient(45deg, color-mix(in srgb, var(--color-gold) 30%, transparent) 0 1px, transparent 1px 12px),
+      repeating-linear-gradient(-45deg, color-mix(in srgb, var(--color-gold) 30%, transparent) 0 1px, transparent 1px 12px);
+    mask-image: radial-gradient(circle at 70% 30%, #000 10%, transparent 65%);
+  }
+</style>

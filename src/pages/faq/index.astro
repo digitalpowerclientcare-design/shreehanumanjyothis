@@ -1,0 +1,170 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { brand, locations, pandit, abs } from '@/data/business';
+import { buildGraph, organizationSchema, personSchema, faqSchema, breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'FAQ', url: '/faq/' }];
+const url = abs('/faq/');
+
+/**
+ * Every question is phrased the way a person would actually type it into
+ * Google or ask an AI assistant. Answers lead with the direct answer, then add
+ * detail. That structure is what gets extracted into AI Overviews and
+ * ChatGPT/Perplexity answers.
+ */
+const groups = [
+  {
+    heading: 'Booking a consultation',
+    faqs: [
+      {
+        question: 'How do I book a consultation?',
+        answer: `Call or WhatsApp the centre nearest to you — Bengaluru ${locations[0].phoneDisplay}, Hyderabad ${locations[1].phoneDisplay}, Mumbai ${locations[2].phoneDisplay}. Send your birth details in the same message and the chart will be prepared before you arrive.`,
+      },
+      {
+        question: 'How much does an astrology consultation cost?',
+        answer: 'It depends on the type of consultation and, for Vastu, whether a site visit is involved. The fee is always told to you before anything is booked and nothing is added afterwards. Ask on WhatsApp and you will get a straight figure with no obligation.',
+      },
+      {
+        question: 'Do I need an appointment, or can I walk in?',
+        answer: 'Walk-ins are accepted, but calling ahead is better — it means the chart is ready and you are not waiting. During wedding season the centres get busy, so an appointment is worth having.',
+      },
+      {
+        question: 'How long does a consultation take?',
+        answer: 'Around 45 to 60 minutes for a full birth chart reading. A focused question or a Prasna reading takes less. Vastu site visits depend on the size of the property.',
+      },
+    ],
+  },
+  {
+    heading: 'What you need to bring',
+    faqs: [
+      {
+        question: 'What details do I need for a consultation?',
+        answer: 'Date of birth, time of birth as accurately as you know it, and place of birth. For a compatibility reading, the same three for both people. That is all — nothing else is required.',
+      },
+      {
+        question: 'What if I do not know my exact birth time?',
+        answer: 'You have two options. Birth-time rectification narrows the likely time from known life events, though it is approximate and takes longer. Or use Prasna Jyotish, which answers one specific question from the moment it is asked and needs no birth details at all. We will tell you which suits your question.',
+      },
+      {
+        question: 'Does the birth time really matter that much?',
+        answer: 'Yes, for a full chart reading. The lagna changes roughly every two hours and it sets the entire house structure of the chart. A birth certificate or hospital record is the most reliable source. If your time is uncertain, say so — we will tell you which conclusions hold and which do not.',
+      },
+    ],
+  },
+  {
+    heading: 'Online and languages',
+    faqs: [
+      {
+        question: 'Can I consult online instead of visiting?',
+        answer: 'Yes. Consultations are held over call or video for clients anywhere in India and abroad, and the chart preparation is identical. The only service that genuinely needs you in the room is palmistry.',
+      },
+      {
+        question: 'Which languages are consultations held in?',
+        answer: 'English, Telugu, Hindi, Kannada and Marathi, depending on the centre. Bengaluru covers Kannada and Telugu, Hyderabad covers Telugu, Mumbai covers Marathi — all three also consult in Hindi and English. Say which you prefer when you call.',
+      },
+      {
+        question: 'Can my family attend the consultation with me?',
+        answer: 'Yes, and for alliance discussions it is common. Mention the number of people when you call so the appointment can be planned for it.',
+      },
+    ],
+  },
+  {
+    heading: 'Matching and doshas',
+    faqs: [
+      {
+        question: 'What is the minimum guna score needed for marriage?',
+        answer: 'Conventionally 18 out of 36, with 25 and above considered strong. In practice the number alone decides very little — the full charts, the dasha positions and any dosha placements matter considerably more. We give you the score and then explain what sits behind it.',
+      },
+      {
+        question: 'We have been told our daughter has severe Mangal Dosha. Should we be worried?',
+        answer: 'Probably less than you have been told. Mangal Dosha is one of the most over-stated findings in Indian astrology — classical texts list numerous cancellation conditions, and a large share of charts flagged manglik by software carry at least one. Bring the chart and we will tell you what is actually there. If someone has quoted you a large sum to remove it, get a second reading before paying anything.',
+      },
+      {
+        question: 'What if the horoscopes are not compatible?',
+        answer: 'We explain which specific factors are weak and why. Often the concern is narrower than families expect and can be discussed openly between both sides. Where a genuine difficulty exists we say so plainly. We do not recommend expensive rituals as a condition for proceeding.',
+      },
+      {
+        question: 'What if someone tells me I need an expensive ritual to remove a dosha?',
+        answer: 'Treat that as a warning sign about them. Remedies exist within the tradition and are sometimes appropriate — but they are suggested after a reading, with the reasoning explained, and never as the only thing standing between you and misfortune. Fear is the most common sales technique in this field.',
+      },
+    ],
+  },
+  {
+    heading: 'What we do and do not do',
+    faqs: [
+      {
+        question: 'Do you guarantee results?',
+        answer: 'No. A chart shows tendencies and timing indications; it does not determine what happens. Nobody can guarantee a marriage, a job, a reconciliation or a business outcome, and anyone who tells you otherwise is not being honest.',
+      },
+      {
+        question: 'Can astrology bring back a person who has left?',
+        answer: 'No. We are direct about this because a great deal of money changes hands on the promise that it can. No reading, ritual or remedy makes another adult return or feel differently. What a reading can do is help you understand the period you are in and make your own next decision more clearly.',
+      },
+      {
+        question: 'Do you offer vashikaran or black magic removal?',
+        answer: 'No, and we do not refer anyone for it. Practices marketed as controlling another person’s will, or as removing curses, sit outside what we do and outside what we consider honest astrological practice.',
+      },
+      {
+        question: 'Do you sell gemstones or remedy products?',
+        answer: 'No. Where a stone or item is genuinely indicated you are told what it is, and you buy it wherever you choose. Not being in that business is the simplest way to keep a recommendation honest.',
+      },
+      {
+        question: 'Is my consultation confidential?',
+        answer: 'Yes. Nothing discussed leaves the room, including from whoever referred you or arranged your appointment. Many people come having told no one, and that is respected.',
+      },
+    ],
+  },
+];
+
+const allFaqs = groups.flatMap((g) => g.faqs);
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  faqSchema(allFaqs, url),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout
+  title={`Frequently Asked Questions | ${brand.shortName}`}
+  description="Answers on booking, fees, birth details, online consultations, kundli matching, doshas — and a clear statement of what we do not claim to do."
+  canonicalPath="/faq/"
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="pb-12 pt-10">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Questions"
+        title="Frequently asked questions"
+        as="h1"
+        lead={`Straight answers about consulting with ${pandit.name} — including the things astrology cannot do.`}
+        class="max-w-3xl"
+      />
+    </div>
+  </section>
+
+  <section class="pb-16">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        {groups.map((g, i) => (
+          <div class={i > 0 ? 'mt-14' : ''}>
+            <h2 class="display-md reveal mb-6">{g.heading}</h2>
+            <FaqAccordion faqs={g.faqs} openFirst={false} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Still have a question?"
+    lead="Message any centre on WhatsApp. You will get a straight answer, and no pressure to book anything."
+  />
+</BaseLayout>

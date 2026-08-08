@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#faf6f0"/>
+  <g fill="none" stroke="#b8862f" stroke-width="1.5" opacity=".55">
+    <circle cx="600" cy="250" r="86"/>
+    <ellipse cx="600" cy="250" rx="26" ry="78"/>
+    <ellipse cx="600" cy="250" rx="26" ry="78" transform="rotate(45 600 250)"/>
+    <ellipse cx="600" cy="250" rx="26" ry="78" transform="rotate(90 600 250)"/>
+    <ellipse cx="600" cy="250" rx="26" ry="78" transform="rotate(135 600 250)"/>
+  </g>
+  <circle cx="600" cy="250" r="10" fill="#b8862f"/>
+  <text x="600" y="420" text-anchor="middle" font-family="Georgia, serif" font-size="56" fill="#1f1a24">Sri Hanuman Jyothishyalayam</text>
+  <text x="600" y="474" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" fill="#7a2e2a">Pandit Sri Pandu Ranga Shastri Ji</text>
+  <text x="600" y="522" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" fill="#6e6257">Bengaluru &#183; Hyderabad &#183; Mumbai</text>
+</svg>

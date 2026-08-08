@@ -1,0 +1,407 @@
+@import 'tailwindcss';
+
+/* Variable fonts, self-hosted (no Google Fonts CDN — better CWV + DPDP-friendly). */
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/inter';
+
+/* ==========================================================================
+   DESIGN TOKENS — "Traditional Modern"
+   Warm paper, temple maroon, leaf gold. Light-first: light reads as
+   trustworthy and professional; the old site's all-dark treatment is a large
+   part of why it felt generic-mystical rather than premium-traditional.
+   ========================================================================== */
+
+@theme {
+  /* — Surfaces —————————————————————————————————— */
+  --color-paper: #faf6f0;        /* page base */
+  --color-paper-warm: #f4ebdf;   /* alternating sections */
+  --color-paper-deep: #ece0cf;   /* borders, insets */
+  --color-surface: #ffffff;      /* cards */
+
+  /* — Ink ————————————————————————————————————— */
+  --color-ink: #1f1a24;          /* headings, body */
+  --color-ink-soft: #4a4048;
+  --color-muted: #6e6257;        /* meta, captions */
+
+  /* — Brand ——————————————————————————————————— */
+  --color-maroon: #7a2e2a;
+  --color-maroon-deep: #571d1a;
+  --color-maroon-tint: #f6ebe8;
+
+  /* — Accent ——————————————————————————————————— */
+  --color-gold: #b8862f;
+  --color-gold-bright: #d4a548;
+  --color-gold-tint: #f7efdc;
+
+  /* — Deep sections ————————————————————————————— */
+  --color-indigo: #1a1730;
+  --color-indigo-soft: #2a2545;
+
+  /* — Utility ——————————————————————————————————— */
+  --color-whatsapp: #25d366;
+  --color-line: #e2d6c4;
+
+  /* — Type ——————————————————————————————————— */
+  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* — Rhythm ————————————————————————————————— */
+  --spacing-section: 6rem;
+  --spacing-section-lg: 8.5rem;
+
+  /* — Motion ————————————————————————————————— */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* — Radii ————————————————————————————————— */
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;   /* 17px — the old site ran ~16px light-on-dark */
+    line-height: 1.7;
+    font-feature-settings: 'kern', 'liga', 'calt';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+
+    /* Faint paper grain. Pure CSS — no image request. */
+    background-image:
+      radial-gradient(circle at 1px 1px, rgb(122 46 42 / 0.035) 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    /* Fraunces variable axes: optical size + a touch of SOFT for warmth.
+       This is what gives the type its "traditional, not stiff" character. */
+    font-variation-settings: 'SOFT' 18, 'WONK' 0, 'opsz' 36;
+    font-weight: 500;
+    letter-spacing: -0.018em;
+    line-height: 1.12;
+    text-wrap: balance;
+    color: var(--color-ink);
+  }
+
+  p, li { text-wrap: pretty; }
+
+  /* Visible, high-contrast focus for keyboard users (WCAG 2.2). */
+  :focus-visible {
+    outline: 2px solid var(--color-maroon);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: var(--color-gold-tint);
+    color: var(--color-maroon-deep);
+  }
+
+  /* Astro view-transition polish between pages. */
+  @view-transition { navigation: auto; }
+}
+
+/* ==========================================================================
+   COMPONENT UTILITIES
+   ========================================================================== */
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  /* Prose measure — 65–75ch. The old site ran edge-to-edge at ~1400px. */
+  .container-prose {
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .section { padding-block: var(--spacing-section); }
+  @media (min-width: 768px) {
+    .section { padding-block: var(--spacing-section-lg); }
+  }
+
+  /* — Eyebrow label ————————————————————————— */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-maroon);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold));
+  }
+
+  /* — Buttons ——————————————————————————————— */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3rem;              /* 48px tap target */
+    padding: 0.75rem 1.6rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 0.25s var(--ease-out-soft),
+      box-shadow 0.25s var(--ease-out-soft),
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold));
+    color: #2a1d06;
+    box-shadow: 0 1px 2px rgb(122 46 42 / 0.14), 0 8px 22px -10px rgb(184 134 47 / 0.7);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 2px 4px rgb(122 46 42 / 0.16), 0 14px 30px -12px rgb(184 134 47 / 0.8);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-maroon);
+    box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--color-maroon) 32%, transparent);
+  }
+  .btn-outline:hover {
+    background: var(--color-maroon-tint);
+    box-shadow: inset 0 0 0 1.5px var(--color-maroon);
+  }
+
+  .btn-whatsapp {
+    background: var(--color-whatsapp);
+    color: #06331a;
+    box-shadow: 0 8px 22px -12px rgb(37 211 102 / 0.9);
+  }
+
+  .btn-ghost-light {
+    background: color-mix(in srgb, #fff 10%, transparent);
+    color: #fff;
+    box-shadow: inset 0 0 0 1.5px color-mix(in srgb, #fff 30%, transparent);
+  }
+  .btn-ghost-light:hover { background: color-mix(in srgb, #fff 18%, transparent); }
+
+  /* — Answer-first lead block ——————————————————
+     The 40–60 word paragraph directly under an H1. This is the block AI
+     assistants quote, so it appears on every service, city and article page. */
+  .lead-answer {
+    margin-top: 1.6rem;
+    padding-inline-start: 1.2rem;
+    border-inline-start: 3px solid var(--color-gold);
+    font-size: clamp(1.02rem, 0.96rem + 0.3vw, 1.16rem);
+    line-height: 1.68;
+    color: var(--color-ink-soft);
+    max-width: 46rem;
+  }
+
+  /* — Cards ————————————————————————————————— */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    transition:
+      transform 0.35s var(--ease-out-soft),
+      box-shadow 0.35s var(--ease-out-soft),
+      border-color 0.35s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+    box-shadow: 0 18px 40px -24px rgb(31 26 36 / 0.4);
+  }
+
+  /* — Gold hairline rule with a centred motif ——————— */
+  .rule-gold {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-gold);
+  }
+  .rule-gold::before,
+  .rule-gold::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-gold) 60%, transparent), transparent);
+  }
+
+  /* — Prose defaults for markdown content ——————————— */
+  .prose-shj { font-size: 1.0625rem; line-height: 1.75; }
+  .prose-shj h2 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem); margin-block: 2.5rem 0.9rem; }
+  .prose-shj h3 { font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.45rem); margin-block: 2rem 0.7rem; }
+  .prose-shj p { margin-block: 0 1.15rem; }
+  .prose-shj ul, .prose-shj ol { margin-block: 0 1.25rem; padding-inline-start: 1.3rem; }
+  .prose-shj li { margin-block: 0.4rem; }
+  .prose-shj ul { list-style: none; padding-inline-start: 0; }
+  .prose-shj ul > li {
+    position: relative;
+    padding-inline-start: 1.5rem;
+  }
+  .prose-shj ul > li::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0.72em;
+    inset-inline-start: 0.1rem;
+    width: 0.4rem; height: 0.4rem;
+    rotate: 45deg;
+    background: var(--color-gold);
+  }
+  .prose-shj ol { list-style: decimal; }
+  .prose-shj a {
+    color: var(--color-maroon);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+  }
+  .prose-shj a:hover { text-decoration-color: var(--color-maroon); }
+  .prose-shj strong { font-weight: 650; color: var(--color-ink); }
+  .prose-shj table { width: 100%; border-collapse: collapse; margin-block: 1.5rem; font-size: 0.95rem; }
+  .prose-shj th, .prose-shj td { padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--color-line); text-align: left; }
+  .prose-shj th { font-weight: 650; background: var(--color-paper-warm); }
+  .prose-shj blockquote {
+    margin-block: 1.75rem;
+    padding: 0.25rem 0 0.25rem 1.4rem;
+    border-inline-start: 3px solid var(--color-gold);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-ink-soft);
+  }
+
+  /* Wide content must scroll inside itself — never the page body. */
+  .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* ==========================================================================
+   MOTION — scroll-driven animations, native CSS, zero JavaScript.
+   `animation-timeline: view()` is the 2026-current technique. Wrapped in
+   @supports so browsers without it simply show content (no FOUC, no JS
+   fallback library, no layout shift).
+   ========================================================================== */
+
+@layer utilities {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation: reveal-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 26%;
+      }
+      .reveal-fade {
+        animation: reveal-fade linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 22%;
+      }
+      /* Hero parallax on the ornamental layer only. */
+      .parallax-slow {
+        animation: parallax-drift linear both;
+        animation-timeline: view();
+        animation-range: entry 0% exit 100%;
+      }
+      /* Gold rule that draws itself as it scrolls in. */
+      .draw-rule {
+        animation: draw-rule linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 30%;
+      }
+    }
+  }
+
+  @keyframes reveal-up {
+    from { opacity: 0; transform: translateY(26px); filter: blur(3px); }
+    to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+  }
+  @keyframes reveal-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes parallax-drift {
+    from { transform: translateY(-3%) scale(1.04); }
+    to   { transform: translateY(4%)  scale(1.04); }
+  }
+  @keyframes draw-rule {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* Entry animation for above-the-fold content, using @starting-style —
+     no scroll timeline needed, fires once on paint. */
+  @media (prefers-reduced-motion: no-preference) {
+    .enter {
+      opacity: 1;
+      translate: 0 0;
+      transition: opacity 0.9s var(--ease-out-soft), translate 0.9s var(--ease-out-soft);
+    }
+    @starting-style {
+      .enter { opacity: 0; translate: 0 1.25rem; }
+    }
+    .enter-d1 { transition-delay: 0.09s; }
+    .enter-d2 { transition-delay: 0.18s; }
+    .enter-d3 { transition-delay: 0.27s; }
+    .enter-d4 { transition-delay: 0.36s; }
+  }
+
+  /* Fluid display type — variable-font weight/optical-size shifts with viewport. */
+  .display-xl {
+    font-size: clamp(2.3rem, 1.5rem + 3.2vw, 4rem);
+    font-variation-settings: 'SOFT' 24, 'WONK' 1, 'opsz' 144;
+    letter-spacing: -0.028em;
+    line-height: 1.03;
+  }
+  .display-lg {
+    font-size: clamp(2rem, 1.4rem + 2.7vw, 3.25rem);
+    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 96;
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+  }
+  .display-md {
+    font-size: clamp(1.55rem, 1.25rem + 1.5vw, 2.25rem);
+    font-variation-settings: 'SOFT' 16, 'opsz' 72;
+    line-height: 1.15;
+  }
+}

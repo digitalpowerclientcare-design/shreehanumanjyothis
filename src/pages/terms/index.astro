@@ -1,0 +1,86 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { brand } from '@/data/business';
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Terms & Disclaimer', url: '/terms/' }];
+const updated = '8 August 2026';
+---
+
+<BaseLayout
+  title={`Terms & Astrology Disclaimer | ${brand.shortName}`}
+  description="Terms of use and our disclaimer on the nature and limits of astrological guidance."
+  canonicalPath="/terms/"
+  noindex
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="section pt-10">
+    <div class="container-page">
+      <div class="container-prose">
+        <h1 class="display-lg">Terms &amp; Astrology Disclaimer</h1>
+        <p class="mt-3 text-[0.88rem] text-muted">Last updated: {updated}</p>
+
+        <div class="prose-shj mt-10">
+          <!-- TODO(client): have a lawyer review before launch. -->
+          <h2>The nature of the guidance offered</h2>
+          <p>
+            Astrological guidance provided by {brand.name} is interpretive. It is offered
+            to give perspective and clarity on decisions you are making. It describes
+            tendencies and timing indications. It does not determine what will happen.
+          </p>
+
+          <h2>No guaranteed outcomes</h2>
+          <p>
+            We make no guarantee of any outcome. This includes, without limitation,
+            marriage, reconciliation, employment, selection, promotion, income, business
+            performance, health, or the resolution of any dispute. Any decision you take
+            following a consultation remains your own.
+          </p>
+
+          <h2>Not professional advice</h2>
+          <p>
+            Nothing said in a consultation or published on this website constitutes
+            medical, psychological, legal, financial or investment advice. Where a matter
+            requires a doctor, a qualified counsellor, a lawyer or a financial adviser, we
+            will say so, and you should consult one.
+          </p>
+
+          <h2>Remedies</h2>
+          <p>
+            Where a remedy is suggested, it is a traditional observance within a cultural
+            practice. It is offered with its reasoning explained, it is never presented as
+            compulsory, and no result is promised from it. We do not sell gemstones,
+            yantras or remedial products.
+          </p>
+
+          <h2>Services we do not offer</h2>
+          <p>
+            We do not offer, and will not refer anyone for, any service claiming to
+            control, influence or alter another person’s will, feelings or decisions. We do
+            not offer curse removal or black magic removal.
+          </p>
+
+          <h2>Fees</h2>
+          <p>
+            Consultation fees are stated before a booking is confirmed. Nothing is added
+            afterwards. Where a site visit is involved, any travel component is stated in
+            advance.
+          </p>
+
+          <h2>Website content</h2>
+          <p>
+            Articles on this website are general explanatory material. They are not
+            personal guidance and should not be relied on as such — a chart reading depends
+            on your own birth details.
+          </p>
+
+          <h2>Contact</h2>
+          <p>
+            Questions about these terms: <a href={`mailto:${brand.email}`}>{brand.email}</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

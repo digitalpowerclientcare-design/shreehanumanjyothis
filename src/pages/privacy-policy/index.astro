@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { brand } from '@/data/business';
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Privacy Policy', url: '/privacy-policy/' }];
+const updated = '8 August 2026';
+---
+
+<BaseLayout
+  title={`Privacy Policy | ${brand.shortName}`}
+  description="How we handle the personal information you share with us."
+  canonicalPath="/privacy-policy/"
+  noindex
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="section pt-10">
+    <div class="container-page">
+      <div class="container-prose">
+        <h1 class="display-lg">Privacy Policy</h1>
+        <p class="mt-3 text-[0.88rem] text-muted">Last updated: {updated}</p>
+
+        <div class="prose-shj mt-10">
+          <!-- TODO(client): have this reviewed against the DPDP Act 2023 before launch. -->
+          <h2>What we collect</h2>
+          <p>
+            When you contact us by phone, WhatsApp or the enquiry form, we receive the
+            information you choose to share — typically your name, mobile number, and the
+            birth details needed to prepare a chart (date, time and place of birth).
+          </p>
+
+          <h2>Why we collect it</h2>
+          <p>
+            Solely to respond to your enquiry and to prepare and deliver the consultation
+            you have asked for. We do not use it for anything else.
+          </p>
+
+          <h2>What we do not do</h2>
+          <ul>
+            <li>We do not sell your information.</li>
+            <li>We do not share it with third parties for marketing.</li>
+            <li>We do not add you to any promotional list without your asking.</li>
+            <li>We do not discuss your consultation with other family members, including whoever referred you.</li>
+          </ul>
+
+          <h2>How long we keep it</h2>
+          <p>
+            Enquiry details and prepared charts are retained so we can answer follow-up
+            questions about a reading you have already had. You may ask us to delete your
+            information at any time.
+          </p>
+
+          <h2>Your rights</h2>
+          <p>
+            You may ask us what information we hold about you, ask for it to be corrected,
+            or ask for it to be erased. Write to us at the email address in the footer and
+            we will act on it.
+          </p>
+
+          <h2>Website analytics</h2>
+          <p>
+            <!-- TODO(build): update this once GA4 is connected, or remove it if analytics are not used. -->
+            This website may use analytics to understand which pages are read. Analytics
+            data is aggregated and is not used to identify individual visitors.
+          </p>
+
+          <h2>Maps and external services</h2>
+          <p>
+            Maps on this site load only when you tap them. Until you do, no request is made
+            to any external map provider.
+          </p>
+
+          <h2>Contact</h2>
+          <p>
+            For any question about this policy, contact us at
+            <a href={`mailto:${brand.email}`}>{brand.email}</a> or by phone at any of our
+            three centres.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

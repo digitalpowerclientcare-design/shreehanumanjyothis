@@ -1,0 +1,430 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import CityCard from '@/components/CityCard.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import ReviewBlock from '@/components/ReviewBlock.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Ornament from '@/components/Ornament.astro';
+import ServiceIcon from '@/components/ServiceIcon.astro';
+import { brand, pandit, locations, abs } from '@/data/business';
+import {
+  buildGraph, organizationSchema, websiteSchema, personSchema,
+  localBusinessSchema, faqSchema,
+} from '@/lib/schema';
+
+const services = (await getCollection('services', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+const featured = services.slice(0, 8);
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+
+// Answer-first, conversational questions — the format AI assistants extract.
+const faqs = [
+  {
+    question: 'Who is Pandit Sri Pandu Ranga Shastri Ji?',
+    answer:
+      'Pandit Sri Pandu Ranga Shastri Ji is a Vedic astrologer and Vastu consultant with more than three decades of practice. He consults from three centres — Sadashiva Nagar in Bengaluru, Kukatpally in Hyderabad, and Prabhadevi in Mumbai — offering Kundli analysis, marriage compatibility, Vastu and traditional remedial guidance.',
+  },
+  {
+    question: 'How much does an astrology consultation cost?',
+    answer:
+      'Fees depend on the type of consultation and whether a site visit is involved. The figure is always shared before anything is booked, and nothing is added afterwards. Message any centre on WhatsApp and you will get a straight answer before you commit to anything.',
+  },
+  {
+    question: 'What details do I need to bring to a consultation?',
+    answer:
+      'Your date of birth, your time of birth as accurately as you know it, and your place of birth. For a compatibility reading, the same three for both people. Send them on WhatsApp beforehand and the chart will be prepared before you arrive.',
+  },
+  {
+    question: 'What if I do not know my exact birth time?',
+    answer:
+      'You have two options. Birth-time rectification narrows the likely time using known life events, though it is approximate. Or use Prasna Jyotish, which answers one specific question from the moment it is asked and needs no birth details at all.',
+  },
+  {
+    question: 'Can I consult online instead of visiting a centre?',
+    answer:
+      'Yes. Consultations are held over call or video for clients anywhere in India and abroad. The one exception is palmistry, which needs the hand in front of the reader — a photograph loses the depth and texture the method depends on.',
+  },
+  {
+    question: 'Which languages are consultations held in?',
+    answer:
+      'English, Telugu, Hindi, Kannada and Marathi, depending on the centre. Bengaluru covers Kannada and Telugu, Hyderabad covers Telugu, and Mumbai covers Marathi — all three also consult in Hindi and English.',
+  },
+  {
+    question: 'Do you guarantee results?',
+    answer:
+      'No, and we would ask you to be careful with anyone who does. A chart shows tendencies and timing indications. It does not determine what happens, and no remedy makes a specific outcome certain. Remedies are suggested only where the chart indicates them, and always with the reasoning explained.',
+  },
+];
+
+const jsonLd = buildGraph(
+  organizationSchema(true),
+  websiteSchema(),
+  personSchema(),
+  ...locations.map(localBusinessSchema),
+  faqSchema(faqs, abs('/')),
+);
+---
+
+<BaseLayout
+  title={`${brand.name} | Vedic Astrologer in Bengaluru, Hyderabad & Mumbai`}
+  description="Vedic astrology consultations with Pandit Sri Pandu Ranga Shastri Ji — Kundli matching, birth chart analysis, Vastu and traditional guidance. Three centres: Sadashiva Nagar, Kukatpally and Prabhadevi."
+  canonicalPath="/"
+  jsonLd={jsonLd}
+>
+
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 -z-10 opacity-[0.5] text-gold">
+      <div class="parallax-slow h-full w-full">
+        <Ornament variant="jaali" class="h-full w-full" />
+      </div>
+    </div>
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem]"
+      style="background:radial-gradient(60% 55% at 50% 0%, color-mix(in srgb, var(--color-gold) 15%, transparent), transparent 70%)"
+    ></div>
+
+    <div class="container-page pb-14 pt-12 md:pb-20 md:pt-16">
+      <div class="mx-auto max-w-4xl text-center">
+        <p class="eyebrow enter mx-auto justify-center">
+          Since {brand.foundedYear} · Bengaluru · Hyderabad · Mumbai
+        </p>
+
+        <h1 class="display-xl enter enter-d1 mt-5">
+          Vedic Astrology Guidance by <span class="text-maroon">Pandit Sri Pandu Ranga Shastri Ji</span>
+        </h1>
+
+        <p class="enter enter-d2 mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          Kundli analysis, marriage compatibility and Vastu guidance — explained plainly,
+          with remedies suggested only where the chart indicates them.
+          Consultations in English, Telugu, Kannada, Hindi and Marathi.
+        </p>
+
+        <!-- City routing above the fold: a Mumbai visitor should never have to hunt. -->
+        <div class="enter enter-d3 mt-8 grid gap-3 sm:grid-cols-3">
+          {locations.map((l) => (
+            <a class="hero-city" href={`/${l.slug}/`}>
+              <span class="hero-city-name">{l.city}</span>
+              <span class="hero-city-area">{l.locality}</span>
+              <span class="hero-city-go" aria-hidden="true">
+                <svg width="13" height="11" viewBox="0 0 13 11" fill="none">
+                  <path d="M1 5.5h10M7.5 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <p class="enter enter-d4 mt-6 text-[0.88rem] text-muted">
+          Choose your centre, or <a class="underline underline-offset-4 decoration-gold" href="/contact/">send your birth details</a> and we will call you back.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRUST STRIP ================= -->
+  <section class="border-y border-line bg-paper-warm">
+    <div class="container-page">
+      <dl class="grid grid-cols-2 divide-x divide-line md:grid-cols-4">
+        {[
+          { k: `${pandit.yearsExperience}+ years`, v: 'Of Vedic practice' },
+          { k: 'Three centres', v: 'Bengaluru · Hyderabad · Mumbai' },
+          { k: '5 languages', v: 'English, Telugu, Kannada, Hindi, Marathi' },
+          { k: 'In person or online', v: 'Across India and abroad' },
+        ].map((s) => (
+          <div class="reveal-fade px-4 py-7 text-center md:py-9">
+            <dt class="font-display text-[1.35rem] text-maroon" style="font-variation-settings:'SOFT' 16,'opsz' 40">
+              {s.k}
+            </dt>
+            <dd class="mt-1 text-[0.82rem] leading-snug text-muted">{s.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ================= PANDIT JI ================= -->
+  <section class="section">
+    <div class="container-page">
+      <div class="grid items-center gap-12 lg:grid-cols-[0.85fr_1fr]">
+        <div class="reveal relative">
+          <div class="portrait">
+            <!-- TODO: replace with the real photo shoot. See README §Images. -->
+            <img
+              src={pandit.photo}
+              alt={pandit.photoAlt}
+              width="640" height="800"
+              loading="lazy" decoding="async"
+            />
+          </div>
+          <Ornament variant="corner" class="absolute -left-3 -top-3 text-gold" />
+        </div>
+
+        <div>
+          <SectionHeading
+            eyebrow="About Pandit Ji"
+            title="Three decades of reading charts, and telling people what they actually show"
+          />
+          <p class="reveal mt-6 text-lg leading-relaxed text-ink-soft">{pandit.bio}</p>
+          <p class="reveal mt-4 leading-relaxed text-ink-soft">
+            Consultations cover marriage and compatibility, career and business decisions,
+            family matters, Vastu for homes and commercial premises, and traditional
+            remedial guidance where a chart indicates it.
+          </p>
+          <div class="reveal mt-8 flex flex-wrap gap-3">
+            <a class="btn btn-outline" href="/about-pandit-ji/">Read his full profile</a>
+            <a class="btn btn-primary" href="/how-a-consultation-works/">How a consultation works</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THREE CENTRES ================= -->
+  <section class="section border-y border-line bg-paper-warm">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Our Centres"
+        title="Three places to meet Pandit Ji in person"
+        lead="Each centre keeps its own timings and its own phone line. Walk in, or call ahead and we will have the chart ready."
+        align="center"
+        class="mb-14"
+      />
+      <div class="grid gap-5 lg:grid-cols-3">
+        {locations.map((loc, i) => <CityCard loc={loc} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="section">
+    <div class="container-page">
+      <div class="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <SectionHeading
+          eyebrow="Consultations"
+          title="What you can consult us about"
+          lead="Every service below is available at all three centres and online."
+        />
+        <a class="btn btn-outline reveal shrink-0" href="/services/">All {services.length} services</a>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {featured.map((s) => (
+          <ServiceCard
+            title={s.data.title}
+            summary={s.data.summary}
+            href={`/services/${s.id}/`}
+            icon={s.data.icon}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY US ================= -->
+  <section class="section border-y border-line bg-paper-warm">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Why families come back"
+        title="Honest guidance, and a clear line about what astrology cannot do"
+        align="center"
+        class="mb-14"
+      />
+
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {[
+          {
+            icon: 'chart',
+            t: 'Readings based on the whole chart',
+            d: 'Not a software score and not a generic prediction. Both charts, the dasha positions and the actual placements — read together, and explained in plain language.',
+          },
+          {
+            icon: 'family',
+            t: 'Confidential, and genuinely so',
+            d: 'What is discussed stays between you and Pandit Ji. Nothing goes back to whoever referred you or arranged the appointment.',
+          },
+          {
+            icon: 'sun',
+            t: 'No fear, no pressure',
+            d: 'We will not tell you a dosha is ruining your life or that an expensive ritual is the only way out. Where nothing is needed, we say nothing is needed.',
+          },
+          {
+            icon: 'question',
+            t: 'We say when it is not an astrology question',
+            d: 'Some matters need a doctor, a lawyer or a counsellor. Telling you that is more useful than taking a fee for a reading that was never going to help.',
+          },
+        ].map((c) => (
+          <article class="card reveal p-7">
+            <span class="why-icon" aria-hidden="true"><ServiceIcon name={c.icon} size={20} /></span>
+            <h3 class="mt-5 font-display text-[1.2rem] leading-snug" style="font-variation-settings:'SOFT' 16,'opsz' 36">
+              {c.t}
+            </h3>
+            <p class="mt-2.5 text-[0.93rem] leading-relaxed text-muted">{c.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEES ================= -->
+  <section class="section">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl rounded-xl border border-line bg-surface p-8 text-center md:p-12">
+        <Ornament variant="rule" class="mx-auto mb-6 max-w-[8rem]" />
+        <h2 class="display-md reveal">Consultation fees, said upfront</h2>
+        <p class="reveal mx-auto mt-5 max-w-xl leading-relaxed text-ink-soft">
+          The fee is shared before anything is booked, and nothing is added afterwards.
+          We do not sell gemstones, yantras or correction products, so no recommendation
+          you receive is a sales pitch for something we happen to stock.
+        </p>
+        <p class="reveal mt-4 text-[0.92rem] text-muted">
+          Message any centre on WhatsApp and you will get a straight figure before you commit to anything.
+        </p>
+        <div class="reveal mt-8">
+          <a class="btn btn-primary" href="/contact/">Ask about fees</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REVIEWS ================= -->
+  <section class="section border-y border-line bg-paper-warm">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Client Experiences"
+        title="What people say after a consultation"
+        align="center"
+        class="mb-14"
+      />
+      <ReviewBlock limit={6} />
+    </div>
+  </section>
+
+  <!-- ================= SERVICE AREAS ================= -->
+  <section class="section">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Where we consult"
+        title="Neighbourhoods our three centres serve"
+        lead="Clients travel to us from across each city. These are the areas people most often come from."
+        class="mb-12"
+      />
+      <div class="grid gap-8 md:grid-cols-3">
+        {locations.map((l) => (
+          <div class="reveal">
+            <h3 class="font-display text-[1.3rem]" style="font-variation-settings:'SOFT' 16,'opsz' 40">
+              <a href={`/${l.slug}/`} class="hover:text-maroon">{l.city}</a>
+            </h3>
+            <p class="mt-3 text-[0.93rem] leading-relaxed text-muted">
+              {l.areasServed.join(' · ')}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section border-t border-line bg-paper-warm">
+    <div class="container-page">
+      <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <SectionHeading
+            eyebrow="Common Questions"
+            title="The questions people ask most"
+            lead="If yours is not here, ask on WhatsApp — you will get a straight answer."
+          />
+          <a class="btn btn-outline reveal mt-7" href="/faq/">See all questions</a>
+        </div>
+        <FaqAccordion faqs={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BLOG ================= -->
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="container-page">
+        <div class="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionHeading
+            eyebrow="Articles"
+            title="Explained plainly, without the mystique"
+          />
+          <a class="btn btn-outline reveal shrink-0" href="/blog/">All articles</a>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          {posts.map((p) => (
+            <article class="card card-hover reveal group relative p-6">
+              <time class="text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-gold" datetime={p.data.publishDate.toISOString()}>
+                {p.data.publishDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </time>
+              <h3 class="mt-3 font-display text-[1.2rem] leading-snug" style="font-variation-settings:'SOFT' 16,'opsz' 36">
+                <a href={`/blog/${p.id}/`} class="after:absolute after:inset-0 after:content-['']">{p.data.title}</a>
+              </h3>
+              <p class="mt-2.5 text-[0.92rem] leading-relaxed text-muted">{p.data.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .hero-city {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    text-align: left;
+    transition: transform 0.3s var(--ease-out-soft), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hero-city:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--color-gold) 65%, transparent);
+    box-shadow: 0 16px 34px -22px rgb(31 26 36 / 0.4);
+  }
+  .hero-city-name {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 18, 'opsz' 40;
+    font-size: 1.18rem; color: var(--color-ink);
+  }
+  .hero-city-area { flex: 1; font-size: 0.8rem; color: var(--color-muted); }
+  .hero-city-go {
+    display: grid; place-items: center;
+    width: 1.9rem; height: 1.9rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-gold-tint);
+    color: var(--color-maroon);
+    transition: translate 0.28s var(--ease-out-soft);
+  }
+  .hero-city:hover .hero-city-go { translate: 3px 0; }
+
+  .portrait {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper-warm);
+    aspect-ratio: 4 / 5;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .why-icon {
+    display: grid; place-items: center;
+    width: 2.6rem; height: 2.6rem;
+    border-radius: 0.55rem;
+    background: var(--color-gold-tint);
+    color: var(--color-maroon);
+  }
+</style>

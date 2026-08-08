@@ -1,0 +1,299 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import ComplianceNote from '@/components/ComplianceNote.astro';
+import ClickToLoadMap from '@/components/ClickToLoadMap.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import StickyMobileCTA from '@/components/StickyMobileCTA.astro';
+import Ornament from '@/components/Ornament.astro';
+import {
+  locations, pandit, brand, telLink, whatsappLink, abs, type Location,
+} from '@/data/business';
+import {
+  buildGraph, organizationSchema, personSchema, localBusinessSchema,
+  serviceSchema, faqSchema, breadcrumbSchema,
+} from '@/lib/schema';
+
+/**
+ * This route generates two page kinds:
+ *   1. City-scoped service pages   /bengaluru/kundli-matching/
+ *   2. City language pages         /hyderabad/telugu-astrologer/
+ *
+ * The doorway-page rule applies to both. Each page carries the centre's own
+ * NAP, landmark, travel notes, timings, languages and its own FAQ set — the
+ * body copy is shared, the local framing is not. Keep it that way: templated
+ * city-name swaps are what get location pages filtered.
+ */
+
+type Props =
+  | { kind: 'service'; loc: Location; entry: CollectionEntry<'services'> }
+  | { kind: 'language'; loc: Location; entry: null };
+
+export const getStaticPaths = (async () => {
+  const services = await getCollection('services', ({ data }) => !data.draft);
+  const paths: { params: { city: string; service: string }; props: Props }[] = [];
+
+  for (const loc of locations) {
+    for (const id of loc.tier1Services) {
+      const entry = services.find((s) => s.id === id);
+      if (!entry) continue; // tolerate a slug listed before its file exists
+      paths.push({
+        params: { city: loc.slug, service: id },
+        props: { kind: 'service', loc, entry },
+      });
+    }
+    if (loc.languagePage) {
+      paths.push({
+        params: { city: loc.slug, service: loc.languagePage.slug },
+        props: { kind: 'language', loc, entry: null },
+      });
+    }
+  }
+  return paths;
+}) satisfies GetStaticPaths;
+
+const props = Astro.props as Props;
+const { loc } = props;
+
+const isService = props.kind === 'service';
+const d = isService ? props.entry.data : null;
+const rendered = isService ? await render(props.entry) : null;
+const Content = rendered?.Content;
+
+const slug = isService ? props.entry.id : loc.languagePage!.slug;
+const path = `/${loc.slug}/${slug}/`;
+const url = abs(path);
+
+const lang = loc.languagePage?.language ?? 'English';
+
+const h1 = isService
+  ? (d!.cityH1Pattern?.replace('{city}', loc.city) ?? `${d!.title} in ${loc.city}`)
+  : `${lang}-Speaking Astrologer in ${loc.city}`;
+
+const title = isService
+  ? `${d!.title} in ${loc.city} | ${loc.locality} | ${brand.shortName}`
+  : `${lang} Astrologer in ${loc.city} — ${loc.locality} | ${brand.shortName}`;
+
+const description = isService
+  ? `${d!.title} in ${loc.city} with ${pandit.name}. ${loc.locality} centre — ${loc.landmark}. ${loc.hoursDisplay}.`
+  : `Astrology consultations in ${lang} at our ${loc.locality} centre in ${loc.city}. Kundli matching, chart readings and Vastu, discussed in your own language.`;
+
+const leadAnswer = isService
+  ? d!.leadAnswer
+  : `Consultations at our ${loc.locality} centre in ${loc.city} are regularly held in ${lang}, alongside ${loc.languages.filter((l) => l !== lang).join(', ')}. Chart readings involve distinctions that are easy to lose in translation, which is why discussing an alliance or a family matter in your own language matters.`;
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: loc.city, url: `/${loc.slug}/` },
+  { name: isService ? d!.title : `${lang} Astrologer`, url: path },
+];
+
+/* Per-city FAQs, written around this centre — not a shared block. */
+const localFaqs = isService
+  ? [
+      {
+        question: `Where do I go for ${d!.title.toLowerCase()} in ${loc.city}?`,
+        answer: `Our ${loc.locality} centre: ${loc.streetAddress}, ${loc.city} ${loc.postalCode}. ${loc.landmark}. Call ${loc.phoneDisplay} if you need directions.`,
+      },
+      {
+        question: `Can I send my details before visiting the ${loc.city} centre?`,
+        answer: `Yes, and it is the better way to do it. WhatsApp your birth details to ${loc.phoneDisplay} and the chart will be prepared before you arrive, so the appointment is spent on the discussion.`,
+      },
+      {
+        question: `Which languages can I have this consultation in at ${loc.city}?`,
+        answer: `${loc.languages.join(', ')}. Say which you prefer when you call and it will be arranged.`,
+      },
+      ...d!.faqs,
+    ]
+  : [
+      {
+        question: `Is there a ${lang}-speaking astrologer in ${loc.city}?`,
+        answer: `Yes. Consultations at our ${loc.locality} centre in ${loc.city} are regularly held in ${lang}. Say which language you prefer when you call ${loc.phoneDisplay} and it will be arranged.`,
+      },
+      {
+        question: `Why does the language of the consultation matter?`,
+        answer: `Chart readings carry distinctions that do not survive translation well, particularly around family alliances, timing and temperament. Discussing them in the language a family actually uses at home makes the guidance more precise and considerably easier to act on.`,
+      },
+      {
+        question: `Can family members join the consultation in ${lang}?`,
+        answer: `Yes, and for alliance discussions it is common for several family members to attend. Mention the number when you call so the appointment can be planned for it.`,
+      },
+      {
+        question: `Are online consultations available in ${lang}?`,
+        answer: `Yes, over call or video, for clients anywhere in India and abroad. Many families outside ${loc.city} consult this way.`,
+      },
+    ];
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  localBusinessSchema(loc),
+  isService
+    ? serviceSchema({
+        name: `${d!.title} in ${loc.city}`,
+        description,
+        url,
+        citySlug: loc.slug,
+        serviceType: d!.title,
+      })
+    : null,
+  faqSchema(localFaqs, url),
+  breadcrumbSchema(crumbs),
+);
+
+const otherCities = locations.filter(
+  (l) => l.slug !== loc.slug && (isService ? l.tier1Services.includes(slug) : Boolean(l.languagePage)),
+);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={path}
+  jsonLd={jsonLd}
+  hideStickyCta
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <!-- ============ HEADER ============ -->
+  <section class="pb-12 pt-10">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <p class="eyebrow enter">{loc.locality}, {loc.city}</p>
+        <h1 class="display-lg enter enter-d1 mt-5">{h1}</h1>
+        <p class="lead-answer enter enter-d2">{leadAnswer}</p>
+
+        <div class="enter enter-d3 mt-8 flex flex-wrap gap-3">
+          <a class="btn btn-primary" href={telLink(loc)}>Call {loc.phoneDisplay}</a>
+          <a class="btn btn-whatsapp" href={whatsappLink(loc)}>WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THIS CENTRE ============ -->
+  <section class="border-y border-line bg-paper-warm py-12">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[1fr_0.85fr]">
+        <div>
+          <h2 class="display-md reveal">Visiting our {loc.city} centre</h2>
+          <p class="reveal mt-5 leading-relaxed text-ink-soft">{loc.intro}</p>
+
+          <dl class="reveal mt-7 grid gap-4 sm:grid-cols-2">
+            <div><dt class="dt">Address</dt><dd class="dd"><address class="not-italic">{loc.streetAddress}, {loc.city} {loc.postalCode}</address></dd></div>
+            <div><dt class="dt">Landmark</dt><dd class="dd">{loc.landmark}</dd></div>
+            <div><dt class="dt">Timings</dt><dd class="dd">{loc.hoursDisplay}</dd></div>
+            <div><dt class="dt">Languages</dt><dd class="dd">{loc.languages.join(', ')}</dd></div>
+          </dl>
+
+          <p class="reveal mt-6 text-[0.93rem] leading-relaxed text-muted">
+            Clients come to this centre from {loc.areasServed.slice(0, 7).join(', ')} and nearby areas.
+          </p>
+        </div>
+
+        <div class="reveal"><ClickToLoadMap loc={loc} /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BODY ============ -->
+  <section class="py-16">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <Ornament variant="rule" class="mb-12" />
+
+        {isService && Content ? (
+          <>
+            <div class="prose-shj"><Content /></div>
+            <ComplianceNote note={d!.complianceNote} />
+          </>
+        ) : (
+          <div class="prose-shj">
+            <h2>Consultations in {lang} at {loc.locality}</h2>
+            <p>
+              A chart reading is a conversation. When it happens in the language a family
+              actually uses at home, the distinctions that matter — temperament, timing,
+              what a dosha does and does not indicate — come across without having to be
+              simplified for translation.
+            </p>
+            <p>
+              At our {loc.locality} centre, {pandit.name} consults in {loc.languages.join(', ')}.
+              Say which you prefer when you call {loc.phoneDisplay} and the appointment is
+              arranged accordingly.
+            </p>
+
+            <h2>What families most often come for</h2>
+            <ul>
+              <li><a href={`/${loc.slug}/kundli-matching/`}>Kundli matching</a> before an alliance is confirmed</li>
+              <li><a href="/services/jataka-matching/">Jataka matching (Porutham)</a> where the family follows the South Indian system</li>
+              <li><a href={`/${loc.slug}/kundli-reading/`}>Birth chart readings</a> for career, marriage and family decisions</li>
+              <li><a href="/services/muhurtha/">Muhurtha</a> for weddings, gruhapravesham and business openings</li>
+              <li><a href={`/${loc.slug}/vastu-for-home/`}>Vastu</a> for a new home or an existing one</li>
+            </ul>
+
+            <h2>Attending as a family</h2>
+            <p>
+              Alliance discussions frequently involve several family members, and that is
+              normal here. Mention how many people are coming when you call so the
+              appointment can be planned around it.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="border-t border-line bg-paper-warm py-16">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="display-md reveal mb-8">Questions</h2>
+        <FaqAccordion faqs={localFaqs} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OTHER CITIES ============ -->
+  {otherCities.length > 0 && (
+    <section class="py-14">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="display-md reveal">Also available at our other centres</h2>
+          <div class="mt-6 flex flex-wrap gap-3">
+            {otherCities.map((l) => (
+              <a class="btn btn-outline reveal" href={isService ? `/${l.slug}/${slug}/` : `/${l.slug}/${l.languagePage!.slug}/`}>
+                {isService ? `${d!.title} in ${l.city}` : `${l.languagePage!.language} in ${l.city}`}
+              </a>
+            ))}
+          </div>
+          {isService && (
+            <p class="reveal mt-6 text-[0.93rem] text-muted">
+              Or read the full <a class="inline-link" href={`/services/${slug}/`}>{d!.title}</a> overview.
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand city={loc.slug} title={`Speak to Pandit Ji in ${loc.city}`} />
+  <StickyMobileCTA city={loc.slug} />
+</BaseLayout>
+
+<style>
+  .dt {
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-maroon);
+  }
+  .dd { margin-top: 0.35rem; font-size: 0.93rem; line-height: 1.6; color: var(--color-ink-soft); }
+  .inline-link {
+    color: var(--color-maroon);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+    text-underline-offset: 3px;
+  }
+</style>

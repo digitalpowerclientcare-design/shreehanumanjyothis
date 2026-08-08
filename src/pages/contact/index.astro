@@ -1,0 +1,249 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ClickToLoadMap from '@/components/ClickToLoadMap.astro';
+import { brand, locations, telLink, whatsappLink, abs } from '@/data/business';
+import { buildGraph, organizationSchema, websiteSchema, personSchema, localBusinessSchema, breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact/' }];
+
+const jsonLd = buildGraph(
+  organizationSchema(true),
+  websiteSchema(),
+  personSchema(),
+  ...locations.map(localBusinessSchema),
+  breadcrumbSchema(crumbs),
+  {
+    '@type': 'ContactPage',
+    '@id': `${abs('/contact/')}#contactpage`,
+    url: abs('/contact/'),
+    isPartOf: { '@id': abs('/#website') },
+    about: { '@id': abs('/#organization') },
+  },
+);
+---
+
+<BaseLayout
+  title={`Contact | ${brand.shortName} — Bengaluru, Hyderabad & Mumbai`}
+  description="Contact our three centres — Sadashiva Nagar (Bengaluru), Kukatpally (Hyderabad) and Prabhadevi (Mumbai). Call, WhatsApp, or send your birth details and we will call back."
+  canonicalPath="/contact/"
+  jsonLd={jsonLd}
+  hideStickyCta
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="pb-14 pt-10">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Get in touch"
+        title="Book a consultation"
+        as="h1"
+        lead="The quickest route is WhatsApp — send your birth details and the chart is prepared before your appointment. Fees are always shared before anything is booked."
+        class="max-w-3xl"
+      />
+    </div>
+  </section>
+
+  <!-- ============ THREE CENTRES ============ -->
+  <section class="pb-16">
+    <div class="container-page">
+      <div class="grid gap-6 lg:grid-cols-3">
+        {locations.map((loc) => (
+          <div class="card reveal overflow-hidden">
+            <ClickToLoadMap loc={loc} class="!rounded-none !border-0 !border-b" />
+            <div class="p-6">
+              <p class="eyebrow">{loc.locality}</p>
+              <h2 class="mt-2.5 font-display text-[1.5rem]" style="font-variation-settings:'SOFT' 18,'opsz' 44">
+                {loc.city}
+              </h2>
+              <address class="mt-3 not-italic text-[0.92rem] leading-relaxed text-muted">
+                {loc.streetAddress},<br />{loc.city}, {loc.state} {loc.postalCode}
+              </address>
+              <p class="mt-2 text-[0.86rem] text-muted">{loc.landmark}</p>
+              <p class="mt-3 text-[0.86rem] text-muted">{loc.hoursDisplay}</p>
+              <p class="mt-1 text-[0.86rem] text-muted">In {loc.languages.join(', ')}</p>
+
+              <div class="mt-5 grid gap-2">
+                <a class="btn btn-primary !min-h-11 !text-[0.85rem]" href={telLink(loc)}>{loc.phoneDisplay}</a>
+                <a class="btn btn-whatsapp !min-h-11 !text-[0.85rem]" href={whatsappLink(loc)}>WhatsApp this centre</a>
+                <a class="btn btn-outline !min-h-11 !text-[0.85rem]" href={loc.mapUrl} target="_blank" rel="noopener">Get directions</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FORM ============ -->
+  <section class="section border-t border-line bg-paper-warm">
+    <div class="container-page">
+      <div class="mx-auto max-w-2xl">
+        <SectionHeading
+          eyebrow="Or leave your details"
+          title="Tell us what you would like guidance on"
+          lead="We will call you back. Nothing is shared with anyone else."
+          align="center"
+          class="mb-10"
+        />
+
+        <!--
+          TODO(build): connect to a static-friendly endpoint before launch.
+          Options: Formspree, Web3Forms, or a Google Apps Script endpoint.
+          GitHub Pages serves static files only — there is no server to POST to.
+          Set the action below and remove this note.
+        -->
+        <form class="form-card" method="POST" action="#" novalidate>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="field">
+              <label for="name">Full name <span aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="phone">Mobile number <span aria-hidden="true">*</span></label>
+              <input id="phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="field mt-5">
+            <label for="city">Which centre is most convenient?</label>
+            <select id="city" name="city">
+              {locations.map((l) => <option value={l.slug}>{l.city} — {l.locality}</option>)}
+              <option value="online">Online consultation</option>
+            </select>
+          </div>
+
+          <fieldset class="mt-6">
+            <legend>What would you like guidance on?</legend>
+            <div class="chips">
+              {[
+                'Kundli matching', 'Marriage guidance', 'Marriage timing',
+                'Birth chart reading', 'Career or job', 'Business',
+                'Vastu — home', 'Vastu — office', 'Muhurtha / date selection',
+                'Puja guidance', 'Family matter', 'Something else',
+              ].map((c) => (
+                <label class="chip">
+                  <input type="checkbox" name="concern" value={c} />
+                  <span>{c}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="field mt-6">
+              <label for="dob">Date of birth <span class="hint">(if known)</span></label>
+              <input id="dob" name="dob" type="date" />
+            </div>
+            <div class="field mt-6">
+              <label for="tob">Time of birth <span class="hint">(if known)</span></label>
+              <input id="tob" name="tob" type="time" />
+            </div>
+          </div>
+
+          <div class="field mt-5">
+            <label for="pob">Place of birth <span class="hint">(if known)</span></label>
+            <input id="pob" name="pob" type="text" placeholder="City or town" />
+          </div>
+
+          <fieldset class="mt-6">
+            <legend>When would you like to consult?</legend>
+            <div class="radios">
+              {['As soon as possible', 'Within a few days', 'Within this week', 'No particular hurry'].map((r, i) => (
+                <label class="radio">
+                  <input type="radio" name="urgency" value={r} checked={i === 1} />
+                  <span>{r}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <p class="privacy-note">
+            Your details are used only to contact you about this enquiry. They are not shared,
+            sold, or added to any marketing list. See our <a href="/privacy-policy/">privacy policy</a>.
+          </p>
+
+          <button class="btn btn-primary mt-6 w-full" type="submit">Send enquiry</button>
+
+          <p class="mt-4 text-center text-[0.85rem] text-muted">
+            Prefer to talk now? <a class="inline-link" href={whatsappLink(locations[0])}>Message us on WhatsApp</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .form-card {
+    padding: 2rem 1.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+  @media (min-width: 640px) { .form-card { padding: 2.5rem; } }
+
+  .field { display: grid; gap: 0.45rem; }
+  .field label, legend {
+    font-size: 0.82rem; font-weight: 650;
+    letter-spacing: 0.02em; color: var(--color-ink);
+  }
+  .field label span[aria-hidden] { color: var(--color-maroon); }
+  .hint { font-weight: 400; color: var(--color-muted); }
+
+  .field input, .field select {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.7rem 0.9rem;
+    font-family: var(--font-sans); font-size: 0.95rem;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 0.55rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .field input:focus, .field select:focus {
+    outline: none;
+    border-color: var(--color-maroon);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-maroon) 14%, transparent);
+  }
+
+  fieldset { border: 0; padding: 0; margin: 0; }
+  legend { margin-bottom: 0.7rem; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chip span {
+    display: inline-flex; align-items: center;
+    min-height: 2.5rem; padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .chip input:checked + span {
+    background: var(--color-maroon-tint);
+    border-color: var(--color-maroon);
+    color: var(--color-maroon-deep);
+    font-weight: 600;
+  }
+  .chip input:focus-visible + span {
+    outline: 2px solid var(--color-maroon); outline-offset: 2px;
+  }
+
+  .radios { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .radio { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer; }
+  .radio input { width: 1.05rem; height: 1.05rem; accent-color: var(--color-maroon); }
+
+  .privacy-note {
+    margin-top: 1.5rem;
+    font-size: 0.8rem; line-height: 1.6; color: var(--color-muted);
+  }
+  .privacy-note a, .inline-link {
+    color: var(--color-maroon); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>

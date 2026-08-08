@@ -1,0 +1,105 @@
+---
+import type { Faq } from '@/lib/schema';
+
+/**
+ * FAQs are rendered as real, server-side HTML inside <details> — open in the
+ * DOM whether or not JS runs. This matters: GPTBot, ClaudeBot and
+ * PerplexityBot render JavaScript poorly or not at all, and Q&A pairs are the
+ * single most-extracted format for AI answer synthesis.
+ *
+ * Headings are written as full conversational questions on purpose — those
+ * strings are close to what people actually type into an AI assistant.
+ */
+interface Props {
+  faqs: Faq[];
+  /** Open the first item by default for scannability. */
+  openFirst?: boolean;
+}
+const { faqs, openFirst = true } = Astro.props;
+---
+
+<div class="faq-list">
+  {faqs.map((f, i) => (
+    <details class="faq-item reveal" open={openFirst && i === 0}>
+      <summary>
+        <h3>{f.question}</h3>
+        <span class="faq-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </summary>
+      <div class="faq-answer"><p>{f.answer}</p></div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq-list { display: grid; gap: 0.6rem; }
+
+  .faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .faq-item[open] {
+    border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+    box-shadow: 0 14px 34px -26px rgb(31 26 36 / 0.45);
+  }
+
+  .faq-item summary {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.15rem 1.35rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover h3 { color: var(--color-maroon); }
+
+  .faq-item h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 14, 'opsz' 32;
+    font-size: 1.06rem;
+    font-weight: 550;
+    line-height: 1.4;
+    letter-spacing: -0.008em;
+    transition: color 0.2s ease;
+  }
+
+  .faq-icon {
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    width: 1.6rem; height: 1.6rem;
+    margin-top: 0.15rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-gold-tint);
+    color: var(--color-maroon);
+    transition: rotate 0.3s var(--ease-out-soft), background-color 0.25s ease;
+  }
+  .faq-item[open] .faq-icon { rotate: 45deg; background: var(--color-maroon-tint); }
+
+  .faq-answer {
+    padding: 0 1.35rem 1.3rem;
+    max-width: 46rem;
+  }
+  .faq-answer p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.985rem;
+    line-height: 1.72;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-item[open] .faq-answer {
+      animation: faq-open 0.32s var(--ease-out-soft) both;
+    }
+  }
+  @keyframes faq-open {
+    from { opacity: 0; translate: 0 -0.4rem; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+</style>

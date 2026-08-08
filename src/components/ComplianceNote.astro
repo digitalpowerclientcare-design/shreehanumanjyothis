@@ -1,0 +1,48 @@
+---
+import { disclaimer } from '@/data/business';
+
+/**
+ * Rendered on every service page. Stating limits plainly is both the right
+ * thing to do in a YMYL-adjacent vertical and — per the AI-SEO research —
+ * measurably good for citation: LLMs favour hedged, accurate sources over
+ * absolutist ones. It is also the one thing no competitor in this market does.
+ */
+interface Props { note?: string }
+const { note } = Astro.props;
+---
+
+<aside class="compliance">
+  <span class="compliance-mark" aria-hidden="true">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M12 7.6v5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="12" cy="16.4" r="1" fill="currentColor"/>
+    </svg>
+  </span>
+  <div>
+    {note && <p class="compliance-lead">{note}</p>}
+    <p class="compliance-body">{disclaimer}</p>
+  </div>
+</aside>
+
+<style>
+  .compliance {
+    display: flex; gap: 0.9rem;
+    margin-block: 2.5rem;
+    padding: 1.15rem 1.3rem;
+    background: var(--color-maroon-tint);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 18%, transparent);
+    border-radius: var(--radius-card);
+  }
+  .compliance-mark { flex-shrink: 0; margin-top: 0.18rem; color: var(--color-maroon); }
+  .compliance-lead {
+    margin: 0 0 0.5rem;
+    font-size: 0.94rem; font-weight: 600; line-height: 1.6;
+    color: var(--color-maroon-deep);
+  }
+  .compliance-body {
+    margin: 0;
+    font-size: 0.875rem; line-height: 1.65;
+    color: color-mix(in srgb, var(--color-maroon-deep) 82%, transparent);
+  }
+</style>

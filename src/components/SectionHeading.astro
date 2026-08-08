@@ -1,0 +1,29 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  /** Renders as h2 by default; pass 'h1' only on hero sections. */
+  as?: 'h1' | 'h2' | 'h3';
+  size?: 'lg' | 'md';
+  align?: 'left' | 'center';
+  lead?: string;
+  class?: string;
+}
+const {
+  eyebrow, title, as: Tag = 'h2', size = 'lg',
+  align = 'left', lead, class: className = '',
+} = Astro.props;
+
+const sizeClass = size === 'lg' ? 'display-lg' : 'display-md';
+const alignClass = align === 'center' ? 'text-center items-center mx-auto' : '';
+---
+
+<div class={`flex flex-col gap-4 ${alignClass} ${className}`}>
+  {eyebrow && <p class="eyebrow reveal-fade">{eyebrow}</p>}
+  <Tag class={`${sizeClass} reveal max-w-3xl`}>{title}</Tag>
+  {lead && (
+    <p class={`reveal max-w-2xl text-lg leading-relaxed text-ink-soft ${align === 'center' ? 'mx-auto' : ''}`}>
+      {lead}
+    </p>
+  )}
+</div>

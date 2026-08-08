@@ -1,0 +1,49 @@
+---
+/**
+ * Traditional geometry, modern line weight. One motif used consistently
+ * across the site — deliberately NOT the repeated Om glyph the audited site
+ * used three times in a row for three different cards.
+ */
+interface Props {
+  variant?: 'rule' | 'jaali' | 'corner';
+  class?: string;
+}
+const { variant = 'rule', class: className = '' } = Astro.props;
+---
+
+{variant === 'rule' && (
+  <div class={`rule-gold ${className}`} aria-hidden="true">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" class="shrink-0">
+      <path d="M13 1.5 16 10l8.5 3-8.5 3-3 8.5-3-8.5L1.5 13l8.5-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+      <circle cx="13" cy="13" r="1.7" fill="currentColor"/>
+    </svg>
+  </div>
+)}
+
+{variant === 'jaali' && (
+  <div class={`jaali ${className}`} aria-hidden="true"></div>
+)}
+
+{variant === 'corner' && (
+  <svg class={className} width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+    <path d="M0 0h64M0 0v64" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+    <path d="M0 14C14 14 14 0 28 0" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+    <circle cx="7" cy="7" r="2.2" fill="currentColor"/>
+  </svg>
+)}
+
+<style>
+  /* Jaali (temple lattice) pattern — pure CSS, no image request. */
+  .jaali {
+    height: 100%;
+    width: 100%;
+    background-image:
+      repeating-linear-gradient(45deg,
+        color-mix(in srgb, var(--color-gold) 22%, transparent) 0 1px,
+        transparent 1px 15px),
+      repeating-linear-gradient(-45deg,
+        color-mix(in srgb, var(--color-gold) 22%, transparent) 0 1px,
+        transparent 1px 15px);
+    mask-image: radial-gradient(ellipse at center, #000 20%, transparent 72%);
+  }
+</style>

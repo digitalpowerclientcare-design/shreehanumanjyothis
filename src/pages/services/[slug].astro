@@ -1,0 +1,180 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import ComplianceNote from '@/components/ComplianceNote.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Ornament from '@/components/Ornament.astro';
+import { locations, abs } from '@/data/business';
+import {
+  buildGraph, organizationSchema, personSchema,
+  serviceSchema, faqSchema, breadcrumbSchema,
+} from '@/lib/schema';
+
+export const getStaticPaths = (async () => {
+  const services = await getCollection('services', ({ data }) => !data.draft);
+  return services.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+
+const url = abs(`/services/${entry.id}/`);
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Services', url: '/services/' },
+  { name: d.title, url: `/services/${entry.id}/` },
+];
+
+// Related services, resolved to real entries so we never emit a dead link.
+const all = await getCollection('services', ({ data }) => !data.draft);
+const related = d.relatedServices
+  .map((id) => all.find((s) => s.id === id))
+  .filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+// Which centres carry a dedicated page for this service.
+const cityVariants = locations.filter((l) => l.tier1Services.includes(entry.id));
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  serviceSchema({ name: d.title, description: d.metaDescription, url }),
+  d.faqs.length ? faqSchema(d.faqs, url) : null,
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout
+  title={d.metaTitle}
+  description={d.metaDescription}
+  canonicalPath={`/services/${entry.id}/`}
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <!-- ============ HEADER: answer-first ============ -->
+  <section class="pb-14 pt-10">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <p class="eyebrow enter">Consultation</p>
+        <h1 class="display-lg enter enter-d1 mt-5">{d.h1}</h1>
+
+        <!-- The 40–60 word answer-first block. This is what LLMs quote. -->
+        <p class="lead-answer enter enter-d2">{d.leadAnswer}</p>
+
+        <div class="enter enter-d3 mt-8 flex flex-wrap gap-3">
+          <a class="btn btn-primary" href="/contact/">Book a consultation</a>
+          <a class="btn btn-outline" href="/how-a-consultation-works/">How it works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BODY ============ -->
+  <section class="pb-16">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <Ornament variant="rule" class="mb-12" />
+        <div class="prose-shj"><Content /></div>
+        <ComplianceNote note={d.complianceNote} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  {d.faqs.length > 0 && (
+    <section class="border-t border-line py-16">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="display-md reveal mb-8">Common questions</h2>
+          <FaqAccordion faqs={d.faqs} openFirst={false} />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ============ CITY VARIANTS ============ -->
+  {cityVariants.length > 0 && (
+    <section class="border-y border-line bg-paper-warm py-16">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="display-md reveal">Consult in your city</h2>
+          <p class="reveal mt-3 text-ink-soft">
+            {d.title} is available at each of our centres, in person or online.
+          </p>
+          <div class="mt-8 grid gap-3 sm:grid-cols-3">
+            {cityVariants.map((l) => (
+              <a class="city-link reveal" href={`/${l.slug}/${entry.id}/`}>
+                <span class="city-link-name">{l.city}</span>
+                <span class="city-link-area">{l.locality}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ============ RELATED ============ -->
+  {related.length > 0 && (
+    <section class="py-16">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="display-md reveal">Related consultations</h2>
+          <div class="mt-7 grid gap-3 sm:grid-cols-2">
+            {related.map((r) => (
+              <a class="related-link reveal" href={`/services/${r.id}/`}>
+                <span class="related-link-title">{r.data.title}</span>
+                <span class="related-link-summary">{r.data.summary}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+
+  .city-link {
+    display: grid; gap: 0.15rem;
+    padding: 1rem 1.15rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    transition: transform 0.28s var(--ease-out-soft), border-color 0.28s ease;
+  }
+  .city-link:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
+  }
+  .city-link-name {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 16, 'opsz' 36;
+    font-size: 1.1rem; color: var(--color-ink);
+  }
+  .city-link-area { font-size: 0.8rem; color: var(--color-muted); }
+
+  .related-link {
+    display: grid; gap: 0.3rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    transition: border-color 0.28s ease, transform 0.28s var(--ease-out-soft);
+  }
+  .related-link:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
+  }
+  .related-link-title { font-weight: 600; color: var(--color-maroon); }
+  .related-link-summary { font-size: 0.88rem; line-height: 1.55; color: var(--color-muted); }
+</style>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" role="img" aria-label="Photograph placeholder">
+  <rect width="640" height="800" fill="#f4ebdf"/>
+  <g fill="none" stroke="#b8862f" stroke-width="1" opacity=".5">
+    <circle cx="320" cy="330" r="120"/><circle cx="320" cy="330" r="86"/>
+    <ellipse cx="320" cy="330" rx="30" ry="110"/>
+    <ellipse cx="320" cy="330" rx="30" ry="110" transform="rotate(45 320 330)"/>
+    <ellipse cx="320" cy="330" rx="30" ry="110" transform="rotate(90 320 330)"/>
+    <ellipse cx="320" cy="330" rx="30" ry="110" transform="rotate(135 320 330)"/>
+  </g>
+  <text x="320" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#7a2e2a">Photograph placeholder</text>
+  <text x="320" y="600" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#6e6257">Replace with the real photo shoot</text>
+  <text x="320" y="628" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#6e6257">See README &#8250; Images</text>
+</svg>

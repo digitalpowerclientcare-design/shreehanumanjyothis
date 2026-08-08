@@ -1,0 +1,49 @@
+---
+import ServiceIcon from '@/components/ServiceIcon.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  icon?: string;
+}
+const { title, summary, href, icon = 'lotus' } = Astro.props;
+---
+
+<article class="card card-hover reveal group relative flex flex-col p-6">
+  <span class="service-icon" aria-hidden="true">
+    <ServiceIcon name={icon} />
+  </span>
+
+  <h3 class="mt-5 font-display text-[1.24rem] leading-snug" style="font-variation-settings:'SOFT' 16,'opsz' 36">
+    <a href={href} class="after:absolute after:inset-0 after:content-['']">{title}</a>
+  </h3>
+
+  <p class="mt-2.5 flex-1 text-[0.93rem] leading-relaxed text-muted">
+    {summary}
+  </p>
+
+  <span class="mt-5 inline-flex items-center gap-1.5 text-[0.85rem] font-semibold text-maroon">
+    Learn more
+    <svg width="13" height="11" viewBox="0 0 13 11" fill="none" class="arrow">
+      <path d="M1 5.5h10M7.5 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+</article>
+
+<style>
+  .service-icon {
+    display: grid; place-items: center;
+    width: 3rem; height: 3rem;
+    border-radius: 0.6rem;
+    background: var(--color-gold-tint);
+    color: var(--color-maroon);
+    transition: background-color 0.35s ease, transform 0.35s var(--ease-out-soft);
+  }
+  .group:hover .service-icon {
+    background: var(--color-maroon-tint);
+    transform: translateY(-2px) rotate(-4deg);
+  }
+  .arrow { transition: translate 0.28s var(--ease-out-soft); }
+  .group:hover .arrow { translate: 3px 0; }
+</style>

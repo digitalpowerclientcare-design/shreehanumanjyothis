@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { brand, abs } from '@/data/business';
+import {
+  buildGraph, organizationSchema, personSchema, definedTermSetSchema, breadcrumbSchema, slugifyTerm,
+} from '@/lib/schema';
+
+const entries = (await getCollection('glossary'))
+  .sort((a, b) => a.data.term.localeCompare(b.data.term));
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Glossary', url: '/glossary/' }];
+const url = abs('/glossary/');
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  definedTermSetSchema(
+    entries.map((e) => ({ term: e.data.term, definition: e.data.definition })),
+    url,
+  ),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout
+  title={`Vedic Astrology Glossary | ${brand.shortName}`}
+  description="Plain definitions of the terms used in Vedic astrology — Guna Milan, Porutham, Lagna, Rasi, Nakshatra, Dasha, Muhurtha and more."
+  canonicalPath="/glossary/"
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="pb-12 pt-10">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Reference"
+        title="Vedic astrology glossary"
+        as="h1"
+        lead="One-sentence definitions of the terms that come up in a consultation. Every term links back to the service it belongs to."
+        class="max-w-3xl"
+      />
+    </div>
+  </section>
+
+  <section class="pb-16">
+    <div class="container-page">
+      <dl class="mx-auto grid max-w-4xl gap-3">
+        {entries.map((e) => (
+          <div class="term card reveal p-6" id={slugifyTerm(e.data.term)}>
+            <dt class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span class="font-display text-[1.3rem]" style="font-variation-settings:'SOFT' 16,'opsz' 40">
+                {e.data.term}
+              </span>
+              {e.data.alsoKnownAs.length > 0 && (
+                <span class="text-[0.82rem] text-muted">
+                  also: {e.data.alsoKnownAs.join(', ')}
+                </span>
+              )}
+            </dt>
+            <dd class="mt-2.5 leading-relaxed text-ink-soft">
+              {e.data.definition}
+              {e.data.relatedService && (
+                <>
+                  {' '}
+                  <a class="inline-link" href={`/services/${e.data.relatedService}/`}>Related consultation →</a>
+                </>
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .term { scroll-margin-top: 7rem; }
+  .term:target {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 20%, transparent);
+  }
+  .inline-link {
+    color: var(--color-maroon); font-weight: 600; font-size: 0.9rem;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>

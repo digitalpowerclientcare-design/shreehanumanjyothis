@@ -1,0 +1,74 @@
+---
+import { locations, telLink, whatsappLink, type CitySlug } from '@/data/business';
+
+interface Props {
+  /** When set, the bar uses that centre's number instead of the default. */
+  city?: CitySlug;
+}
+const { city } = Astro.props;
+const loc = city ? locations.find((l) => l.slug === city)! : locations[0];
+---
+
+<div class="sticky-cta" role="group" aria-label="Quick contact">
+  <a href={telLink(loc)} class="sticky-cta-item">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/>
+    </svg>
+    <span>Call</span>
+  </a>
+
+  <a href={whatsappLink(loc)} class="sticky-cta-item sticky-cta-wa">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4c2.1.8 2.1.6 2.5.5a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2z"/>
+    </svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <a href={loc.mapUrl} target="_blank" rel="noopener" class="sticky-cta-item">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+    </svg>
+    <span>Directions</span>
+  </a>
+</div>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 45;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--color-line);
+    border-top: 1px solid var(--color-line);
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -8px 24px -18px rgb(31 26 36 / 0.5);
+  }
+  .sticky-cta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    min-height: 4rem;
+    padding-block: 0.5rem;
+    background: var(--color-surface);
+    color: var(--color-maroon);
+    font-size: 0.72rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .sticky-cta-item:active { background: var(--color-maroon-tint); }
+  .sticky-cta-wa { color: #128c47; }
+
+  /* Hidden from `lg` up. This lives here rather than as a Tailwind `lg:hidden`
+     class because Astro scoped styles carry an extra attribute selector and
+     would out-specify the utility, leaving the bar visible on desktop. */
+  @media (min-width: 1024px) {
+    .sticky-cta { display: none; }
+  }
+</style>

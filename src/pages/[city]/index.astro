@@ -1,0 +1,242 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import ClickToLoadMap from '@/components/ClickToLoadMap.astro';
+import ReviewBlock from '@/components/ReviewBlock.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import StickyMobileCTA from '@/components/StickyMobileCTA.astro';
+import Ornament from '@/components/Ornament.astro';
+import { locations, pandit, brand, telLink, whatsappLink, abs } from '@/data/business';
+import {
+  buildGraph, organizationSchema, personSchema,
+  localBusinessSchema, faqSchema, breadcrumbSchema,
+} from '@/lib/schema';
+
+export const getStaticPaths = (() =>
+  locations.map((loc) => ({ params: { city: loc.slug }, props: { loc } }))
+) satisfies GetStaticPaths;
+
+const { loc } = Astro.props;
+
+const allServices = (await getCollection('services', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+const cityServices = allServices.filter((s) => loc.tier1Services.includes(s.id));
+const otherServices = allServices.filter((s) => !loc.tier1Services.includes(s.id));
+
+const url = abs(`/${loc.slug}/`);
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: loc.city, url: `/${loc.slug}/` },
+];
+
+/* Unique per-city FAQs. Deliberately NOT a template with the city name
+   swapped — that pattern is what gets location pages filtered as doorways. */
+const faqs = [
+  {
+    question: `Where exactly is your ${loc.city} centre?`,
+    answer: `${loc.streetAddress}, ${loc.city} ${loc.postalCode}. ${loc.landmark}. Directions are on the map below, and you can call ${loc.phoneDisplay} if you need help finding it.`,
+  },
+  {
+    question: `Do I need an appointment at the ${loc.city} centre?`,
+    answer: `Not strictly, but it is worth calling ahead. If you send your birth details on WhatsApp before you come, the chart is prepared in advance and the whole consultation is spent on the discussion rather than the calculation.`,
+  },
+  {
+    question: `Which languages are consultations held in at ${loc.city}?`,
+    answer: `${loc.languages.join(', ')}. Discussing a chart in your own language matters — the distinctions are easy to lose in translation, particularly where a family alliance is being considered.`,
+  },
+  {
+    question: `What are the timings for the ${loc.city} centre?`,
+    answer: `${loc.hoursDisplay}. If you need a time outside these hours, call ${loc.phoneDisplay} and we will see what can be arranged.`,
+  },
+  {
+    question: `Which areas of ${loc.city} do you see clients from?`,
+    answer: `Most people travel to us from ${loc.areasServed.slice(0, 6).join(', ')} and the surrounding areas, though we consult with clients from across ${loc.city} and online from anywhere.`,
+  },
+  {
+    question: `Can I consult online instead of visiting ${loc.city}?`,
+    answer: `Yes. Consultations are held over call or video, and the same chart preparation applies. The only service that needs you in the room is palmistry, which cannot be read properly from a photograph.`,
+  },
+];
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  localBusinessSchema(loc),
+  faqSchema(faqs, url),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout
+  title={`Best Astrologer in ${loc.city} — ${loc.locality} | ${brand.shortName}`}
+  description={`Vedic astrology consultations in ${loc.city} with ${pandit.name}. ${loc.locality} centre — Kundli matching, birth chart analysis and Vastu. ${loc.hoursDisplay}.`}
+  canonicalPath={`/${loc.slug}/`}
+  jsonLd={jsonLd}
+  hideStickyCta
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden pb-14 pt-10">
+    <div class="pointer-events-none absolute inset-0 -z-10 opacity-40 text-gold">
+      <Ornament variant="jaali" class="h-full w-full" />
+    </div>
+
+    <div class="container-page">
+      <div class="grid items-start gap-12 lg:grid-cols-[1.15fr_1fr]">
+        <div>
+          <p class="eyebrow enter">{loc.locality}, {loc.city}</p>
+          <h1 class="display-lg enter enter-d1 mt-5">
+            Astrology Consultations in {loc.city}
+          </h1>
+          <p class="enter enter-d2 mt-6 text-lg leading-relaxed text-ink-soft">
+            {loc.intro}
+          </p>
+
+          <div class="enter enter-d3 mt-8 flex flex-wrap gap-3">
+            <a class="btn btn-primary" href={telLink(loc)}>Call {loc.phoneDisplay}</a>
+            <a class="btn btn-whatsapp" href={whatsappLink(loc)}>WhatsApp</a>
+            <a class="btn btn-outline" href={loc.mapUrl} target="_blank" rel="noopener">Get directions</a>
+          </div>
+
+          <dl class="enter enter-d4 mt-9 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
+            <div>
+              <dt class="dt">Address</dt>
+              <dd class="dd">
+                <address class="not-italic">{loc.streetAddress}, {loc.city}, {loc.state} {loc.postalCode}</address>
+              </dd>
+            </div>
+            <div>
+              <dt class="dt">Landmark</dt>
+              <dd class="dd">{loc.landmark}</dd>
+            </div>
+            <div>
+              <dt class="dt">Timings</dt>
+              <dd class="dd">{loc.hoursDisplay}</dd>
+            </div>
+            <div>
+              <dt class="dt">Languages</dt>
+              <dd class="dd">{loc.languages.join(', ')}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="reveal lg:sticky lg:top-28">
+          <ClickToLoadMap loc={loc} />
+          <p class="mt-3 text-center text-[0.82rem] text-muted">
+            The map loads only when you tap it — no third-party request before then.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES HERE ============ -->
+  <section class="section border-y border-line bg-paper-warm">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow={`At our ${loc.city} centre`}
+        title={`What you can consult us about in ${loc.city}`}
+        lead="Each of these has a dedicated page for this centre with local details and timings."
+        class="mb-12"
+      />
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {cityServices.map((s) => (
+          <ServiceCard
+            title={s.data.title}
+            summary={s.data.summary}
+            href={`/${loc.slug}/${s.id}/`}
+            icon={s.data.icon}
+          />
+        ))}
+      </div>
+
+      <div class="mt-12">
+        <h3 class="reveal font-display text-[1.3rem]" style="font-variation-settings:'SOFT' 16,'opsz' 40">
+          Also available at this centre
+        </h3>
+        <p class="reveal mt-4 leading-relaxed text-muted">
+          {otherServices.map((s, i) => (
+            <>
+              <a class="inline-link" href={`/services/${s.id}/`}>{s.data.title}</a>
+              {i < otherServices.length - 1 ? ' · ' : ''}
+            </>
+          ))}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AREAS SERVED ============ -->
+  <section class="section">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading
+          eyebrow="Getting here"
+          title={`Areas of ${loc.city} we commonly see clients from`}
+        />
+        <p class="reveal mt-6 leading-relaxed text-ink-soft">
+          Clients travel to the {loc.locality} centre from {loc.areasServed.slice(0, -1).join(', ')} and {loc.areasServed.at(-1)}.
+          {' '}{loc.landmark}. If you are coming for the first time and are unsure of the approach,
+          call {loc.phoneDisplay} and we will talk you in.
+        </p>
+        {loc.languagePage && (
+          <p class="reveal mt-5 leading-relaxed text-ink-soft">
+            Consultations here are frequently held in {loc.languagePage.language} —
+            see <a class="inline-link" href={`/${loc.slug}/${loc.languagePage.slug}/`}>{loc.languagePage.label}</a>.
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="section border-y border-line bg-paper-warm">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Client Experiences"
+        title={`From clients at our ${loc.city} centre`}
+        align="center"
+        class="mb-12"
+      />
+      <ReviewBlock city={loc.slug} limit={6} />
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section">
+    <div class="container-page">
+      <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <SectionHeading
+          eyebrow="Questions"
+          title={`Visiting the ${loc.city} centre`}
+          lead={`Anything not covered here — call ${loc.phoneDisplay}.`}
+        />
+        <FaqAccordion faqs={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand city={loc.slug} title={`Speak to Pandit Ji in ${loc.city}`} />
+  <StickyMobileCTA city={loc.slug} />
+</BaseLayout>
+
+<style>
+  .dt {
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-maroon);
+  }
+  .dd { margin-top: 0.35rem; font-size: 0.93rem; line-height: 1.6; color: var(--color-ink-soft); }
+  .inline-link {
+    color: var(--color-maroon);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+    text-underline-offset: 3px;
+  }
+</style>

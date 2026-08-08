@@ -1,0 +1,60 @@
+---
+import { brand } from '@/data/business';
+
+interface Props { variant?: 'dark' | 'light' }
+const { variant = 'dark' } = Astro.props;
+
+// Placeholder wordmark. TODO: replace the mark with the client's real logo
+// re-cut as SVG (the existing PNG is low-res and its spelling conflicts with
+// the site body copy — resolve the canonical spelling first).
+const ink = variant === 'light' ? '#ffffff' : 'var(--color-ink)';
+const accent = variant === 'light' ? 'var(--color-gold-bright)' : 'var(--color-maroon)';
+---
+
+<span class="logo" aria-label={brand.name}>
+  <span class="logo-mark" aria-hidden="true">
+    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Eight-petal lotus / mandala mark: traditional geometry, modern line weight -->
+      <circle cx="22" cy="22" r="20.5" stroke={accent} stroke-width="1.1" opacity="0.35" />
+      <circle cx="22" cy="22" r="14.5" stroke={accent} stroke-width="1.1" opacity="0.55" />
+      {Array.from({ length: 8 }).map((_, i) => (
+        <ellipse
+          cx="22" cy="22" rx="4.2" ry="13"
+          stroke={accent} stroke-width="1.2" fill="none"
+          transform={`rotate(${i * 22.5} 22 22)`}
+          opacity="0.85"
+        />
+      ))}
+      <circle cx="22" cy="22" r="3.1" fill={accent} />
+    </svg>
+  </span>
+  <span class="logo-type">
+    <span class="logo-line-1" style={`color:${accent}`}>Sri Hanuman</span>
+    <span class="logo-line-2" style={`color:${ink}`}>Jyothishyalayam</span>
+  </span>
+</span>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 0.7rem; }
+  .logo-mark { display: block; width: 2.3rem; height: 2.3rem; flex-shrink: 0; }
+  .logo-mark svg { width: 100%; height: 100%; }
+  .logo-type { display: grid; line-height: 1.08; }
+  .logo-line-1 {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 20, 'opsz' 30;
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+  }
+  .logo-line-2 {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
+  /* Keep the wordmark visible at 375px (standard iPhone width); only drop it
+     on genuinely tiny viewports. */
+  @media (max-width: 330px) { .logo-type { display: none; } }
+</style>

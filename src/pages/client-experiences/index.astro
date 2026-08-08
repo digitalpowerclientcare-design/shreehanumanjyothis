@@ -1,0 +1,63 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ReviewBlock from '@/components/ReviewBlock.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { brand, locations } from '@/data/business';
+import { buildGraph, organizationSchema, personSchema, breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Client Experiences', url: '/client-experiences/' },
+];
+
+/**
+ * NOTE: no AggregateRating or Review schema is emitted here, deliberately.
+ * Self-serving review markup on your own business is ineligible for Google
+ * rich results and risks a structured-data manual action. The reviews below
+ * are plain HTML — which is what AI crawlers read anyway — and each city block
+ * links to that centre's Google Business Profile so anyone can verify it.
+ */
+const jsonLd = buildGraph(
+  organizationSchema(),
+  personSchema(),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout
+  title={`Client Experiences | ${brand.shortName}`}
+  description="What clients say after consulting Pandit Sri Pandu Ranga Shastri Ji at our Bengaluru, Hyderabad and Mumbai centres."
+  canonicalPath="/client-experiences/"
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="pb-12 pt-10">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Client Experiences"
+        title="What people say after a consultation"
+        as="h1"
+        lead="Reviews are shown in full — nothing is truncated behind a “read more” link. Each centre's Google Business Profile is linked so you can check them yourself."
+        class="max-w-3xl"
+      />
+    </div>
+  </section>
+
+  {locations.map((loc, i) => (
+    <section class={`section ${i % 2 === 1 ? 'border-y border-line bg-paper-warm' : ''}`}>
+      <div class="container-page">
+        <SectionHeading
+          eyebrow={loc.locality}
+          title={`From our ${loc.city} centre`}
+          class="mb-10"
+        />
+        <ReviewBlock city={loc.slug} limit={6} />
+      </div>
+    </section>
+  ))}
+
+  <CtaBand />
+</BaseLayout>

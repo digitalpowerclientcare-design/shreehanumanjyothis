@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { brand, abs } from '@/data/business';
+import { buildGraph, organizationSchema, websiteSchema, personSchema, breadcrumbSchema } from '@/lib/schema';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const crumbs = [{ name: 'Home', url: '/' }, { name: 'Articles', url: '/blog/' }];
+
+const jsonLd = buildGraph(
+  organizationSchema(),
+  websiteSchema(),
+  personSchema(),
+  breadcrumbSchema(crumbs),
+  {
+    '@type': 'Blog',
+    '@id': `${abs('/blog/')}#blog`,
+    name: `${brand.name} — Articles`,
+    url: abs('/blog/'),
+    publisher: { '@id': abs('/#organization') },
+    blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.data.title, url: abs(`/blog/${p.id}/`) })),
+  },
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={`Articles | ${brand.shortName}`}
+  description="Vedic astrology explained plainly — kundli matching, doshas, Vastu and how to tell a genuine astrologer from a sales pitch."
+  canonicalPath="/blog/"
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-8"><Breadcrumbs crumbs={crumbs} /></div>
+
+  <section class="pb-12 pt-10">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Articles"
+        title="Explained plainly, without the mystique"
+        as="h1"
+        lead="What the traditional methods actually say, what they do not say, and how to tell the difference when someone is selling you something."
+        class="max-w-3xl"
+      />
+    </div>
+  </section>
+
+  <section class="pb-16">
+    <div class="container-page">
+      {posts.length === 0 ? (
+        <p class="text-muted">Articles are being written. Check back shortly.</p>
+      ) : (
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
+            <article class="card card-hover reveal group relative flex flex-col p-6">
+              <time class="text-[0.76rem] font-semibold uppercase tracking-[0.13em] text-gold" datetime={p.data.publishDate.toISOString()}>
+                {fmt(p.data.publishDate)}
+              </time>
+              <h2 class="mt-3 font-display text-[1.24rem] leading-snug" style="font-variation-settings:'SOFT' 16,'opsz' 36">
+                <a href={`/blog/${p.id}/`} class="after:absolute after:inset-0 after:content-['']">{p.data.title}</a>
+              </h2>
+              <p class="mt-2.5 flex-1 text-[0.92rem] leading-relaxed text-muted">{p.data.description}</p>
+              <span class="mt-5 text-[0.84rem] font-semibold text-maroon">Read →</span>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

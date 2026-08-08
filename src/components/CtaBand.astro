@@ -1,0 +1,78 @@
+---
+import { locations, telLink, whatsappLink, getLocation, type CitySlug } from '@/data/business';
+import Ornament from '@/components/Ornament.astro';
+
+interface Props {
+  title?: string;
+  lead?: string;
+  /** When set, shows one centre's CTAs. Otherwise all three. */
+  city?: CitySlug;
+}
+const {
+  title = 'Speak to Pandit Ji directly',
+  lead = 'Share your birth details and your concern. You will get a clear explanation of what the chart shows — and what it does not.',
+  city,
+} = Astro.props;
+
+const loc = city ? getLocation(city) : null;
+---
+
+<section class="relative overflow-hidden bg-indigo text-white">
+  <div class="pointer-events-none absolute inset-0 opacity-[0.16] text-gold-bright">
+    <Ornament variant="jaali" class="h-full w-full" />
+  </div>
+
+  <div class="container-page relative section">
+    <div class="mx-auto max-w-2xl text-center">
+      <Ornament variant="rule" class="mx-auto mb-7 max-w-[9rem] !text-gold-bright" />
+
+      <h2 class="display-lg text-white">{title}</h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-[#c6bfd6]">{lead}</p>
+
+      {loc ? (
+        <div class="mt-9 flex flex-wrap justify-center gap-3">
+          <a class="btn btn-primary" href={telLink(loc)}>Call {loc.city} — {loc.phoneDisplay}</a>
+          <a class="btn btn-ghost-light" href={whatsappLink(loc)}>Message on WhatsApp</a>
+        </div>
+      ) : (
+        <div class="mt-9 grid gap-3 sm:grid-cols-3">
+          {locations.map((l) => (
+            <a class="cta-city" href={`/${l.slug}/`}>
+              <span class="cta-city-name">{l.city}</span>
+              <span class="cta-city-meta">{l.locality}</span>
+              <span class="cta-city-phone">{l.phoneDisplay}</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      <p class="mt-7 text-[0.85rem] text-[#8f88a6]">
+        Consultations available in person at all three centres, and online.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-city {
+    display: grid; gap: 0.2rem;
+    padding: 1.1rem 1rem;
+    border-radius: var(--radius-card);
+    background: color-mix(in srgb, #fff 7%, transparent);
+    border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.25s var(--ease-out-soft), border-color 0.25s ease;
+  }
+  .cta-city:hover {
+    background: color-mix(in srgb, #fff 12%, transparent);
+    border-color: color-mix(in srgb, var(--color-gold-bright) 55%, transparent);
+    transform: translateY(-3px);
+  }
+  .cta-city-name {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 18, 'opsz' 40;
+    font-size: 1.24rem; color: #fff;
+  }
+  .cta-city-meta { font-size: 0.78rem; color: #9a93aa; }
+  .cta-city-phone { margin-top: 0.35rem; font-size: 0.86rem; font-weight: 600; color: var(--color-gold-bright); }
+</style>

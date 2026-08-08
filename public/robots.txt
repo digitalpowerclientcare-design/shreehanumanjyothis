@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------------------
+# Sri Hanuman Jyothishyalayam
+#
+# AI crawlers are ALLOWED deliberately. For a local lead-generation business,
+# being citable in ChatGPT / Perplexity / Gemini answers is the point — blocking
+# these bots removes the site from exactly the surfaces we are optimising for.
+# If the client ever wants to opt out of AI training, flip the relevant blocks
+# to Disallow and note that it will reduce AI-answer visibility.
+# ---------------------------------------------------------------------------
+
+User-agent: *
+Allow: /
+
+# --- Search engines ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# --- AI / answer engines ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://shreehanumanjyothis.in/sitemap-index.xml

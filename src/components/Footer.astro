@@ -1,0 +1,109 @@
+---
+import { brand, locations, pandit, telLink } from '@/data/business';
+import Logo from '@/components/Logo.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-indigo text-[#d9d3e4]">
+  <div class="container-page py-16 md:py-20">
+    <!-- Full NAP for all three centres. The audited site had none of this. -->
+    <div class="grid gap-10 md:grid-cols-3">
+      {locations.map((loc) => (
+        <div class="reveal">
+          <p class="font-display text-xl text-white" style="font-variation-settings:'SOFT' 18,'opsz' 40">
+            {loc.city}
+          </p>
+          <p class="mt-1 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-gold-bright">
+            {loc.locality}
+          </p>
+          <address class="mt-3 not-italic text-[0.92rem] leading-relaxed text-[#b8b1c6]">
+            {loc.streetAddress},<br />
+            {loc.city}, {loc.state} {loc.postalCode}
+          </address>
+          <p class="mt-3 text-[0.92rem]">
+            <a class="footer-link" href={telLink(loc)}>{loc.phoneDisplay}</a>
+          </p>
+          <p class="mt-1 text-[0.85rem] text-[#9a93aa]">{loc.hoursDisplay}</p>
+          <p class="mt-1 text-[0.85rem] text-[#9a93aa]">
+            Consultations in {loc.languages.join(', ')}
+          </p>
+          <a class="mt-3 inline-block text-[0.88rem] font-semibold text-gold-bright underline underline-offset-4" href={`/${loc.slug}/`}>
+            {loc.city} centre →
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <hr class="my-12 border-0 border-t border-white/10" />
+
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <Logo variant="light" />
+        <p class="mt-4 max-w-sm text-[0.92rem] leading-relaxed text-[#b8b1c6]">
+          {brand.tagline} Consultations with {pandit.name} across Bengaluru, Hyderabad and Mumbai.
+        </p>
+      </div>
+
+      <nav aria-label="Services">
+        <p class="footer-heading">Services</p>
+        <ul class="grid gap-2">
+          <li><a class="footer-link" href="/services/kundli-matching/">Kundli Matching</a></li>
+          <li><a class="footer-link" href="/services/jataka-matching/">Jataka Matching</a></li>
+          <li><a class="footer-link" href="/services/kundli-reading/">Kundli Reading</a></li>
+          <li><a class="footer-link" href="/services/marriage-guidance/">Marriage Guidance</a></li>
+          <li><a class="footer-link" href="/services/vastu-for-home/">Vastu for Home</a></li>
+          <li><a class="footer-link" href="/services/career-astrology/">Career Astrology</a></li>
+          <li><a class="footer-link" href="/services/">All services →</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="More">
+        <p class="footer-heading">More</p>
+        <ul class="grid gap-2">
+          <li><a class="footer-link" href="/about-pandit-ji/">About Pandit Ji</a></li>
+          <li><a class="footer-link" href="/how-a-consultation-works/">How a Consultation Works</a></li>
+          <li><a class="footer-link" href="/blog/">Articles</a></li>
+          <li><a class="footer-link" href="/faq/">FAQ</a></li>
+          <li><a class="footer-link" href="/glossary/">Glossary</a></li>
+          <li><a class="footer-link" href="/client-experiences/">Client Experiences</a></li>
+          <li><a class="footer-link" href="/contact/">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <hr class="my-10 border-0 border-t border-white/10" />
+
+    <div class="flex flex-col gap-4 text-[0.82rem] text-[#8d86a0] md:flex-row md:items-center md:justify-between">
+      <p>© {year} {brand.name}. All rights reserved.</p>
+      <div class="flex flex-wrap gap-x-5 gap-y-2">
+        <a class="footer-link" href="/privacy-policy/">Privacy Policy</a>
+        <a class="footer-link" href="/terms/">Terms &amp; Disclaimer</a>
+        <a class="footer-link" href="/sitemap-index.xml">Sitemap</a>
+      </div>
+    </div>
+
+    <p class="mt-6 max-w-3xl text-[0.78rem] leading-relaxed text-[#7a7391]">
+      Astrology guidance offered on this website is for clarity and perspective. It is not a
+      substitute for medical, legal, financial or mental-health advice, and no outcome is guaranteed.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer-heading {
+    margin-bottom: 1rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-gold-bright);
+  }
+  .footer-link {
+    color: #b8b1c6;
+    text-decoration: none;
+    font-size: 0.92rem;
+    transition: color 0.18s ease;
+  }
+  .footer-link:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+</style>
