@@ -44,7 +44,9 @@ export const organizationSchema = (withSubOrgs = false): Json => ({
   ...(brand.sameAs.length ? { sameAs: [...brand.sameAs] } : {}),
   logo: {
     '@type': 'ImageObject',
-    url: abs('/images/logo.svg'),
+    url: abs('/images/logo-shj.png'),
+    width: 1080,
+    height: 425,
   },
   ...(withSubOrgs
     ? { subOrganization: locations.map((l) => ({ '@id': ids.localBusiness(l.slug) })) }

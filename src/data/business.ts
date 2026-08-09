@@ -66,22 +66,23 @@ export interface Location {
 
 export const brand = {
   /**
-   * TODO(client): CANONICAL SPELLING DECISION REQUIRED.
-   * The audit found three live variants — the logo reads "Sri Hanuman
-   * Jyothishalaya", the homepage body copy reads "Shree Hanuman Jyotishyalayam",
-   * and directories read "Sri Hanuman Jyothishyalayam". Pick ONE and use it
-   * everywhere: this site, all three Google Business Profiles, Justdial,
-   * Sulekha, Facebook, WeddingWire.
+   * CANONICAL SPELLING — settled from the client's own logo artwork, whose
+   * wordmark reads "SRI HANUMAN JYOTHISHALAYA".
+   *
+   * TODO(client): this now needs to be made consistent OFF-site too — all three
+   * Google Business Profiles, Justdial, Sulekha, Facebook and WeddingWire still
+   * carry the other spellings. Conflicting names are the main reason search
+   * engines and LLMs fail to resolve this business as one entity.
    */
-  name: 'Sri Hanuman Jyothishyalayam',
-  shortName: 'Sri Hanuman Jyothishyalayam',
-  legalName: 'Sri Hanuman Jyothishyalayam',
+  name: 'Sri Hanuman Jyothishalaya',
+  shortName: 'Sri Hanuman Jyothishalaya',
+  legalName: 'Sri Hanuman Jyothishalaya',
 
-  /** Every spelling variant in the wild — emitted as schema `alternateName`
-   *  so search engines and LLMs resolve them to this single entity. */
+  /** Every other spelling in the wild — emitted as schema `alternateName`
+   *  so search engines and LLMs resolve them all to this single entity. */
   alternateNames: [
+    'Sri Hanuman Jyothishyalayam',
     'Shree Hanuman Jyothishyalayam',
-    'Sri Hanuman Jyothishalaya',
     'Shree Hanuman Jyotishyalayam',
     'Sree Hanuman Jyothisyalayam',
   ],

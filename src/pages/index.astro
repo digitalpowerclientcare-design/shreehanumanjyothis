@@ -124,36 +124,46 @@ const steps = [
           ].map((t) => <span class="pill">{t}</span>)}
         </div>
 
-        <!-- Portrait + wheel -->
+        <!-- Portrait + wheel.
+             The portrait is a circular medallion sized as a fixed fraction of
+             the wheel and sharing its centre, so the two are concentric by
+             construction. An arch or rectangle floating over a rotating
+             circular graphic can never look aligned — the geometry disagrees. -->
         <div class="hero-visual enter enter-d2">
-          <div class="wheel-wrap float-soft">
-            <ZodiacWheel />
+          <div class="wheel-stage">
+            <div class="wheel-wrap float-soft">
+              <ZodiacWheel />
+            </div>
+
+            <figure class="portrait">
+              <img
+                src="/images/pandit-ji-1.webp"
+                alt={`${pandit.name}, Vedic astrologer, at his consultation centre`}
+                width="1024" height="768"
+                fetchpriority="high" decoding="async"
+              />
+            </figure>
+
+            <!-- Stat chips sit outside the outer ring so they never collide
+                 with the rotating sign names. -->
+            <span class="chip chip-1">
+              <b data-count="30" data-count-suffix="+">30+</b>
+              <i>years</i>
+            </span>
+            <!-- Not counted up: animating 3 from zero is imperceptible and
+                 leaves "0 centres" on screen during first paint. -->
+            <span class="chip chip-2">
+              <b>3</b>
+              <i>centres</i>
+            </span>
           </div>
 
-          <figure class="portrait halo" data-tilt="7">
-            <img
-              src="/images/pandit-ji-1.webp"
-              alt={`${pandit.name}, Vedic astrologer, at his consultation centre`}
-              width="1024" height="768"
-              fetchpriority="high" decoding="async"
-            />
-            <figcaption>
-              <span class="caps text-[--color-gold]">Pandit Ji</span>
-              <span class="block font-display text-[1.45rem] leading-tight text-[--color-cream]">
-                Sri Pandu Ranga Shastri
-              </span>
-            </figcaption>
-          </figure>
-
-          <!-- Floating stat chips -->
-          <span class="chip chip-1">
-            <b data-count="30" data-count-suffix="+">30+</b>
-            <i>years</i>
-          </span>
-          <span class="chip chip-2">
-            <b data-count="3">3</b>
-            <i>centres</i>
-          </span>
+          <figcaption class="portrait-caption">
+            <span class="caps text-[--color-gold]">Pandit</span>
+            <span class="block font-display text-[1.6rem] leading-tight text-[--color-cream]">
+              Sri Pandu Ranga Shastri Ji
+            </span>
+          </figcaption>
         </div>
 
       </div>
@@ -500,55 +510,58 @@ const steps = [
 
   /* — Portrait + wheel composition — */
   .hero-visual {
+    /* One variable drives both the wheel and the medallion, so they can never
+       drift out of proportion with each other. */
+    --wheel: min(100%, 31rem);
+
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+  }
+  @media (max-width: 1023px) { .hero-visual { --wheel: min(94%, 25rem); } }
+
+  .wheel-stage {
     position: relative;
     display: grid;
     place-items: center;
-    min-height: 20rem;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: calc(var(--wheel) * 1.24);   /* headroom for the chips */
   }
-  @media (min-width: 1024px) { .hero-visual { min-height: 34rem; } }
 
   .wheel-wrap {
     position: absolute;
     inset: 0;
     display: grid;
     place-items: center;
-    opacity: 0.9;
+    opacity: 0.92;
   }
-  .wheel-wrap :global(.wheel) { width: min(112%, 34rem); }
-  @media (max-width: 1023px) {
-    .wheel-wrap :global(.wheel) { width: min(96%, 26rem); }
-  }
+  .wheel-wrap :global(.wheel) { width: var(--wheel); }
 
+  /* 0.53 lands the medallion just inside the wheel's innermost ring. */
   .portrait {
     position: relative;
     z-index: 2;
-    width: min(64%, 19rem);
-    aspect-ratio: 3 / 4;
+    width: calc(var(--wheel) * 0.53);
+    aspect-ratio: 1;
+    margin: 0;
     overflow: hidden;
-    /* Traditional temple arch. */
-    border-radius: 999px 999px 1.25rem 1.25rem;
-    border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+    border-radius: 50%;
     box-shadow:
-      0 0 0 1px rgb(0 0 0 / 0.5),
-      0 40px 90px -30px rgb(0 0 0 / 0.9),
-      inset 0 0 60px rgb(0 0 0 / 0.35);
-    transition: transform 0.5s var(--ease-out-soft);
-    transform: perspective(1100px);
+      0 0 0 1px color-mix(in srgb, var(--color-gold) 55%, transparent),
+      0 0 0 8px rgb(4 5 10 / 0.92),
+      0 0 0 9px color-mix(in srgb, var(--color-gold) 22%, transparent),
+      0 30px 70px -22px rgb(0 0 0 / 0.95);
   }
   .portrait img {
     width: 100%; height: 100%;
     object-fit: cover;
-    object-position: 52% 22%;   /* keeps the face centred in the arch */
+    object-position: 54% 26%;   /* centres the face in the circle */
     display: block;
   }
-  .portrait figcaption {
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    padding: 3.5rem 1.25rem 1.25rem;
-    text-align: center;
-    background: linear-gradient(180deg, transparent, rgb(4 5 10 / 0.92));
-  }
+
+  .portrait-caption { text-align: center; }
 
   /* — Floating chips — */
   .chip {
@@ -577,8 +590,10 @@ const steps = [
     text-transform: uppercase;
     color: var(--color-faint);
   }
-  .chip-1 { left: 2%;  top: 24%; }
-  .chip-2 { right: 3%; bottom: 20%; }
+  /* Placed high and low rather than at the equator: the ring is narrowest
+     there, so the chips clear the rotating sign names. */
+  .chip-1 { left: 0;  top: 17%; }
+  .chip-2 { right: 0; bottom: 15%; }
   @media (prefers-reduced-motion: no-preference) {
     .chip-1 { animation: float-soft 6s var(--ease-in-out-soft) infinite alternate; }
     .chip-2 { animation: float-soft 7.5s var(--ease-in-out-soft) infinite alternate-reverse; }
@@ -667,11 +682,13 @@ const steps = [
     display: block;
     scale: 1.1;
   }
+  /* Kept light: the scrim exists to blend the photo's right edge into the
+     copy column, not to darken the subject. */
   .feature-scrim {
     position: absolute; inset: 0;
     background:
-      linear-gradient(90deg, rgb(4 5 10 / 0.5), transparent 45%, rgb(4 5 10 / 0.85)),
-      linear-gradient(180deg, rgb(4 5 10 / 0.55), transparent 30%, rgb(4 5 10 / 0.75));
+      linear-gradient(90deg, rgb(4 5 10 / 0.18), transparent 32%, rgb(4 5 10 / 0.75) 96%),
+      linear-gradient(180deg, rgb(4 5 10 / 0.28), transparent 26%, rgb(4 5 10 / 0.42));
   }
   @media (max-width: 1023px) {
     .feature-scrim { background: linear-gradient(180deg, rgb(4 5 10 / 0.35), var(--color-void) 92%); }

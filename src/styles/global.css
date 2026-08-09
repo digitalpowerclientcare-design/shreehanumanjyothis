@@ -489,25 +489,31 @@
      ------------------------------------------------------------------ */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
+      /* RANGE RULE — every reveal must finish inside the `entry` phase.
+         The entry phase ends the moment the element's bottom edge has entered
+         the viewport, so an element that is fully on screen is guaranteed to
+         be fully animated. Ranges that end in `cover` (as an earlier version
+         used) finish much later, which left buttons and images visibly stuck
+         mid-blur whenever the reader stopped scrolling. */
       .reveal {
         animation: reveal-up linear both;
         animation-timeline: view();
-        animation-range: entry 2% cover 24%;
+        animation-range: entry 0% entry 85%;
       }
       .reveal-fade {
         animation: reveal-fade linear both;
         animation-timeline: view();
-        animation-range: entry 0% cover 20%;
+        animation-range: entry 0% entry 70%;
       }
       .reveal-scale {
         animation: reveal-scale linear both;
         animation-timeline: view();
-        animation-range: entry 0% cover 30%;
+        animation-range: entry 0% entry 90%;
       }
       .draw-rule {
         animation: draw-rule linear both;
         animation-timeline: view();
-        animation-range: entry 8% cover 32%;
+        animation-range: entry 0% entry 90%;
       }
       .parallax-slow {
         animation: parallax linear both;
@@ -516,30 +522,37 @@
       }
 
       /* Staggered grid cascade, done natively.
-         Each child animates on its own view() timeline; widening the range
-         per nth-child produces the cascade without JavaScript — which also
-         means content is never left at opacity:0 if a script fails to load. */
+         Each child animates on its own view() timeline, so content is never
+         left at opacity:0 waiting on a script that might fail. The cascade
+         comes from staggering the END of each child's range within the entry
+         phase — later cards finish later, but all of them finish before the
+         row is fully on screen. */
       .stagger > * {
         animation: reveal-up linear both;
         animation-timeline: view();
-        animation-range: entry 2% cover 20%;
+        animation-range: entry 0% entry 55%;
       }
-      .stagger > *:nth-child(2) { animation-range: entry 2% cover 26%; }
-      .stagger > *:nth-child(3) { animation-range: entry 2% cover 32%; }
-      .stagger > *:nth-child(4) { animation-range: entry 2% cover 38%; }
-      .stagger > *:nth-child(5) { animation-range: entry 2% cover 44%; }
-      .stagger > *:nth-child(6) { animation-range: entry 2% cover 50%; }
+      .stagger > *:nth-child(2) { animation-range: entry 0% entry 68%; }
+      .stagger > *:nth-child(3) { animation-range: entry 0% entry 81%; }
+      .stagger > *:nth-child(4) { animation-range: entry 0% entry 88%; }
+      .stagger > *:nth-child(5) { animation-range: entry 0% entry 94%; }
+      .stagger > *:nth-child(6) { animation-range: entry 0% entry 100%; }
     }
   }
 
+  /* No blur in the reveal. A scroll-driven animation can be paused at any
+     point by the reader simply stopping, so every intermediate frame has to
+     look deliberate — a half-blurred button just looks broken. Opacity and
+     translate degrade gracefully; blur does not. It is also the most
+     expensive filter to composite on large images. */
   @keyframes reveal-up {
-    from { opacity: 0; transform: translateY(34px); filter: blur(6px); }
-    to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes reveal-fade { from { opacity: 0; } to { opacity: 1; } }
   @keyframes reveal-scale {
-    from { opacity: 0; transform: scale(0.94); filter: blur(8px); }
-    to   { opacity: 1; transform: scale(1);    filter: blur(0); }
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
   }
   @keyframes draw-rule { from { scale: 0 1; } to { scale: 1 1; } }
   @keyframes parallax {
