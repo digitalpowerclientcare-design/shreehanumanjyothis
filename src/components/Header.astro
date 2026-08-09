@@ -2,99 +2,92 @@
 import { locations, telLink, whatsappLink } from '@/data/business';
 import Logo from '@/components/Logo.astro';
 
-// Header CTA defaults to the first centre; each city page surfaces its own
-// number prominently, and the city menu is one tap away.
 const primary = locations[0];
 ---
 
-<header
-  class="sticky top-0 z-50 border-b border-line bg-paper/85 backdrop-blur-lg"
->
+<header data-header class="site-header">
   <div class="container-page">
-    <div class="flex h-[4.5rem] items-center justify-between gap-4 md:h-20">
-      <a href="/" class="shrink-0" aria-label="Sri Hanuman Jyothishyalayam — home">
+    <div class="flex h-[4.75rem] items-center justify-between gap-4 md:h-[5.5rem]">
+      <a href="/" class="shrink-0" aria-label="Sri Hanuman Jyothishalaya — home">
         <Logo />
       </a>
 
-      <nav aria-label="Primary" class="hidden items-center gap-1 lg:flex">
+      <nav aria-label="Primary" class="hidden items-center gap-0.5 lg:flex">
         <a class="nav-link" href="/about-pandit-ji/">About</a>
 
         <div class="nav-group">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
             Services
-            <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true" class="nav-caret">
-              <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            <svg width="9" height="6" viewBox="0 0 10 6" aria-hidden="true" class="nav-caret">
+              <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             </svg>
           </button>
           <div class="nav-panel">
-            <div class="grid gap-0.5">
-              <a href="/services/kundli-matching/">Kundli Matching</a>
-              <a href="/services/jataka-matching/">Jataka Matching (Porutham)</a>
-              <a href="/services/kundli-reading/">Kundli Reading</a>
-              <a href="/services/marriage-guidance/">Marriage Guidance</a>
-              <a href="/services/relationship-guidance/">Relationship Guidance</a>
-              <a href="/services/prasna-jyotish/">Prasna Jyotish</a>
-              <a href="/services/vastu-for-home/">Vastu for Home</a>
-              <a href="/services/career-astrology/">Career Astrology</a>
-              <a class="nav-panel-all" href="/services/">View all services →</a>
-            </div>
+            <a href="/services/kundli-matching/">Kundli Matching</a>
+            <a href="/services/jataka-matching/">Jataka Matching (Porutham)</a>
+            <a href="/services/kundli-reading/">Kundli Reading</a>
+            <a href="/services/marriage-guidance/">Marriage Guidance</a>
+            <a href="/services/relationship-guidance/">Relationship Guidance</a>
+            <a href="/services/prasna-jyotish/">Prasna Jyotish</a>
+            <a href="/services/vastu-for-home/">Vastu for Home</a>
+            <a href="/services/career-astrology/">Career Astrology</a>
+            <a class="nav-panel-all" href="/services/">All 20 services →</a>
           </div>
         </div>
 
         <div class="nav-group">
           <button class="nav-link nav-trigger" aria-expanded="false" aria-haspopup="true">
-            Locations
-            <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true" class="nav-caret">
-              <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            Centres
+            <svg width="9" height="6" viewBox="0 0 10 6" aria-hidden="true" class="nav-caret">
+              <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             </svg>
           </button>
-          <div class="nav-panel nav-panel-wide">
-            <div class="grid gap-0.5">
-              {locations.map((l) => (
-                <a href={`/${l.slug}/`}>
-                  <span class="block font-medium">{l.city}</span>
-                  <span class="block text-[0.8rem] text-muted">{l.locality}</span>
-                </a>
-              ))}
-            </div>
+          <div class="nav-panel">
+            {locations.map((l) => (
+              <a href={`/${l.slug}/`}>
+                <span class="block font-medium text-[--color-cream]">{l.city}</span>
+                <span class="block text-[0.78rem] text-[--color-faint]">{l.locality}</span>
+              </a>
+            ))}
           </div>
         </div>
 
         <a class="nav-link" href="/blog/">Articles</a>
         <a class="nav-link" href="/faq/">FAQ</a>
-        <a class="nav-link" href="/contact/">Contact</a>
       </nav>
 
       <div class="hidden items-center gap-2.5 md:flex">
-        <a class="btn btn-outline !min-h-11 !px-4 !text-sm" href={telLink(primary)}>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <a class="btn btn-ghost !min-h-11 !px-4 !text-[0.83rem]" href={telLink(primary)}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/>
           </svg>
           Call
         </a>
-        <a class="btn btn-primary !min-h-11 !px-5 !text-sm" href={whatsappLink(primary)}>
-          WhatsApp
+        <a class="btn btn-gold !min-h-11 !px-5 !text-[0.83rem]" href={whatsappLink(primary)}>
+          Book a reading
         </a>
       </div>
 
-      <!-- Mobile menu: pure CSS via <details>, no JS -->
       <details class="mobile-menu lg:hidden">
         <summary aria-label="Open menu">
           <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
         </summary>
         <div class="mobile-panel">
-          <nav aria-label="Mobile" class="container-page py-6">
-            <p class="eyebrow mb-3">Our Centres</p>
-            <div class="mb-6 grid gap-2">
+          <nav aria-label="Mobile" class="container-page py-7">
+            <p class="eyebrow mb-4">Our Centres</p>
+            <div class="mb-7 grid gap-2.5">
               {locations.map((l) => (
-                <a class="mobile-city" href={`/${l.slug}/`}>
-                  <span class="font-display text-lg">{l.city}</span>
-                  <span class="text-sm text-muted">{l.locality}</span>
+                <a class="mobile-city glass" href={`/${l.slug}/`}>
+                  <span>
+                    <span class="block font-display text-[1.35rem] text-[--color-cream]">{l.city}</span>
+                    <span class="block text-[0.8rem] text-[--color-faint]">{l.locality}</span>
+                  </span>
+                  <span class="text-[--color-gold]">→</span>
                 </a>
               ))}
             </div>
-            <p class="eyebrow mb-3">Explore</p>
-            <div class="grid gap-0.5">
+            <p class="eyebrow mb-4">Explore</p>
+            <div class="grid">
               <a class="mobile-link" href="/services/">All Services</a>
               <a class="mobile-link" href="/about-pandit-ji/">About Pandit Ji</a>
               <a class="mobile-link" href="/how-a-consultation-works/">How a Consultation Works</a>
@@ -103,6 +96,7 @@ const primary = locations[0];
               <a class="mobile-link" href="/glossary/">Glossary</a>
               <a class="mobile-link" href="/contact/">Contact</a>
             </div>
+            <a class="btn btn-gold mt-7 w-full" href={whatsappLink(primary)}>Book a reading</a>
           </nav>
         </div>
       </details>
@@ -111,117 +105,129 @@ const primary = locations[0];
 </header>
 
 <style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease;
+  }
+  .site-header.is-scrolled {
+    background: color-mix(in srgb, var(--color-void) 78%, transparent);
+    border-bottom-color: var(--color-hairline);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+
   .nav-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.55rem 0.8rem;
+    gap: 0.35rem;
+    padding: 0.6rem 0.85rem;
     border-radius: var(--radius-pill);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    color: var(--color-ink-soft);
+    color: var(--color-mist);
     text-decoration: none;
     background: none;
     border: 0;
     cursor: pointer;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color 0.25s ease, background-color 0.25s ease;
   }
-  .nav-link:hover { color: var(--color-maroon); background: var(--color-maroon-tint); }
+  .nav-link:hover { color: var(--color-cream); background: rgb(255 255 255 / 0.06); }
 
   .nav-group { position: relative; }
-  .nav-caret { transition: rotate 0.25s var(--ease-out-soft); }
+  .nav-caret { transition: rotate 0.3s var(--ease-out-soft); }
   .nav-group:hover .nav-caret,
   .nav-group:focus-within .nav-caret { rotate: 180deg; }
 
   .nav-panel {
     position: absolute;
-    top: calc(100% + 0.4rem);
+    top: calc(100% + 0.5rem);
     left: 0;
-    min-width: 16rem;
-    padding: 0.5rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
+    display: grid;
+    gap: 0.1rem;
+    min-width: 17rem;
+    padding: 0.6rem;
+    background: color-mix(in srgb, var(--color-deep) 94%, transparent);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
-    box-shadow: 0 24px 48px -28px rgb(31 26 36 / 0.45);
+    box-shadow: 0 30px 60px -28px rgb(0 0 0 / 0.85);
+    backdrop-filter: blur(20px);
     opacity: 0;
     visibility: hidden;
-    translate: 0 -6px;
-    transition: opacity 0.22s var(--ease-out-soft), translate 0.22s var(--ease-out-soft), visibility 0.22s;
+    translate: 0 -8px;
+    transition: opacity 0.26s var(--ease-out-soft), translate 0.26s var(--ease-out-soft), visibility 0.26s;
   }
-  .nav-panel-wide { min-width: 15rem; }
   .nav-group:hover .nav-panel,
-  .nav-group:focus-within .nav-panel {
-    opacity: 1; visibility: visible; translate: 0 0;
-  }
+  .nav-group:focus-within .nav-panel { opacity: 1; visibility: visible; translate: 0 0; }
+
   .nav-panel a {
     display: block;
-    padding: 0.55rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--color-ink-soft);
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.6rem;
+    font-size: 0.875rem;
+    color: var(--color-mist);
     text-decoration: none;
-    transition: background-color 0.16s ease, color 0.16s ease;
+    transition: background-color 0.18s ease, color 0.18s ease;
   }
-  .nav-panel a:hover { background: var(--color-paper-warm); color: var(--color-maroon); }
+  .nav-panel a:hover { background: rgb(255 255 255 / 0.07); color: var(--color-gold-bright); }
   .nav-panel-all {
-    margin-top: 0.3rem;
-    border-top: 1px solid var(--color-line);
-    padding-top: 0.65rem !important;
-    color: var(--color-maroon) !important;
+    margin-top: 0.35rem;
+    border-top: 1px solid var(--color-hairline);
+    padding-top: 0.7rem !important;
+    color: var(--color-gold) !important;
     font-weight: 600;
   }
 
-  /* — Mobile menu (CSS-only) ——————————————————— */
+  /* — Mobile — */
   .mobile-menu summary {
     list-style: none;
     display: grid;
     place-items: center;
-    width: 2.75rem; height: 2.75rem;
+    width: 2.9rem; height: 2.9rem;
     border-radius: var(--radius-pill);
-    border: 1px solid var(--color-line);
+    border: 1px solid var(--color-hairline-strong);
+    background: rgb(255 255 255 / 0.04);
     cursor: pointer;
   }
   .mobile-menu summary::-webkit-details-marker { display: none; }
   .burger { display: grid; gap: 4px; }
   .burger i {
-    display: block; width: 17px; height: 1.6px;
-    background: var(--color-ink); border-radius: 2px;
-    transition: transform 0.28s var(--ease-out-soft), opacity 0.2s ease;
+    display: block; width: 17px; height: 1.5px;
+    background: var(--color-cream); border-radius: 2px;
+    transition: transform 0.3s var(--ease-out-soft), opacity 0.2s ease;
   }
-  .mobile-menu[open] .burger i:nth-child(1) { transform: translateY(5.6px) rotate(45deg); }
+  .mobile-menu[open] .burger i:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
   .mobile-menu[open] .burger i:nth-child(2) { opacity: 0; }
-  .mobile-menu[open] .burger i:nth-child(3) { transform: translateY(-5.6px) rotate(-45deg); }
+  .mobile-menu[open] .burger i:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
   .mobile-panel {
     position: fixed;
-    inset: 4.5rem 0 auto 0;
-    max-height: calc(100dvh - 4.5rem);
+    inset: 4.75rem 0 auto 0;
+    max-height: calc(100dvh - 4.75rem);
     overflow-y: auto;
-    background: var(--color-paper);
-    border-bottom: 1px solid var(--color-line);
-    box-shadow: 0 24px 48px -28px rgb(31 26 36 / 0.4);
+    background: color-mix(in srgb, var(--color-void) 97%, transparent);
+    border-bottom: 1px solid var(--color-hairline);
+    backdrop-filter: blur(20px);
   }
   @media (prefers-reduced-motion: no-preference) {
-    .mobile-menu[open] .mobile-panel {
-      animation: slide-down 0.3s var(--ease-out-soft) both;
-    }
+    .mobile-menu[open] .mobile-panel { animation: slide-down 0.34s var(--ease-out-soft) both; }
   }
   @keyframes slide-down {
-    from { opacity: 0; translate: 0 -0.75rem; }
+    from { opacity: 0; translate: 0 -0.9rem; }
     to   { opacity: 1; translate: 0 0; }
   }
 
   .mobile-city {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
-    padding: 0.85rem 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-card);
-    text-decoration: none; color: var(--color-ink);
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.15rem;
+    text-decoration: none;
   }
   .mobile-link {
-    display: block; padding: 0.7rem 0.25rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);
-    font-size: 0.98rem; color: var(--color-ink-soft); text-decoration: none;
+    display: block; padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--color-hairline);
+    font-size: 0.98rem; color: var(--color-mist); text-decoration: none;
+    transition: color 0.2s ease;
   }
+  .mobile-link:hover { color: var(--color-gold-bright); }
 </style>

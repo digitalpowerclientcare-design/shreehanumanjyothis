@@ -119,7 +119,7 @@ const jsonLd = buildGraph(
             <Ornament variant="corner" class="absolute -left-3 -top-3 text-gold" />
           </div>
 
-          <dl class="reveal mt-8 grid gap-4 rounded-xl border border-line bg-surface p-6">
+          <dl class="reveal mt-8 grid gap-4 rounded-xl border border-hairline bg-elevated p-6">
             <div><dt class="dt">Practice</dt><dd class="dd">{pandit.jobTitle}</dd></div>
             <div><dt class="dt">Experience</dt><dd class="dd">{pandit.yearsExperience}+ years</dd></div>
             <div><dt class="dt">Centres</dt><dd class="dd">{locations.map((l) => l.city).join(' · ')}</dd></div>
@@ -127,13 +127,13 @@ const jsonLd = buildGraph(
             <div><dt class="dt">Consults on</dt><dd class="dd">{pandit.knowsAbout.join(' · ')}</dd></div>
           </dl>
 
-          <a class="btn btn-primary reveal mt-5 w-full" href="/contact/">Book a consultation</a>
+          <a class="btn btn-gold reveal mt-5 w-full" href="/contact/">Book a consultation</a>
         </aside>
       </div>
     </div>
   </section>
 
-  <section class="section border-t border-line bg-paper-warm">
+  <section class="section border-t border-hairline bg-night">
     <div class="container-page">
       <div class="mx-auto max-w-3xl">
         <SectionHeading eyebrow="Questions" title="About Pandit Ji" class="mb-8" />
@@ -148,10 +148,10 @@ const jsonLd = buildGraph(
 <style>
   .portrait {
     position: relative; overflow: hidden;
-    border-radius: var(--radius-card); border: 1px solid var(--color-line);
-    background: var(--color-paper-warm); aspect-ratio: 4 / 5;
+    border-radius: var(--radius-card); border: 1px solid var(--color-hairline);
+    background: var(--color-night); aspect-ratio: 4 / 5;
   }
   .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .dt { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-maroon); }
-  .dd { margin-top: 0.25rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-ink-soft); }
+  .dt { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-gold); }
+  .dd { margin-top: 0.25rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-mist); }
 </style>

@@ -238,37 +238,70 @@ treats them as redirects, but weaker and slower to consolidate.
 
 ---
 
-## Design system
+## Design system — "Cosmic Traditional"
+
+Deep night-sky base, emerald/violet aurora, temple gold. Depth comes from layered
+gradients, glow and grain rather than from borders and boxes.
 
 Tokens live in `@theme` in `src/styles/global.css`. Tailwind 4 generates utilities
-from them automatically — use `text-maroon`, `bg-paper-warm`, `border-line`.
+from them automatically — use `text-cream`, `bg-night`, `border-hairline`.
 
-> **Do not use Tailwind v3's `text-[--color-maroon]` syntax.** It silently produces
-> nothing in v4. This bit us once already.
+> **Do not use Tailwind v3's `text-[--color-gold]` syntax.** It silently produces
+> nothing in v4. This bit us once already — 109 classes were unstyled.
 
 | Role | Token |
 |---|---|
-| Page background | `paper` `#faf6f0` |
-| Alternating sections | `paper-warm` `#f4ebdf` |
-| Body & headings | `ink` `#1f1a24` |
-| Brand | `maroon` `#7a2e2a` |
-| Accent / primary CTA | `gold` `#b8862f` |
-| Deep sections | `indigo` `#1a1730` |
+| Page base | `void` `#04050a` |
+| Section base | `night` `#080b16` |
+| Raised panels / cards | `deep` `#0d1322` · `elevated` `#131b2e` |
+| Headings & emphasis | `cream` `#f6f2e9` |
+| Body | `mist` `#b3bacb` · meta `faint` `#6f7891` |
+| Accent / primary CTA | `gold` `#d9ab5c` → `gold-bright` `#f2dca6` |
+| Aura | `emerald` `#0f7a5a` · `violet` `#3a2a6b` |
+| Hairlines | `hairline` `rgb(255 255 255 / 0.09)` |
 
-**Type** — Fraunces Variable (display, using its `SOFT`/`WONK`/`opsz` axes for
-warmth) + Inter Variable (body, 17px). Both self-hosted via `@fontsource` — no
-Google Fonts CDN, which is better for CWV and DPDP.
+**Type** — Cormorant Garamond Variable (display: high contrast, elegant, set large
+and tight) + Plus Jakarta Sans Variable (body, 17px). Both self-hosted via
+`@fontsource` — no Google Fonts CDN, better for CWV and DPDP.
 
-**Motion** — native CSS scroll-driven animations (`animation-timeline: view()`),
-wrapped in `@supports` and `prefers-reduced-motion`. No animation library, no JS.
-Above-the-fold entry animations use `@starting-style`.
+### Atmosphere — all pure CSS, zero image requests
 
-### One gotcha
+| Effect | How |
+|---|---|
+| **Aurora** | Two blurred radial blobs on `mix-blend-mode: screen`, slowly drifting. Scaled up under 768px or it's too small to read as a glow. |
+| **Starfield** | Eight layered `radial-gradient` dots on a repeating 620px tile, twinkling. |
+| **Grain** | Inline `feTurbulence` SVG as a data URI on `mix-blend-mode: overlay`. |
+| **Constellations** | Hand-plotted inline SVG paths + nodes. |
+| **Meteors** | Three out-of-phase gradient streaks. |
+| **Zodiac wheel** | Generated SVG — three counter-rotating rings, names on arc paths, glyphs, house numerals, woven inner star. |
+| **Gold gradient text** | `background-clip: text` on a four-stop gradient. |
+| **Spotlight cards** | Cursor-follow radial gradient driven by two CSS custom props. Aceternity's effect without its 125KB React bundle. |
 
-Astro scoped styles carry an extra attribute selector, so they **out-specify
-Tailwind utilities**. `class="foo lg:hidden"` will lose to a scoped
-`.foo { display: grid }`. Handle responsive visibility inside the component's own
-media query instead — see `StickyMobileCTA.astro`.
+### Motion budget
+
+Everything visual is native CSS: reveals and grid cascades via
+`animation-timeline: view()`, above-the-fold entrances via `@starting-style`, all
+behind `@supports` and `prefers-reduced-motion`.
+
+JavaScript is **6.2 KB gzipped**, and it is Lenis (smooth scroll) plus ~80 lines of
+our own for spotlight tracking, pointer tilt, count-up and the header scroll state.
+Motion One was installed, used for one count-up, measured at ~18 KB gzipped, and
+removed in favour of 20 lines of `requestAnimationFrame`.
+
+> **Grid cascades are CSS, not JS, on purpose.** An earlier version set
+> `opacity: 0` in JavaScript and animated on `inView` — which means a failed
+> script leaves content permanently invisible. The `.stagger` class offsets
+> `animation-range` per `nth-child` instead, so content is never hidden waiting
+> on a script.
+
+### Two gotchas
+
+1. Astro scoped styles carry an extra attribute selector, so they **out-specify
+   Tailwind utilities**. `class="foo lg:hidden"` loses to a scoped
+   `.foo { display: grid }`. Handle responsive visibility inside the component's
+   own media query — see `StickyMobileCTA.astro`.
+2. Zodiac characters (♈♉♊…) get hijacked by the OS **emoji** font and render as
+   coloured tiles. Append `U+FE0E` and set `font-variant-emoji: text`.
 
 ---
 

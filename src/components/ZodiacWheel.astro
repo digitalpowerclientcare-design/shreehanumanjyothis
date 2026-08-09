@@ -1,0 +1,166 @@
+---
+/**
+ * Animated zodiac wheel — the signature graphic from the reference designs.
+ * Generated SVG: three counter-rotating rings, sign names on a circular path,
+ * glyphs, house numerals and an inner geometric star. Pure CSS rotation.
+ */
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
+
+const SIGNS = [
+  { name: 'Aries',       glyph: '♈' },
+  { name: 'Taurus',      glyph: '♉' },
+  { name: 'Gemini',      glyph: '♊' },
+  { name: 'Cancer',      glyph: '♋' },
+  { name: 'Leo',         glyph: '♌' },
+  { name: 'Virgo',       glyph: '♍' },
+  { name: 'Libra',       glyph: '♎' },
+  { name: 'Scorpio',     glyph: '♏' },
+  { name: 'Sagittarius', glyph: '♐' },
+  { name: 'Capricorn',   glyph: '♑' },
+  { name: 'Aquarius',    glyph: '♒' },
+  { name: 'Pisces',      glyph: '♓' },
+];
+
+const ROMAN = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+
+const C = 300;                 // centre
+const R_LABEL = 268;           // sign-name ring
+const R_GLYPH = 224;           // glyph ring
+const R_HOUSE = 150;           // house-numeral ring
+
+const pt = (r: number, deg: number) => {
+  const rad = ((deg - 90) * Math.PI) / 180;
+  return { x: C + r * Math.cos(rad), y: C + r * Math.sin(rad) };
+};
+
+// 12 points on the inner circle, used to draw the woven star pattern.
+const inner = Array.from({ length: 12 }, (_, i) => pt(118, i * 30));
+---
+
+<div class={`wheel ${className}`} aria-hidden="true">
+  <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="zw-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#f7e6bd" />
+        <stop offset="50%"  stop-color="#d9ab5c" />
+        <stop offset="100%" stop-color="#a67c33" />
+      </linearGradient>
+      <radialGradient id="zw-core" cx="50%" cy="50%">
+        <stop offset="0%"   stop-color="#f2dca6" stop-opacity="0.9" />
+        <stop offset="55%"  stop-color="#d9ab5c" stop-opacity="0.18" />
+        <stop offset="100%" stop-color="#d9ab5c" stop-opacity="0" />
+      </radialGradient>
+      {SIGNS.map((_, i) => {
+        // Arc path for each sign name, centred on its 30° segment.
+        const start = i * 30 - 13;
+        const end = i * 30 + 13;
+        const a = pt(R_LABEL, start);
+        const b = pt(R_LABEL, end);
+        return (
+          <path id={`zw-arc-${i}`} d={`M ${a.x} ${a.y} A ${R_LABEL} ${R_LABEL} 0 0 1 ${b.x} ${b.y}`} />
+        );
+      })}
+    </defs>
+
+    <!-- Glow core -->
+    <circle cx={C} cy={C} r="150" fill="url(#zw-core)" />
+
+    <!-- Outer ring: sign names, slowly rotating -->
+    <g class="ring-outer">
+      <circle cx={C} cy={C} r="288" stroke="url(#zw-gold)" stroke-width="1" opacity="0.5" />
+      <circle cx={C} cy={C} r="248" stroke="url(#zw-gold)" stroke-width="0.8" opacity="0.35" />
+      {SIGNS.map((s, i) => (
+        <text class="zw-name" dy="0">
+          <textPath href={`#zw-arc-${i}`} startOffset="50%" text-anchor="middle">
+            {s.name.toUpperCase()}
+          </textPath>
+        </text>
+      ))}
+      {/* Segment ticks */}
+      {SIGNS.map((_, i) => {
+        const a = pt(248, i * 30 + 15);
+        const b = pt(288, i * 30 + 15);
+        return <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="url(#zw-gold)" stroke-width="0.8" opacity="0.4" />;
+      })}
+    </g>
+
+    <!-- Middle ring: glyphs, counter-rotating -->
+    <g class="ring-mid">
+      <circle cx={C} cy={C} r="200" stroke="url(#zw-gold)" stroke-width="0.8" opacity="0.4" />
+      {SIGNS.map((s, i) => {
+        const p = pt(R_GLYPH, i * 30);
+        return (
+          <text class="zw-glyph" x={p.x} y={p.y} text-anchor="middle" dominant-baseline="central">
+            {/* U+FE0E forces text presentation — without it the OS emoji font
+                hijacks the zodiac characters and renders coloured tiles. */}
+            {`${s.glyph}︎`}
+          </text>
+        );
+      })}
+    </g>
+
+    <!-- Inner ring: house numerals + woven geometry -->
+    <g class="ring-inner">
+      <circle cx={C} cy={C} r="172" stroke="url(#zw-gold)" stroke-width="0.8" opacity="0.35" />
+      <circle cx={C} cy={C} r="118" stroke="url(#zw-gold)" stroke-width="0.8" opacity="0.45" />
+      {ROMAN.map((r, i) => {
+        const p = pt(R_HOUSE, i * 30 + 15);
+        return (
+          <text class="zw-house" x={p.x} y={p.y} text-anchor="middle" dominant-baseline="central">{r}</text>
+        );
+      })}
+      {/* Woven star: connect every point to the one 5 steps away. */}
+      <g stroke="url(#zw-gold)" stroke-width="0.6" opacity="0.55">
+        {inner.map((p, i) => {
+          const q = inner[(i + 5) % 12];
+          return <line x1={p.x} y1={p.y} x2={q.x} y2={q.y} />;
+        })}
+        {inner.map((p, i) => {
+          const q = inner[(i + 4) % 12];
+          return <line x1={p.x} y1={p.y} x2={q.x} y2={q.y} opacity="0.55" />;
+        })}
+      </g>
+      {inner.map((p) => <circle cx={p.x} cy={p.y} r="2.2" fill="#f2dca6" opacity="0.8" />)}
+    </g>
+
+    <!-- Centre mark -->
+    <circle cx={C} cy={C} r="5" fill="#f2dca6" />
+    <circle cx={C} cy={C} r="14" stroke="url(#zw-gold)" stroke-width="0.9" opacity="0.7" />
+  </svg>
+</div>
+
+<style>
+  .wheel { position: relative; width: 100%; aspect-ratio: 1; }
+  .wheel svg { width: 100%; height: 100%; overflow: visible; }
+
+  .zw-name {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    fill: color-mix(in srgb, var(--color-cream) 82%, transparent);
+  }
+  .zw-glyph {
+    font-family: 'Segoe UI Symbol', 'Apple Symbols', 'Noto Sans Symbols 2', serif;
+    font-variant-emoji: text;
+    font-size: 26px;
+    fill: var(--color-gold-bright);
+    opacity: 0.9;
+  }
+  .zw-house {
+    font-family: var(--font-display);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    fill: color-mix(in srgb, var(--color-cream) 60%, transparent);
+  }
+
+  .ring-outer, .ring-mid, .ring-inner { transform-origin: 300px 300px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ring-outer { animation: spin 150s linear infinite; }
+    .ring-mid   { animation: spin 110s linear infinite reverse; }
+    .ring-inner { animation: spin 190s linear infinite; }
+  }
+  @keyframes spin { to { rotate: 360deg; } }
+</style>

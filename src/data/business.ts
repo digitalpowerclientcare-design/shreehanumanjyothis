@@ -129,10 +129,10 @@ export const pandit = {
     'Numerology',
     'Hasta Samudrika Shastra',
   ],
-  // TODO(client): replace with a real photograph from the centre shoot.
-  // Export as AVIF/WebP with a descriptive filename, e.g.
-  // /images/pandit-sri-pandu-ranga-shastri-ji-consultation.avif
-  photo: '/images/pandit-placeholder.svg',
+  // Supplied by the client from the existing site. Worth reshooting at higher
+  // resolution during the centre photo shoot — these are 1024×768 and carry a
+  // burnt-in watermark.
+  photo: '/images/pandit-ji-1.webp',
   photoAlt: 'Pandit Sri Pandu Ranga Shastri Ji during a consultation',
 } as const;
 

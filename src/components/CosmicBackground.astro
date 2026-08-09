@@ -1,0 +1,94 @@
+---
+/**
+ * Layered atmosphere: aurora → starfield → constellation lines → grain → vignette.
+ * Entirely CSS + one inline SVG. No image requests, no JavaScript, no library.
+ */
+interface Props {
+  /** 'hero' is denser and brighter; 'section' is a quieter wash. */
+  intensity?: 'hero' | 'section';
+  constellations?: boolean;
+  class?: string;
+}
+const { intensity = 'section', constellations = false, class: className = '' } = Astro.props;
+---
+
+<div class={`cosmic grain vignette ${intensity === 'hero' ? 'is-hero' : ''} ${className}`} aria-hidden="true">
+  <div class="aurora"></div>
+  <div class="stars"></div>
+
+  {constellations && (
+    <svg class="constellations" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      <g stroke="currentColor" stroke-width="0.7" opacity="0.5">
+        <path d="M90 150 L210 96 L318 178 L262 300 L128 268 Z" />
+        <path d="M318 178 L440 130 L520 232" />
+        <path d="M1130 110 L1240 172 L1352 128 L1390 246 L1268 296 L1176 224 Z" />
+        <path d="M1176 224 L1064 268 L1012 380" />
+        <path d="M180 640 L296 700 L268 826 L142 806 Z" />
+        <path d="M296 700 L420 662 L512 740" />
+        <path d="M1010 620 L1128 674 L1240 618 L1330 712" />
+        <path d="M640 470 L742 520 L700 626" />
+      </g>
+      <g fill="currentColor">
+        {[
+          [90,150],[210,96],[318,178],[262,300],[128,268],[440,130],[520,232],
+          [1130,110],[1240,172],[1352,128],[1390,246],[1268,296],[1176,224],[1064,268],[1012,380],
+          [180,640],[296,700],[268,826],[142,806],[420,662],[512,740],
+          [1010,620],[1128,674],[1240,618],[1330,712],[640,470],[742,520],[700,626],
+        ].map(([cx, cy], i) => (
+          <circle cx={cx} cy={cy} r={i % 4 === 0 ? 3 : 2} opacity={i % 3 === 0 ? 0.95 : 0.6} />
+        ))}
+      </g>
+    </svg>
+  )}
+
+  <span class="meteor meteor-1"></span>
+  <span class="meteor meteor-2"></span>
+  <span class="meteor meteor-3"></span>
+</div>
+
+<style>
+  .cosmic {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .constellations {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: color-mix(in srgb, var(--color-gold) 46%, transparent);
+    opacity: 0.34;
+  }
+  .is-hero .constellations { opacity: 0.5; }
+  .is-hero .aurora { opacity: 1; }
+
+  /* Shooting stars. Three, deliberately out of phase and rare enough to
+     register as a detail rather than a distraction. */
+  .meteor {
+    position: absolute;
+    width: 140px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-bright), transparent);
+    opacity: 0;
+    rotate: 18deg;
+  }
+  .meteor-1 { top: 14%; left: -12%; }
+  .meteor-2 { top: 42%; left: -12%; }
+  .meteor-3 { top: 68%; left: -12%; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .meteor-1 { animation: shoot 9s var(--ease-out-soft) infinite; animation-delay: 1.5s; }
+    .meteor-2 { animation: shoot 11s var(--ease-out-soft) infinite; animation-delay: 5s; }
+    .meteor-3 { animation: shoot 13s var(--ease-out-soft) infinite; animation-delay: 8.5s; }
+  }
+  @keyframes shoot {
+    0%   { opacity: 0; translate: 0 0; }
+    6%   { opacity: 1; }
+    22%  { opacity: 0; translate: 118vw 34vh; }
+    100% { opacity: 0; translate: 118vw 34vh; }
+  }
+</style>

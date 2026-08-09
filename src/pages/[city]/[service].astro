@@ -167,7 +167,7 @@ const otherCities = locations.filter(
         <p class="lead-answer enter enter-d2">{leadAnswer}</p>
 
         <div class="enter enter-d3 mt-8 flex flex-wrap gap-3">
-          <a class="btn btn-primary" href={telLink(loc)}>Call {loc.phoneDisplay}</a>
+          <a class="btn btn-gold" href={telLink(loc)}>Call {loc.phoneDisplay}</a>
           <a class="btn btn-whatsapp" href={whatsappLink(loc)}>WhatsApp</a>
         </div>
       </div>
@@ -175,12 +175,12 @@ const otherCities = locations.filter(
   </section>
 
   <!-- ============ THIS CENTRE ============ -->
-  <section class="border-y border-line bg-paper-warm py-12">
+  <section class="border-y border-hairline bg-night py-12">
     <div class="container-page">
       <div class="grid gap-10 lg:grid-cols-[1fr_0.85fr]">
         <div>
           <h2 class="display-md reveal">Visiting our {loc.city} centre</h2>
-          <p class="reveal mt-5 leading-relaxed text-ink-soft">{loc.intro}</p>
+          <p class="reveal mt-5 leading-relaxed text-mist">{loc.intro}</p>
 
           <dl class="reveal mt-7 grid gap-4 sm:grid-cols-2">
             <div><dt class="dt">Address</dt><dd class="dd"><address class="not-italic">{loc.streetAddress}, {loc.city} {loc.postalCode}</address></dd></div>
@@ -189,7 +189,7 @@ const otherCities = locations.filter(
             <div><dt class="dt">Languages</dt><dd class="dd">{loc.languages.join(', ')}</dd></div>
           </dl>
 
-          <p class="reveal mt-6 text-[0.93rem] leading-relaxed text-muted">
+          <p class="reveal mt-6 text-[0.93rem] leading-relaxed text-faint">
             Clients come to this centre from {loc.areasServed.slice(0, 7).join(', ')} and nearby areas.
           </p>
         </div>
@@ -247,7 +247,7 @@ const otherCities = locations.filter(
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section class="border-t border-line bg-paper-warm py-16">
+  <section class="border-t border-hairline bg-night py-16">
     <div class="container-page">
       <div class="mx-auto max-w-3xl">
         <h2 class="display-md reveal mb-8">Questions</h2>
@@ -264,13 +264,13 @@ const otherCities = locations.filter(
           <h2 class="display-md reveal">Also available at our other centres</h2>
           <div class="mt-6 flex flex-wrap gap-3">
             {otherCities.map((l) => (
-              <a class="btn btn-outline reveal" href={isService ? `/${l.slug}/${slug}/` : `/${l.slug}/${l.languagePage!.slug}/`}>
+              <a class="btn btn-ghost reveal" href={isService ? `/${l.slug}/${slug}/` : `/${l.slug}/${l.languagePage!.slug}/`}>
                 {isService ? `${d!.title} in ${l.city}` : `${l.languagePage!.language} in ${l.city}`}
               </a>
             ))}
           </div>
           {isService && (
-            <p class="reveal mt-6 text-[0.93rem] text-muted">
+            <p class="reveal mt-6 text-[0.93rem] text-faint">
               Or read the full <a class="inline-link" href={`/services/${slug}/`}>{d!.title}</a> overview.
             </p>
           )}
@@ -287,11 +287,11 @@ const otherCities = locations.filter(
   .dt {
     font-size: 0.72rem; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--color-maroon);
+    color: var(--color-gold);
   }
-  .dd { margin-top: 0.35rem; font-size: 0.93rem; line-height: 1.6; color: var(--color-ink-soft); }
+  .dd { margin-top: 0.35rem; font-size: 0.93rem; line-height: 1.6; color: var(--color-mist); }
   .inline-link {
-    color: var(--color-maroon);
+    color: var(--color-gold);
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
     text-underline-offset: 3px;

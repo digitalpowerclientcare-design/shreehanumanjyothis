@@ -54,20 +54,20 @@ const jsonLd = buildGraph(
             <ClickToLoadMap loc={loc} class="!rounded-none !border-0 !border-b" />
             <div class="p-6">
               <p class="eyebrow">{loc.locality}</p>
-              <h2 class="mt-2.5 font-display text-[1.5rem]" style="font-variation-settings:'SOFT' 18,'opsz' 44">
+              <h2 class="mt-2.5 font-display text-[1.5rem]">
                 {loc.city}
               </h2>
-              <address class="mt-3 not-italic text-[0.92rem] leading-relaxed text-muted">
+              <address class="mt-3 not-italic text-[0.92rem] leading-relaxed text-faint">
                 {loc.streetAddress},<br />{loc.city}, {loc.state} {loc.postalCode}
               </address>
-              <p class="mt-2 text-[0.86rem] text-muted">{loc.landmark}</p>
-              <p class="mt-3 text-[0.86rem] text-muted">{loc.hoursDisplay}</p>
-              <p class="mt-1 text-[0.86rem] text-muted">In {loc.languages.join(', ')}</p>
+              <p class="mt-2 text-[0.86rem] text-faint">{loc.landmark}</p>
+              <p class="mt-3 text-[0.86rem] text-faint">{loc.hoursDisplay}</p>
+              <p class="mt-1 text-[0.86rem] text-faint">In {loc.languages.join(', ')}</p>
 
               <div class="mt-5 grid gap-2">
-                <a class="btn btn-primary !min-h-11 !text-[0.85rem]" href={telLink(loc)}>{loc.phoneDisplay}</a>
+                <a class="btn btn-gold !min-h-11 !text-[0.85rem]" href={telLink(loc)}>{loc.phoneDisplay}</a>
                 <a class="btn btn-whatsapp !min-h-11 !text-[0.85rem]" href={whatsappLink(loc)}>WhatsApp this centre</a>
-                <a class="btn btn-outline !min-h-11 !text-[0.85rem]" href={loc.mapUrl} target="_blank" rel="noopener">Get directions</a>
+                <a class="btn btn-ghost !min-h-11 !text-[0.85rem]" href={loc.mapUrl} target="_blank" rel="noopener">Get directions</a>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ const jsonLd = buildGraph(
   </section>
 
   <!-- ============ FORM ============ -->
-  <section class="section border-t border-line bg-paper-warm">
+  <section class="section border-t border-hairline bg-night">
     <div class="container-page">
       <div class="mx-auto max-w-2xl">
         <SectionHeading
@@ -164,9 +164,9 @@ const jsonLd = buildGraph(
             sold, or added to any marketing list. See our <a href="/privacy-policy/">privacy policy</a>.
           </p>
 
-          <button class="btn btn-primary mt-6 w-full" type="submit">Send enquiry</button>
+          <button class="btn btn-gold mt-6 w-full" type="submit">Send enquiry</button>
 
-          <p class="mt-4 text-center text-[0.85rem] text-muted">
+          <p class="mt-4 text-center text-[0.85rem] text-faint">
             Prefer to talk now? <a class="inline-link" href={whatsappLink(locations[0])}>Message us on WhatsApp</a>
           </p>
         </form>
@@ -178,8 +178,8 @@ const jsonLd = buildGraph(
 <style>
   .form-card {
     padding: 2rem 1.5rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
+    background: var(--color-elevated);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
   }
   @media (min-width: 640px) { .form-card { padding: 2.5rem; } }
@@ -187,26 +187,26 @@ const jsonLd = buildGraph(
   .field { display: grid; gap: 0.45rem; }
   .field label, legend {
     font-size: 0.82rem; font-weight: 650;
-    letter-spacing: 0.02em; color: var(--color-ink);
+    letter-spacing: 0.02em; color: var(--color-cream);
   }
-  .field label span[aria-hidden] { color: var(--color-maroon); }
-  .hint { font-weight: 400; color: var(--color-muted); }
+  .field label span[aria-hidden] { color: var(--color-gold); }
+  .hint { font-weight: 400; color: var(--color-faint); }
 
   .field input, .field select {
     width: 100%;
     min-height: 3rem;
     padding: 0.7rem 0.9rem;
     font-family: var(--font-sans); font-size: 0.95rem;
-    color: var(--color-ink);
-    background: var(--color-paper);
-    border: 1px solid var(--color-line);
+    color: var(--color-cream);
+    background: var(--color-void);
+    border: 1px solid var(--color-hairline);
     border-radius: 0.55rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .field input:focus, .field select:focus {
     outline: none;
-    border-color: var(--color-maroon);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-maroon) 14%, transparent);
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 14%, transparent);
   }
 
   fieldset { border: 0; padding: 0; margin: 0; }
@@ -219,31 +219,31 @@ const jsonLd = buildGraph(
     display: inline-flex; align-items: center;
     min-height: 2.5rem; padding: 0.4rem 0.9rem;
     font-size: 0.85rem;
-    background: var(--color-paper);
-    border: 1px solid var(--color-line);
+    background: var(--color-void);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-pill);
     cursor: pointer;
     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   }
   .chip input:checked + span {
-    background: var(--color-maroon-tint);
-    border-color: var(--color-maroon);
-    color: var(--color-maroon-deep);
+    background: var(--color-deep);
+    border-color: var(--color-gold);
+    color: var(--color-gold-deep);
     font-weight: 600;
   }
   .chip input:focus-visible + span {
-    outline: 2px solid var(--color-maroon); outline-offset: 2px;
+    outline: 2px solid var(--color-gold); outline-offset: 2px;
   }
 
   .radios { display: flex; flex-wrap: wrap; gap: 1rem; }
   .radio { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer; }
-  .radio input { width: 1.05rem; height: 1.05rem; accent-color: var(--color-maroon); }
+  .radio input { width: 1.05rem; height: 1.05rem; accent-color: var(--color-gold); }
 
   .privacy-note {
     margin-top: 1.5rem;
-    font-size: 0.8rem; line-height: 1.6; color: var(--color-muted);
+    font-size: 0.8rem; line-height: 1.6; color: var(--color-faint);
   }
   .privacy-note a, .inline-link {
-    color: var(--color-maroon); text-decoration: underline; text-underline-offset: 3px;
+    color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px;
   }
 </style>

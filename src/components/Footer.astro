@@ -5,13 +5,13 @@ import Logo from '@/components/Logo.astro';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-line bg-indigo text-[#d9d3e4]">
+<footer class="border-t border-hairline bg-night text-[#d9d3e4]">
   <div class="container-page py-16 md:py-20">
     <!-- Full NAP for all three centres. The audited site had none of this. -->
     <div class="grid gap-10 md:grid-cols-3">
       {locations.map((loc) => (
         <div class="reveal">
-          <p class="font-display text-xl text-white" style="font-variation-settings:'SOFT' 18,'opsz' 40">
+          <p class="font-display text-xl text-white">
             {loc.city}
           </p>
           <p class="mt-1 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-gold-bright">

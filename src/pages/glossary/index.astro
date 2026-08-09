@@ -52,16 +52,16 @@ const jsonLd = buildGraph(
         {entries.map((e) => (
           <div class="term card reveal p-6" id={slugifyTerm(e.data.term)}>
             <dt class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span class="font-display text-[1.3rem]" style="font-variation-settings:'SOFT' 16,'opsz' 40">
+              <span class="font-display text-[1.3rem]">
                 {e.data.term}
               </span>
               {e.data.alsoKnownAs.length > 0 && (
-                <span class="text-[0.82rem] text-muted">
+                <span class="text-[0.82rem] text-faint">
                   also: {e.data.alsoKnownAs.join(', ')}
                 </span>
               )}
             </dt>
-            <dd class="mt-2.5 leading-relaxed text-ink-soft">
+            <dd class="mt-2.5 leading-relaxed text-mist">
               {e.data.definition}
               {e.data.relatedService && (
                 <>
@@ -86,7 +86,7 @@ const jsonLd = buildGraph(
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 20%, transparent);
   }
   .inline-link {
-    color: var(--color-maroon); font-weight: 600; font-size: 0.9rem;
+    color: var(--color-gold); font-weight: 600; font-size: 0.9rem;
     text-decoration: underline; text-underline-offset: 3px;
   }
 </style>

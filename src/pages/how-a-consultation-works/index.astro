@@ -121,7 +121,7 @@ const jsonLd = buildGraph(
     </div>
   </section>
 
-  <section class="section border-y border-line bg-paper-warm">
+  <section class="section border-y border-hairline bg-night">
     <div class="container-page">
       <div class="mx-auto max-w-3xl">
         <SectionHeading eyebrow="Fees" title="What it costs, and what it does not" class="mb-7" />
@@ -145,7 +145,7 @@ const jsonLd = buildGraph(
         </div>
         <div class="mt-8 flex flex-wrap gap-3">
           {locations.map((l) => (
-            <a class="btn btn-outline reveal" href={`/${l.slug}/`}>Ask {l.city}</a>
+            <a class="btn btn-ghost reveal" href={`/${l.slug}/`}>Ask {l.city}</a>
           ))}
         </div>
       </div>
@@ -172,16 +172,14 @@ const jsonLd = buildGraph(
     display: grid; place-items: center;
     width: 3.25rem; height: 3.25rem;
     font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 16, 'opsz' 40;
     font-size: 1.15rem; font-weight: 600;
-    color: var(--color-maroon);
-    background: var(--color-gold-tint);
+    color: var(--color-gold);
+    background: var(--color-deep);
     border-radius: var(--radius-pill);
   }
   .step-t {
     font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 16, 'opsz' 44;
     font-size: 1.35rem; line-height: 1.25;
   }
-  .step-d { margin-top: 0.6rem; line-height: 1.7; color: var(--color-ink-soft); }
+  .step-d { margin-top: 0.6rem; line-height: 1.7; color: var(--color-mist); }
 </style>

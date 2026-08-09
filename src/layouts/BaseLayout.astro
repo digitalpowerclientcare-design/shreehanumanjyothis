@@ -48,7 +48,8 @@ const canonical = abs(canonicalPath);
     <meta property="og:locale" content="en_IN" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <meta name="theme-color" content="#7a2e2a" />
+    <meta name="theme-color" content="#04050a" />
+    <meta name="color-scheme" content="dark" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
@@ -58,7 +59,7 @@ const canonical = abs(canonicalPath);
   <body>
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-maroon focus:px-5 focus:py-3 focus:text-white"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-5 focus:py-3 focus:text-white"
     >
       Skip to main content
     </a>
@@ -71,5 +72,9 @@ const canonical = abs(canonicalPath);
 
     <Footer />
     {!hideStickyCta && <StickyMobileCTA />}
+
+    <script>
+      import '@/scripts/motion.ts';
+    </script>
   </body>
 </html>

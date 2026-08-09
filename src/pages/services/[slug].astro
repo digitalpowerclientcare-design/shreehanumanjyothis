@@ -66,8 +66,8 @@ const jsonLd = buildGraph(
         <p class="lead-answer enter enter-d2">{d.leadAnswer}</p>
 
         <div class="enter enter-d3 mt-8 flex flex-wrap gap-3">
-          <a class="btn btn-primary" href="/contact/">Book a consultation</a>
-          <a class="btn btn-outline" href="/how-a-consultation-works/">How it works</a>
+          <a class="btn btn-gold" href="/contact/">Book a consultation</a>
+          <a class="btn btn-ghost" href="/how-a-consultation-works/">How it works</a>
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@ const jsonLd = buildGraph(
 
   <!-- ============ FAQ ============ -->
   {d.faqs.length > 0 && (
-    <section class="border-t border-line py-16">
+    <section class="border-t border-hairline py-16">
       <div class="container-page">
         <div class="mx-auto max-w-3xl">
           <h2 class="display-md reveal mb-8">Common questions</h2>
@@ -98,11 +98,11 @@ const jsonLd = buildGraph(
 
   <!-- ============ CITY VARIANTS ============ -->
   {cityVariants.length > 0 && (
-    <section class="border-y border-line bg-paper-warm py-16">
+    <section class="border-y border-hairline bg-night py-16">
       <div class="container-page">
         <div class="mx-auto max-w-3xl">
           <h2 class="display-md reveal">Consult in your city</h2>
-          <p class="reveal mt-3 text-ink-soft">
+          <p class="reveal mt-3 text-mist">
             {d.title} is available at each of our centres, in person or online.
           </p>
           <div class="mt-8 grid gap-3 sm:grid-cols-3">
@@ -145,8 +145,8 @@ const jsonLd = buildGraph(
   .city-link {
     display: grid; gap: 0.15rem;
     padding: 1rem 1.15rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
+    background: var(--color-elevated);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
     text-decoration: none;
     transition: transform 0.28s var(--ease-out-soft), border-color 0.28s ease;
@@ -157,16 +157,15 @@ const jsonLd = buildGraph(
   }
   .city-link-name {
     font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 16, 'opsz' 36;
-    font-size: 1.1rem; color: var(--color-ink);
+    font-size: 1.1rem; color: var(--color-cream);
   }
-  .city-link-area { font-size: 0.8rem; color: var(--color-muted); }
+  .city-link-area { font-size: 0.8rem; color: var(--color-faint); }
 
   .related-link {
     display: grid; gap: 0.3rem;
     padding: 1.1rem 1.25rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
+    background: var(--color-elevated);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
     text-decoration: none;
     transition: border-color 0.28s ease, transform 0.28s var(--ease-out-soft);
@@ -175,6 +174,6 @@ const jsonLd = buildGraph(
     transform: translateY(-2px);
     border-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
   }
-  .related-link-title { font-weight: 600; color: var(--color-maroon); }
-  .related-link-summary { font-size: 0.88rem; line-height: 1.55; color: var(--color-muted); }
+  .related-link-title { font-weight: 600; color: var(--color-gold); }
+  .related-link-summary { font-size: 0.88rem; line-height: 1.55; color: var(--color-faint); }
 </style>

@@ -16,20 +16,20 @@ import { brand, locations } from '@/data/business';
         <Ornament variant="rule" class="mx-auto mb-8 max-w-[9rem]" />
         <p class="eyebrow justify-center">404</p>
         <h1 class="display-lg mt-5">This page could not be found</h1>
-        <p class="mt-5 leading-relaxed text-ink-soft">
+        <p class="mt-5 leading-relaxed text-mist">
           The page may have moved, or the link may be out of date.
           Here is where most people are heading.
         </p>
 
         <div class="mt-9 grid gap-3 sm:grid-cols-3">
           {locations.map((l) => (
-            <a class="btn btn-outline" href={`/${l.slug}/`}>{l.city}</a>
+            <a class="btn btn-ghost" href={`/${l.slug}/`}>{l.city}</a>
           ))}
         </div>
 
         <div class="mt-4 flex flex-wrap justify-center gap-3">
-          <a class="btn btn-primary" href="/services/">All services</a>
-          <a class="btn btn-outline" href="/contact/">Contact us</a>
+          <a class="btn btn-gold" href="/services/">All services</a>
+          <a class="btn btn-ghost" href="/contact/">Contact us</a>
         </div>
       </div>
     </div>

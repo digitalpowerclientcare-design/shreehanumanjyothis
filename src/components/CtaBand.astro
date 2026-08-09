@@ -17,7 +17,7 @@ const {
 const loc = city ? getLocation(city) : null;
 ---
 
-<section class="relative overflow-hidden bg-indigo text-white">
+<section class="relative overflow-hidden bg-night text-white">
   <div class="pointer-events-none absolute inset-0 opacity-[0.16] text-gold-bright">
     <Ornament variant="jaali" class="h-full w-full" />
   </div>
@@ -31,7 +31,7 @@ const loc = city ? getLocation(city) : null;
 
       {loc ? (
         <div class="mt-9 flex flex-wrap justify-center gap-3">
-          <a class="btn btn-primary" href={telLink(loc)}>Call {loc.city} — {loc.phoneDisplay}</a>
+          <a class="btn btn-gold" href={telLink(loc)}>Call {loc.city} — {loc.phoneDisplay}</a>
           <a class="btn btn-ghost-light" href={whatsappLink(loc)}>Message on WhatsApp</a>
         </div>
       ) : (
@@ -70,7 +70,6 @@ const loc = city ? getLocation(city) : null;
   }
   .cta-city-name {
     font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 18, 'opsz' 40;
     font-size: 1.24rem; color: #fff;
   }
   .cta-city-meta { font-size: 0.78rem; color: #9a93aa; }

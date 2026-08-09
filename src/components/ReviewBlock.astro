@@ -26,13 +26,13 @@ const verifiable = loc && loc.gbpUrl && loc.reviews.count !== null;
         ))}
       </span>
 
-      <blockquote class="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">
+      <blockquote class="mt-4 flex-1 text-[0.95rem] leading-relaxed text-mist">
         {r.text}
       </blockquote>
 
-      <figcaption class="mt-5 border-t border-line pt-4 text-[0.85rem]">
-        <span class="font-semibold text-ink">{r.name}</span>
-        <span class="mt-0.5 block text-muted">
+      <figcaption class="mt-5 border-t border-hairline pt-4 text-[0.85rem]">
+        <span class="font-semibold text-cream">{r.name}</span>
+        <span class="mt-0.5 block text-faint">
           {r.area ? `${r.area}, ` : ''}{locations.find((l) => l.slug === r.city)?.city} · {r.service}
         </span>
       </figcaption>
@@ -41,14 +41,14 @@ const verifiable = loc && loc.gbpUrl && loc.reviews.count !== null;
 </div>
 
 {verifiable ? (
-  <p class="mt-8 text-center text-[0.9rem] text-muted">
+  <p class="mt-8 text-center text-[0.9rem] text-faint">
     Rated {loc!.reviews.rating} from {loc!.reviews.count} reviews ·{' '}
-    <a class="font-semibold text-maroon underline underline-offset-4" href={loc!.gbpUrl} target="_blank" rel="noopener">
+    <a class="font-semibold text-gold underline underline-offset-4" href={loc!.gbpUrl} target="_blank" rel="noopener">
       Read them on Google
     </a>
   </p>
 ) : (
-  <p class="mt-8 text-center text-[0.9rem] text-muted">
+  <p class="mt-8 text-center text-[0.9rem] text-faint">
     {/* Deliberate: no review count is claimed until it links to a live profile. */}
     Read every review on our Google Business Profile — link coming from the client.
   </p>

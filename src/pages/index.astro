@@ -1,15 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
-import ServiceCard from '@/components/ServiceCard.astro';
-import CityCard from '@/components/CityCard.astro';
+import CosmicBackground from '@/components/CosmicBackground.astro';
+import ZodiacWheel from '@/components/ZodiacWheel.astro';
+import ServiceIcon from '@/components/ServiceIcon.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import ReviewBlock from '@/components/ReviewBlock.astro';
-import CtaBand from '@/components/CtaBand.astro';
-import Ornament from '@/components/Ornament.astro';
-import ServiceIcon from '@/components/ServiceIcon.astro';
-import { brand, pandit, locations, abs } from '@/data/business';
+import { brand, pandit, locations, telLink, whatsappLink, abs } from '@/data/business';
 import {
   buildGraph, organizationSchema, websiteSchema, personSchema,
   localBusinessSchema, faqSchema,
@@ -17,13 +14,12 @@ import {
 
 const services = (await getCollection('services', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
-const featured = services.slice(0, 8);
+const featured = services.slice(0, 6);
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 3);
 
-// Answer-first, conversational questions — the format AI assistants extract.
 const faqs = [
   {
     question: 'Who is Pandit Sri Pandu Ranga Shastri Ji?',
@@ -51,11 +47,6 @@ const faqs = [
       'Yes. Consultations are held over call or video for clients anywhere in India and abroad. The one exception is palmistry, which needs the hand in front of the reader — a photograph loses the depth and texture the method depends on.',
   },
   {
-    question: 'Which languages are consultations held in?',
-    answer:
-      'English, Telugu, Hindi, Kannada and Marathi, depending on the centre. Bengaluru covers Kannada and Telugu, Hyderabad covers Telugu, and Mumbai covers Marathi — all three also consult in Hindi and English.',
-  },
-  {
     question: 'Do you guarantee results?',
     answer:
       'No, and we would ask you to be careful with anyone who does. A chart shows tendencies and timing indications. It does not determine what happens, and no remedy makes a specific outcome certain. Remedies are suggested only where the chart indicates them, and always with the reasoning explained.',
@@ -69,6 +60,18 @@ const jsonLd = buildGraph(
   ...locations.map(localBusinessSchema),
   faqSchema(faqs, abs('/')),
 );
+
+const marqueeItems = [
+  'Kundli Matching', 'Jataka Porutham', 'Birth Chart Reading', 'Vastu Shastra',
+  'Muhurtha', 'Prasna Jyotish', 'Career Guidance', 'Navagraha Shanti',
+];
+
+const steps = [
+  { n: '01', t: 'Share your birth details', d: 'Date, time and place of birth — on WhatsApp or over the phone. Nothing else is needed.' },
+  { n: '02', t: 'Your chart is prepared', d: 'Worked out before your appointment, so the session is spent on the discussion, not the calculation.' },
+  { n: '03', t: 'The consultation', d: '45–60 minutes, in person at one of three centres or over video. In the language you are most comfortable in.' },
+  { n: '04', t: 'Clear, honest guidance', d: 'What the chart shows, what it does not, and remedies only where they are genuinely indicated.' },
+];
 ---
 
 <BaseLayout
@@ -78,296 +81,325 @@ const jsonLd = buildGraph(
   jsonLd={jsonLd}
 >
 
-  <!-- ================= HERO ================= -->
-  <section class="relative overflow-hidden">
-    <div class="pointer-events-none absolute inset-0 -z-10 opacity-[0.5] text-gold">
-      <div class="parallax-slow h-full w-full">
-        <Ornament variant="jaali" class="h-full w-full" />
+  <!-- ══════════════════════ HERO ══════════════════════ -->
+  <section class="hero">
+    <CosmicBackground intensity="hero" constellations />
+
+    <div class="container-page relative z-10">
+      <div class="hero-grid">
+
+        <!-- Copy -->
+        <div class="hero-copy">
+          <p class="eyebrow enter">Since 1994 · Three Centres Across India</p>
+
+          <h1 class="display-hero enter enter-d1">
+            Read the sky.<br />
+            <span class="text-gold-grad">Understand</span> your life.
+          </h1>
+
+          <p class="lead enter enter-d2 mt-6 max-w-lg">
+            Kundli matching, birth-chart readings and Vastu with
+            <strong class="font-semibold text-[--color-cream]">{pandit.name}</strong>.
+            Thirty years of practice, explained plainly — no guarantees, no fear, no pressure.
+          </p>
+
+          <div class="enter enter-d3 mt-8 flex flex-wrap gap-3">
+            <a class="btn btn-gold" href={whatsappLink(locations[0])}>
+              Book a reading
+              <svg width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden="true">
+                <path d="M1 6h11M8.5 1.5 13 6l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="btn btn-ghost" href="/how-a-consultation-works/">How it works</a>
+          </div>
+        </div>
+
+        <!-- Trust pills. Their own grid child so that on mobile the portrait
+             can sit between the CTAs and the pills rather than below both. -->
+        <div class="hero-pills enter enter-d4">
+          {[
+            `${pandit.yearsExperience}+ years of practice`,
+            '5 languages',
+            'In person or online',
+          ].map((t) => <span class="pill">{t}</span>)}
+        </div>
+
+        <!-- Portrait + wheel -->
+        <div class="hero-visual enter enter-d2">
+          <div class="wheel-wrap float-soft">
+            <ZodiacWheel />
+          </div>
+
+          <figure class="portrait halo" data-tilt="7">
+            <img
+              src="/images/pandit-ji-1.webp"
+              alt={`${pandit.name}, Vedic astrologer, at his consultation centre`}
+              width="1024" height="768"
+              fetchpriority="high" decoding="async"
+            />
+            <figcaption>
+              <span class="caps text-[--color-gold]">Pandit Ji</span>
+              <span class="block font-display text-[1.45rem] leading-tight text-[--color-cream]">
+                Sri Pandu Ranga Shastri
+              </span>
+            </figcaption>
+          </figure>
+
+          <!-- Floating stat chips -->
+          <span class="chip chip-1">
+            <b data-count="30" data-count-suffix="+">30+</b>
+            <i>years</i>
+          </span>
+          <span class="chip chip-2">
+            <b data-count="3">3</b>
+            <i>centres</i>
+          </span>
+        </div>
+
       </div>
     </div>
-    <div
-      class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem]"
-      style="background:radial-gradient(60% 55% at 50% 0%, color-mix(in srgb, var(--color-gold) 15%, transparent), transparent 70%)"
-    ></div>
 
-    <div class="container-page pb-14 pt-12 md:pb-20 md:pt-16">
-      <div class="mx-auto max-w-4xl text-center">
-        <p class="eyebrow enter mx-auto justify-center">
-          Since {brand.foundedYear} · Bengaluru · Hyderabad · Mumbai
-        </p>
+    <div class="hero-fade"></div>
+  </section>
 
-        <h1 class="display-xl enter enter-d1 mt-5">
-          Vedic Astrology Guidance by <span class="text-maroon">Pandit Sri Pandu Ranga Shastri Ji</span>
-        </h1>
-
-        <p class="enter enter-d2 mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
-          Kundli analysis, marriage compatibility and Vastu guidance — explained plainly,
-          with remedies suggested only where the chart indicates them.
-          Consultations in English, Telugu, Kannada, Hindi and Marathi.
-        </p>
-
-        <!-- City routing above the fold: a Mumbai visitor should never have to hunt. -->
-        <div class="enter enter-d3 mt-8 grid gap-3 sm:grid-cols-3">
-          {locations.map((l) => (
-            <a class="hero-city" href={`/${l.slug}/`}>
-              <span class="hero-city-name">{l.city}</span>
-              <span class="hero-city-area">{l.locality}</span>
-              <span class="hero-city-go" aria-hidden="true">
-                <svg width="13" height="11" viewBox="0 0 13 11" fill="none">
-                  <path d="M1 5.5h10M7.5 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </a>
+  <!-- ══════════════════════ MARQUEE ══════════════════════ -->
+  <div class="marquee-band">
+    <div class="marquee">
+      {[0, 1].map(() => (
+        <div class="marquee-track" aria-hidden="true">
+          {marqueeItems.map((m) => (
+            <span class="marquee-item">
+              <span class="marquee-dot"></span>{m}
+            </span>
           ))}
         </div>
+      ))}
+    </div>
+  </div>
 
-        <p class="enter enter-d4 mt-6 text-[0.88rem] text-muted">
-          Choose your centre, or <a class="underline underline-offset-4 decoration-gold" href="/contact/">send your birth details</a> and we will call you back.
+  <!-- ══════════════════════ CENTRES ══════════════════════ -->
+  <section class="section relative">
+    <CosmicBackground />
+    <div class="container-page relative z-10">
+      <header class="section-head">
+        <p class="eyebrow reveal-fade">Our Centres</p>
+        <h2 class="display-xl reveal mt-5">
+          Three places to sit across<br class="hidden md:block" />
+          from <span class="text-gold-grad">Pandit Ji</span>
+        </h2>
+        <p class="lead reveal mt-6 max-w-xl">
+          Each centre keeps its own timings and its own phone line. Walk in, or send your
+          birth details ahead and the chart will be ready.
         </p>
-      </div>
-    </div>
-  </section>
+      </header>
 
-  <!-- ================= TRUST STRIP ================= -->
-  <section class="border-y border-line bg-paper-warm">
-    <div class="container-page">
-      <dl class="grid grid-cols-2 divide-x divide-line md:grid-cols-4">
-        {[
-          { k: `${pandit.yearsExperience}+ years`, v: 'Of Vedic practice' },
-          { k: 'Three centres', v: 'Bengaluru · Hyderabad · Mumbai' },
-          { k: '5 languages', v: 'English, Telugu, Kannada, Hindi, Marathi' },
-          { k: 'In person or online', v: 'Across India and abroad' },
-        ].map((s) => (
-          <div class="reveal-fade px-4 py-7 text-center md:py-9">
-            <dt class="font-display text-[1.35rem] text-maroon" style="font-variation-settings:'SOFT' 16,'opsz' 40">
-              {s.k}
-            </dt>
-            <dd class="mt-1 text-[0.82rem] leading-snug text-muted">{s.v}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  </section>
+      <div class="mt-16 grid gap-5 lg:grid-cols-3 stagger">
+        {locations.map((loc, i) => (
+          <article class="centre-card panel spotlight">
+            <span class="centre-index">{String(i + 1).padStart(2, '0')}</span>
 
-  <!-- ================= PANDIT JI ================= -->
-  <section class="section">
-    <div class="container-page">
-      <div class="grid items-center gap-12 lg:grid-cols-[0.85fr_1fr]">
-        <div class="reveal relative">
-          <div class="portrait">
-            <!-- TODO: replace with the real photo shoot. See README §Images. -->
-            <img
-              src={pandit.photo}
-              alt={pandit.photoAlt}
-              width="640" height="800"
-              loading="lazy" decoding="async"
-            />
-          </div>
-          <Ornament variant="corner" class="absolute -left-3 -top-3 text-gold" />
-        </div>
-
-        <div>
-          <SectionHeading
-            eyebrow="About Pandit Ji"
-            title="Three decades of reading charts, and telling people what they actually show"
-          />
-          <p class="reveal mt-6 text-lg leading-relaxed text-ink-soft">{pandit.bio}</p>
-          <p class="reveal mt-4 leading-relaxed text-ink-soft">
-            Consultations cover marriage and compatibility, career and business decisions,
-            family matters, Vastu for homes and commercial premises, and traditional
-            remedial guidance where a chart indicates it.
-          </p>
-          <div class="reveal mt-8 flex flex-wrap gap-3">
-            <a class="btn btn-outline" href="/about-pandit-ji/">Read his full profile</a>
-            <a class="btn btn-primary" href="/how-a-consultation-works/">How a consultation works</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= THREE CENTRES ================= -->
-  <section class="section border-y border-line bg-paper-warm">
-    <div class="container-page">
-      <SectionHeading
-        eyebrow="Our Centres"
-        title="Three places to meet Pandit Ji in person"
-        lead="Each centre keeps its own timings and its own phone line. Walk in, or call ahead and we will have the chart ready."
-        align="center"
-        class="mb-14"
-      />
-      <div class="grid gap-5 lg:grid-cols-3">
-        {locations.map((loc, i) => <CityCard loc={loc} index={i} />)}
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SERVICES ================= -->
-  <section class="section">
-    <div class="container-page">
-      <div class="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <SectionHeading
-          eyebrow="Consultations"
-          title="What you can consult us about"
-          lead="Every service below is available at all three centres and online."
-        />
-        <a class="btn btn-outline reveal shrink-0" href="/services/">All {services.length} services</a>
-      </div>
-
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {featured.map((s) => (
-          <ServiceCard
-            title={s.data.title}
-            summary={s.data.summary}
-            href={`/services/${s.id}/`}
-            icon={s.data.icon}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= WHY US ================= -->
-  <section class="section border-y border-line bg-paper-warm">
-    <div class="container-page">
-      <SectionHeading
-        eyebrow="Why families come back"
-        title="Honest guidance, and a clear line about what astrology cannot do"
-        align="center"
-        class="mb-14"
-      />
-
-      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-        {[
-          {
-            icon: 'chart',
-            t: 'Readings based on the whole chart',
-            d: 'Not a software score and not a generic prediction. Both charts, the dasha positions and the actual placements — read together, and explained in plain language.',
-          },
-          {
-            icon: 'family',
-            t: 'Confidential, and genuinely so',
-            d: 'What is discussed stays between you and Pandit Ji. Nothing goes back to whoever referred you or arranged the appointment.',
-          },
-          {
-            icon: 'sun',
-            t: 'No fear, no pressure',
-            d: 'We will not tell you a dosha is ruining your life or that an expensive ritual is the only way out. Where nothing is needed, we say nothing is needed.',
-          },
-          {
-            icon: 'question',
-            t: 'We say when it is not an astrology question',
-            d: 'Some matters need a doctor, a lawyer or a counsellor. Telling you that is more useful than taking a fee for a reading that was never going to help.',
-          },
-        ].map((c) => (
-          <article class="card reveal p-7">
-            <span class="why-icon" aria-hidden="true"><ServiceIcon name={c.icon} size={20} /></span>
-            <h3 class="mt-5 font-display text-[1.2rem] leading-snug" style="font-variation-settings:'SOFT' 16,'opsz' 36">
-              {c.t}
+            <h3 class="font-display text-[2.1rem] leading-none text-[--color-cream]">
+              <a href={`/${loc.slug}/`} class="after:absolute after:inset-0 after:content-['']">
+                {loc.city}
+              </a>
             </h3>
-            <p class="mt-2.5 text-[0.93rem] leading-relaxed text-muted">{c.d}</p>
+            <p class="caps mt-3 text-[--color-gold]">{loc.locality}</p>
+
+            <address class="mt-6 not-italic text-[0.92rem] leading-relaxed text-[--color-mist]">
+              {loc.streetAddress}<br />{loc.city} {loc.postalCode}
+            </address>
+            <p class="mt-3 text-[0.86rem] text-[--color-faint]">{loc.landmark}</p>
+
+            <dl class="centre-meta">
+              <div><dt>Timings</dt><dd>{loc.hoursDisplay}</dd></div>
+              <div><dt>Languages</dt><dd>{loc.languages.join(' · ')}</dd></div>
+            </dl>
+
+            <div class="relative z-10 mt-7 flex flex-wrap gap-2">
+              <a class="btn btn-gold !min-h-10 !px-4 !text-[0.8rem]" href={telLink(loc)}>{loc.phoneDisplay}</a>
+              <a class="btn btn-ghost !min-h-10 !px-4 !text-[0.8rem]" href={loc.mapUrl} target="_blank" rel="noopener">Directions</a>
+            </div>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ================= FEES ================= -->
-  <section class="section">
-    <div class="container-page">
-      <div class="mx-auto max-w-3xl rounded-xl border border-line bg-surface p-8 text-center md:p-12">
-        <Ornament variant="rule" class="mx-auto mb-6 max-w-[8rem]" />
-        <h2 class="display-md reveal">Consultation fees, said upfront</h2>
-        <p class="reveal mx-auto mt-5 max-w-xl leading-relaxed text-ink-soft">
-          The fee is shared before anything is booked, and nothing is added afterwards.
-          We do not sell gemstones, yantras or correction products, so no recommendation
-          you receive is a sales pitch for something we happen to stock.
-        </p>
-        <p class="reveal mt-4 text-[0.92rem] text-muted">
-          Message any centre on WhatsApp and you will get a straight figure before you commit to anything.
-        </p>
-        <div class="reveal mt-8">
-          <a class="btn btn-primary" href="/contact/">Ask about fees</a>
-        </div>
+  <!-- ══════════════════════ FEATURE BAND ══════════════════════ -->
+  <section class="feature-band">
+    <div class="feature-media">
+      <img
+        src="/images/pandit-ji-2.webp"
+        alt={`${pandit.name} speaking at an event`}
+        width="1024" height="768"
+        loading="lazy" decoding="async"
+        class="parallax-slow"
+      />
+      <div class="feature-scrim"></div>
+    </div>
+
+    <div class="feature-copy">
+      <p class="eyebrow reveal-fade">The approach</p>
+      <h2 class="display-lg reveal mt-5">
+        Guidance that tells you what the chart<br class="hidden lg:block" />
+        shows — <span class="text-gold-grad">and what it doesn't</span>
+      </h2>
+      <p class="lead reveal mt-6">
+        Charts contain difficult periods as well as favourable ones, and both get described
+        accurately. What does not happen here is a difficult period being presented as a
+        catastrophe, or an expensive ritual positioned as the only thing standing between
+        a family and misfortune.
+      </p>
+      <p class="lead reveal mt-4">
+        We do not sell gemstones, yantras or remedy products. Where something is genuinely
+        indicated you are told what it is, and you buy it wherever you like.
+      </p>
+      <div class="reveal mt-9 flex flex-wrap gap-3">
+        <a class="btn btn-gold" href="/about-pandit-ji/">About Pandit Ji</a>
+        <a class="btn btn-ghost" href="/faq/">Read the FAQ</a>
       </div>
     </div>
   </section>
 
-  <!-- ================= REVIEWS ================= -->
-  <section class="section border-y border-line bg-paper-warm">
-    <div class="container-page">
-      <SectionHeading
-        eyebrow="Client Experiences"
-        title="What people say after a consultation"
-        align="center"
-        class="mb-14"
-      />
-      <ReviewBlock limit={6} />
-    </div>
-  </section>
+  <!-- ══════════════════════ SERVICES ══════════════════════ -->
+  <section class="section relative">
+    <CosmicBackground />
+    <div class="container-page relative z-10">
+      <header class="section-head">
+        <p class="eyebrow reveal-fade">Consultations</p>
+        <h2 class="display-xl reveal mt-5">
+          What families come<br class="hidden md:block" /> to us <span class="text-gold-grad">about</span>
+        </h2>
+        <p class="lead reveal mt-6 max-w-xl">
+          Twenty consultations, available at all three centres and online.
+          These are the six people ask for most.
+        </p>
+      </header>
 
-  <!-- ================= SERVICE AREAS ================= -->
-  <section class="section">
-    <div class="container-page">
-      <SectionHeading
-        eyebrow="Where we consult"
-        title="Neighbourhoods our three centres serve"
-        lead="Clients travel to us from across each city. These are the areas people most often come from."
-        class="mb-12"
-      />
-      <div class="grid gap-8 md:grid-cols-3">
-        {locations.map((l) => (
-          <div class="reveal">
-            <h3 class="font-display text-[1.3rem]" style="font-variation-settings:'SOFT' 16,'opsz' 40">
-              <a href={`/${l.slug}/`} class="hover:text-maroon">{l.city}</a>
+      <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 stagger">
+        {featured.map((s, i) => (
+          <article class="svc-card panel spotlight">
+            <div class="svc-top">
+              <span class="svc-icon"><ServiceIcon name={s.data.icon} size={24} /></span>
+              <span class="svc-num">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+
+            <h3 class="mt-7 font-display text-[1.6rem] leading-tight text-[--color-cream]">
+              <a href={`/services/${s.id}/`} class="after:absolute after:inset-0 after:content-['']">
+                {s.data.title}
+              </a>
             </h3>
-            <p class="mt-3 text-[0.93rem] leading-relaxed text-muted">
-              {l.areasServed.join(' · ')}
+
+            <p class="mt-3.5 text-[0.93rem] leading-relaxed text-[--color-mist]">
+              {s.data.summary}
             </p>
-          </div>
+
+            <span class="svc-more">
+              Explore
+              <svg width="13" height="11" viewBox="0 0 13 11" fill="none" aria-hidden="true">
+                <path d="M1 5.5h10M7.5 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </article>
         ))}
       </div>
+
+      <div class="mt-12 text-center">
+        <a class="btn btn-ghost reveal" href="/services/">View all 20 consultations</a>
+      </div>
     </div>
   </section>
 
-  <!-- ================= FAQ ================= -->
-  <section class="section border-t border-line bg-paper-warm">
-    <div class="container-page">
-      <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
-          <SectionHeading
-            eyebrow="Common Questions"
-            title="The questions people ask most"
-            lead="If yours is not here, ask on WhatsApp — you will get a straight answer."
-          />
-          <a class="btn btn-outline reveal mt-7" href="/faq/">See all questions</a>
-        </div>
+  <!-- ══════════════════════ PROCESS ══════════════════════ -->
+  <section class="section relative overflow-hidden">
+    <CosmicBackground />
+    <div class="container-page relative z-10">
+      <div class="grid gap-16 lg:grid-cols-[0.85fr_1.15fr]">
+        <header>
+          <p class="eyebrow reveal-fade">How it works</p>
+          <h2 class="display-xl reveal mt-5">
+            Four steps,<br /><span class="text-gold-grad">no mystery</span>
+          </h2>
+          <p class="lead reveal mt-6">
+            Fees are shared before anything is booked, and nothing is added afterwards.
+          </p>
+          <a class="btn btn-gold reveal mt-8" href="/contact/">Send your birth details</a>
+        </header>
+
+        <ol class="steps stagger">
+          {steps.map((s) => (
+            <li class="step">
+              <span class="step-n">{s.n}</span>
+              <div>
+                <h3 class="font-display text-[1.5rem] leading-tight text-[--color-cream]">{s.t}</h3>
+                <p class="mt-2 text-[0.95rem] leading-relaxed text-[--color-mist]">{s.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ REVIEWS ══════════════════════ -->
+  <section class="section relative">
+    <CosmicBackground />
+    <div class="container-page relative z-10">
+      <header class="section-head text-center">
+        <p class="eyebrow reveal-fade mx-auto">Client Experiences</p>
+        <h2 class="display-xl reveal mx-auto mt-5">
+          What people say <span class="text-gold-grad">afterwards</span>
+        </h2>
+      </header>
+      <div class="mt-14">
+        <ReviewBlock limit={3} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ FAQ ══════════════════════ -->
+  <section class="section relative">
+    <CosmicBackground />
+    <div class="container-page relative z-10">
+      <div class="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+        <header>
+          <p class="eyebrow reveal-fade">Questions</p>
+          <h2 class="display-xl reveal mt-5">
+            Asked <span class="text-gold-grad">most often</span>
+          </h2>
+          <p class="lead reveal mt-6">
+            Including the ones people are usually too polite to ask.
+          </p>
+          <a class="btn btn-ghost reveal mt-8" href="/faq/">See all questions</a>
+        </header>
         <FaqAccordion faqs={faqs} />
       </div>
     </div>
   </section>
 
-  <!-- ================= BLOG ================= -->
+  <!-- ══════════════════════ ARTICLES ══════════════════════ -->
   {posts.length > 0 && (
-    <section class="section">
-      <div class="container-page">
-        <div class="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            eyebrow="Articles"
-            title="Explained plainly, without the mystique"
-          />
-          <a class="btn btn-outline reveal shrink-0" href="/blog/">All articles</a>
-        </div>
-        <div class="grid gap-5 md:grid-cols-3">
+    <section class="section relative">
+      <CosmicBackground />
+      <div class="container-page relative z-10">
+        <header class="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow reveal-fade">Articles</p>
+            <h2 class="display-xl reveal mt-5">Explained <span class="text-gold-grad">plainly</span></h2>
+          </div>
+          <a class="btn btn-ghost reveal shrink-0" href="/blog/">All articles</a>
+        </header>
+
+        <div class="grid gap-5 md:grid-cols-3 stagger">
           {posts.map((p) => (
-            <article class="card card-hover reveal group relative p-6">
-              <time class="text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-gold" datetime={p.data.publishDate.toISOString()}>
+            <article class="post-card panel spotlight">
+              <time class="caps text-[--color-gold]" datetime={p.data.publishDate.toISOString()}>
                 {p.data.publishDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
               </time>
-              <h3 class="mt-3 font-display text-[1.2rem] leading-snug" style="font-variation-settings:'SOFT' 16,'opsz' 36">
+              <h3 class="mt-4 font-display text-[1.5rem] leading-tight text-[--color-cream]">
                 <a href={`/blog/${p.id}/`} class="after:absolute after:inset-0 after:content-['']">{p.data.title}</a>
               </h3>
-              <p class="mt-2.5 text-[0.92rem] leading-relaxed text-muted">{p.data.description}</p>
+              <p class="mt-3 text-[0.92rem] leading-relaxed text-[--color-mist]">{p.data.description}</p>
             </article>
           ))}
         </div>
@@ -375,56 +407,354 @@ const jsonLd = buildGraph(
     </section>
   )}
 
-  <CtaBand />
+  <!-- ══════════════════════ FINAL CTA ══════════════════════ -->
+  <section class="final-cta">
+    <CosmicBackground intensity="hero" constellations />
+    <div class="container-page relative z-10 text-center">
+      <div class="cta-wheel" aria-hidden="true"><ZodiacWheel /></div>
+
+      <p class="eyebrow reveal-fade mx-auto">Begin</p>
+      <h2 class="display-hero reveal mx-auto mt-6 max-w-4xl">
+        Your chart is already<br /><span class="text-gold-grad">written</span>
+      </h2>
+      <p class="lead reveal mx-auto mt-7 max-w-xl">
+        Send your date, time and place of birth. You will get a clear explanation of what
+        it shows — and an honest account of what it cannot tell you.
+      </p>
+
+      <div class="reveal mt-10 grid gap-3 sm:grid-cols-3 sm:gap-4">
+        {locations.map((l) => (
+          <a class="cta-city glass spotlight" href={`/${l.slug}/`}>
+            <span class="font-display text-[1.7rem] leading-none text-[--color-cream]">{l.city}</span>
+            <span class="mt-1.5 block text-[0.78rem] text-[--color-faint]">{l.locality}</span>
+            <span class="mt-3 block text-[0.86rem] font-semibold text-[--color-gold]">{l.phoneDisplay}</span>
+          </a>
+        ))}
+      </div>
+
+      <p class="reveal mt-9 text-[0.86rem] text-[--color-faint]">
+        Consultations in English, Telugu, Kannada, Hindi and Marathi · In person or online
+      </p>
+    </div>
+  </section>
+
 </BaseLayout>
 
 <style>
-  .hero-city {
-    display: flex; align-items: center; gap: 0.85rem;
-    padding: 1rem 1.25rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-card);
-    text-decoration: none;
-    text-align: left;
-    transition: transform 0.3s var(--ease-out-soft), border-color 0.3s ease, box-shadow 0.3s ease;
+  /* ════════════════ HERO ════════════════ */
+  .hero {
+    position: relative;
+    padding-block: clamp(3.5rem, 2rem + 5vw, 7rem) clamp(5rem, 3rem + 6vw, 9rem);
+    overflow: hidden;
   }
-  .hero-city:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--color-gold) 65%, transparent);
-    box-shadow: 0 16px 34px -22px rgb(31 26 36 / 0.4);
+  .hero-fade {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 14rem;
+    background: linear-gradient(180deg, transparent, var(--color-void));
+    pointer-events: none;
   }
-  .hero-city-name {
-    font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 18, 'opsz' 40;
-    font-size: 1.18rem; color: var(--color-ink);
+
+  /* Mobile: copy → portrait → pills, so the photograph appears while the
+     headline is still on screen instead of being pushed below the pills.
+     Desktop: two columns, with the portrait spanning both rows. */
+  .hero-grid {
+    display: grid;
+    gap: 2.75rem;
+    grid-template-areas:
+      'copy'
+      'visual'
+      'pills';
   }
-  .hero-city-area { flex: 1; font-size: 0.8rem; color: var(--color-muted); }
-  .hero-city-go {
-    display: grid; place-items: center;
-    width: 1.9rem; height: 1.9rem;
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1.02fr 0.98fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        'copy   visual'
+        'pills  visual';
+      gap: 2.5rem 3rem;
+      align-items: center;
+    }
+  }
+  .hero-copy   { grid-area: copy; }
+  .hero-visual { grid-area: visual; }
+  .hero-pills  { grid-area: pills; display: flex; flex-wrap: wrap; gap: 0.65rem; }
+
+  .hero-copy h1 { margin-top: 1.5rem; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
     border-radius: var(--radius-pill);
-    background: var(--color-gold-tint);
-    color: var(--color-maroon);
-    transition: translate 0.28s var(--ease-out-soft);
+    background: rgb(255 255 255 / 0.045);
+    border: 1px solid var(--color-hairline);
+    font-size: 0.79rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-mist);
+    backdrop-filter: blur(8px);
   }
-  .hero-city:hover .hero-city-go { translate: 3px 0; }
+
+  /* — Portrait + wheel composition — */
+  .hero-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 20rem;
+  }
+  @media (min-width: 1024px) { .hero-visual { min-height: 34rem; } }
+
+  .wheel-wrap {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0.9;
+  }
+  .wheel-wrap :global(.wheel) { width: min(112%, 34rem); }
+  @media (max-width: 1023px) {
+    .wheel-wrap :global(.wheel) { width: min(96%, 26rem); }
+  }
 
   .portrait {
     position: relative;
+    z-index: 2;
+    width: min(64%, 19rem);
+    aspect-ratio: 3 / 4;
     overflow: hidden;
-    border-radius: var(--radius-card);
-    border: 1px solid var(--color-line);
-    background: var(--color-paper-warm);
-    aspect-ratio: 4 / 5;
+    /* Traditional temple arch. */
+    border-radius: 999px 999px 1.25rem 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+    box-shadow:
+      0 0 0 1px rgb(0 0 0 / 0.5),
+      0 40px 90px -30px rgb(0 0 0 / 0.9),
+      inset 0 0 60px rgb(0 0 0 / 0.35);
+    transition: transform 0.5s var(--ease-out-soft);
+    transform: perspective(1100px);
   }
-  .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 52% 22%;   /* keeps the face centred in the arch */
+    display: block;
+  }
+  .portrait figcaption {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: 3.5rem 1.25rem 1.25rem;
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgb(4 5 10 / 0.92));
+  }
 
-  .why-icon {
+  /* — Floating chips — */
+  .chip {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    justify-items: center;
+    padding: 0.85rem 1.1rem;
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--color-deep) 82%, transparent);
+    border: 1px solid var(--color-hairline-strong);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 20px 44px -22px rgb(0 0 0 / 0.9);
+  }
+  .chip b {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    line-height: 1;
+    font-weight: 600;
+    color: var(--color-gold-bright);
+  }
+  .chip i {
+    font-style: normal;
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+  .chip-1 { left: 2%;  top: 24%; }
+  .chip-2 { right: 3%; bottom: 20%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip-1 { animation: float-soft 6s var(--ease-in-out-soft) infinite alternate; }
+    .chip-2 { animation: float-soft 7.5s var(--ease-in-out-soft) infinite alternate-reverse; }
+  }
+  @media (max-width: 420px) { .chip { display: none; } }
+
+  /* ════════════════ MARQUEE ════════════════ */
+  .marquee-band {
+    position: relative;
+    z-index: 10;
+    border-block: 1px solid var(--color-hairline);
+    background: color-mix(in srgb, var(--color-night) 70%, transparent);
+    padding-block: 1.35rem;
+    backdrop-filter: blur(10px);
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 3.5rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+    color: color-mix(in srgb, var(--color-cream) 55%, transparent);
+    white-space: nowrap;
+  }
+  .marquee-dot {
+    width: 5px; height: 5px;
+    rotate: 45deg;
+    background: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  /* ════════════════ SECTION HEAD ════════════════ */
+  .section-head { max-width: 46rem; }
+  .section-head.text-center { margin-inline: auto; }
+
+  /* ════════════════ CENTRE CARDS ════════════════ */
+  .centre-card {
+    position: relative;
+    padding: 2.25rem 2rem 2rem;
+    overflow: hidden;
+  }
+  .centre-index {
+    position: absolute;
+    top: 1.25rem; right: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 3.75rem;
+    line-height: 1;
+    color: color-mix(in srgb, var(--color-gold) 14%, transparent);
+    pointer-events: none;
+  }
+  .centre-meta {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-hairline);
+  }
+  .centre-meta dt {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+  .centre-meta dd { margin-top: 0.3rem; font-size: 0.86rem; color: var(--color-mist); }
+
+  /* ════════════════ FEATURE BAND ════════════════ */
+  .feature-band {
+    position: relative;
+    display: grid;
+    align-items: center;
+    background: linear-gradient(180deg, var(--color-night), var(--color-void));
+    border-block: 1px solid var(--color-hairline);
+    overflow: hidden;
+  }
+  @media (min-width: 1024px) {
+    .feature-band { grid-template-columns: 1fr 1fr; }
+  }
+  .feature-media { position: relative; overflow: hidden; min-height: 22rem; }
+  @media (min-width: 1024px) { .feature-media { min-height: 40rem; height: 100%; } }
+  .feature-media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 28%;
+    display: block;
+    scale: 1.1;
+  }
+  .feature-scrim {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgb(4 5 10 / 0.5), transparent 45%, rgb(4 5 10 / 0.85)),
+      linear-gradient(180deg, rgb(4 5 10 / 0.55), transparent 30%, rgb(4 5 10 / 0.75));
+  }
+  @media (max-width: 1023px) {
+    .feature-scrim { background: linear-gradient(180deg, rgb(4 5 10 / 0.35), var(--color-void) 92%); }
+  }
+  .feature-copy {
+    position: relative;
+    z-index: 2;
+    padding: clamp(3rem, 2rem + 4vw, 6rem) clamp(1.25rem, 1rem + 3vw, 5rem);
+    max-width: 40rem;
+  }
+
+  /* ════════════════ SERVICE CARDS ════════════════ */
+  .svc-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.85rem 1.85rem;
+    min-height: 17rem;
+  }
+  .svc-top { display: flex; align-items: center; justify-content: space-between; }
+  .svc-icon {
     display: grid; place-items: center;
-    width: 2.6rem; height: 2.6rem;
-    border-radius: 0.55rem;
-    background: var(--color-gold-tint);
-    color: var(--color-maroon);
+    width: 3.35rem; height: 3.35rem;
+    border-radius: 0.9rem;
+    background: linear-gradient(150deg, color-mix(in srgb, var(--color-gold) 22%, transparent), transparent);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 26%, transparent);
+    color: var(--color-gold-bright);
+    transition: transform 0.5s var(--ease-out-soft);
+  }
+  .svc-card:hover .svc-icon { transform: translateY(-3px) rotate(-6deg); }
+  .svc-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    line-height: 1;
+    color: color-mix(in srgb, var(--color-gold) 18%, transparent);
+  }
+  .svc-more {
+    margin-top: auto;
+    padding-top: 1.75rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em;
+    color: var(--color-gold);
+  }
+  .svc-more svg { transition: translate 0.35s var(--ease-out-soft); }
+  .svc-card:hover .svc-more svg { translate: 4px 0; }
+
+  /* ════════════════ STEPS ════════════════ */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.25rem; }
+  .step { display: flex; gap: 1.5rem; }
+  .step-n {
+    flex-shrink: 0;
+    display: grid; place-items: center;
+    width: 3.5rem; height: 3.5rem;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--color-gold) 32%, transparent);
+    background: linear-gradient(150deg, color-mix(in srgb, var(--color-gold) 14%, transparent), transparent);
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--color-gold-bright);
+  }
+
+  /* ════════════════ POST CARDS ════════════════ */
+  .post-card { position: relative; padding: 1.85rem; }
+
+  /* ════════════════ FINAL CTA ════════════════ */
+  .final-cta {
+    position: relative;
+    padding-block: clamp(5rem, 3rem + 6vw, 9rem);
+    overflow: hidden;
+    border-top: 1px solid var(--color-hairline);
+  }
+  .cta-wheel {
+    position: absolute;
+    top: 50%; left: 50%;
+    translate: -50% -50%;
+    width: min(120vw, 54rem);
+    opacity: 0.16;
+    pointer-events: none;
+  }
+  .cta-city {
+    display: block;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    text-decoration: none;
   }
 </style>

@@ -38,8 +38,8 @@ const { faqs, openFirst = true } = Astro.props;
   .faq-list { display: grid; gap: 0.6rem; }
 
   .faq-item {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
+    background: var(--color-elevated);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-card);
     overflow: hidden;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
@@ -57,12 +57,11 @@ const { faqs, openFirst = true } = Astro.props;
     list-style: none;
   }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary:hover h3 { color: var(--color-maroon); }
+  .faq-item summary:hover h3 { color: var(--color-gold); }
 
   .faq-item h3 {
     margin: 0;
     font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 14, 'opsz' 32;
     font-size: 1.06rem;
     font-weight: 550;
     line-height: 1.4;
@@ -76,11 +75,11 @@ const { faqs, openFirst = true } = Astro.props;
     width: 1.6rem; height: 1.6rem;
     margin-top: 0.15rem;
     border-radius: var(--radius-pill);
-    background: var(--color-gold-tint);
-    color: var(--color-maroon);
+    background: var(--color-deep);
+    color: var(--color-gold);
     transition: rotate 0.3s var(--ease-out-soft), background-color 0.25s ease;
   }
-  .faq-item[open] .faq-icon { rotate: 45deg; background: var(--color-maroon-tint); }
+  .faq-item[open] .faq-icon { rotate: 45deg; background: var(--color-deep); }
 
   .faq-answer {
     padding: 0 1.35rem 1.3rem;
@@ -88,7 +87,7 @@ const { faqs, openFirst = true } = Astro.props;
   }
   .faq-answer p {
     margin: 0;
-    color: var(--color-ink-soft);
+    color: var(--color-mist);
     font-size: 0.985rem;
     line-height: 1.72;
   }
