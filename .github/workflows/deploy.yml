@@ -20,9 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Astro 6 requires Node >= 22.12. `.nvmrc` pins the same version locally,
+      # so CI and dev can never drift apart.
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
