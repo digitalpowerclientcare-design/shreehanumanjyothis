@@ -32,7 +32,10 @@ jobs:
       - name: Astro check
         run: npx astro check
 
-      - name: Build
+      # `npm run build` also runs verify:migration, which fails the build if any
+      # old WordPress URL is unhandled or points at a page that does not exist.
+      # A redirect into a 404 is worse than no redirect at all.
+      - name: Build and verify URL migration
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3

@@ -4,10 +4,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run verify:migration",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "verify:migration": "tsx scripts/verify-migration.mjs"
   },
   "description": "Sri Hanuman Jyothishyalayam — Astro static site",
   "dependencies": {
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "tsx": "^4.23.12",
     "typescript": "^5.9.3"
   }
 }

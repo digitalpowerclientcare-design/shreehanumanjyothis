@@ -229,9 +229,23 @@ export const locations: Location[] = [
       'Supermarket. It is a short ride from KPHB Colony and Nizampet, and consultations here are ' +
       'usually held in Telugu, Hindi or English.',
     reviews: { rating: null, count: null },
+    /**
+     * Hyderabad carries more city pages than the other two centres, and that is
+     * deliberate rather than a doorway-page slip: the old WordPress site had
+     * indexed, geo-targeted pages for each of these topics. Redirecting
+     * "Kaal Sarp Dosh in Hyderabad" to a city-neutral page would preserve the
+     * topic but throw away the location relevance it already earned, so the
+     * last four exist to receive that equity one-to-one.
+     *
+     * Bengaluru and Mumbai have no such history, so they stay at six until
+     * Search Console shows city-qualified impressions for them.
+     */
     tier1Services: [
       'kundli-matching', 'jataka-matching', 'marriage-guidance',
       'kundli-reading', 'vastu-for-home', 'career-astrology',
+      // Migration targets — see src/data/redirects.ts
+      'relationship-guidance', 'marriage-delay',
+      'kaal-sarp-dosha', 'navagraha-shanti-puja',
     ],
   },
 
