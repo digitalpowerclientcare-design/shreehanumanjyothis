@@ -279,6 +279,8 @@
      and a 12-line pointer listener instead of a 125KB React bundle. */
   .spotlight {
     position: relative;
+    /* Creates a stacking context, which lets the gradient sit at z-index -1:
+       above this element's own background but below all of its content. */
     isolation: isolate;
     transition: transform 0.5s var(--ease-out-soft), border-color 0.5s ease;
   }
@@ -294,14 +296,23 @@
     opacity: 0;
     transition: opacity 0.45s ease;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;
   }
   .spotlight:hover::before { opacity: 1; }
   .spotlight:hover {
     transform: translateY(-5px);
     border-color: color-mix(in srgb, var(--color-gold) 42%, transparent);
   }
-  .spotlight > * { position: relative; z-index: 1; }
+
+  /* NOTE: children are deliberately NOT given `position: relative` here.
+     Doing so made every card heading a containing block, which meant the
+     stretched card link (`a::after { inset: 0 }`) covered only the heading
+     instead of the whole card — so most of each card was not tappable. The
+     z-index:-1 gradient above removes the need to lift children at all. */
+
+  /* Stretched card link: sits above the card, below any real controls
+     (phone/directions buttons carry z-10). */
+  .spotlight a::after { z-index: 1; }
 
   /* Hairline that draws itself in as it scrolls into view. */
   .rule-gold {
@@ -344,10 +355,31 @@
   }
   .prose-shj a:hover { text-decoration-color: var(--color-gold); }
   .prose-shj strong { font-weight: 650; color: var(--color-cream); }
+  /* Tables scroll inside their own box (wrapper added by rehypeWrapTables).
+     `min-width` is the important half: without it the table just crushes to
+     fit and never triggers the scroller. */
+  .table-scroll {
+    margin-block: 1.75rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    border: 1px solid var(--color-hairline);
+    border-radius: 0.75rem;
+    /* Fades the right edge so it reads as "there is more this way". */
+    mask-image: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+  }
+  @media (min-width: 700px) {
+    .table-scroll { mask-image: none; }
+  }
+  .table-scroll table { margin-block: 0 !important; }
+
   .prose-shj table {
     width: 100%; border-collapse: collapse;
-    margin-block: 1.75rem; font-size: 0.95rem;
+    min-width: 30rem;
+    font-size: 0.95rem;
   }
+  .prose-shj table th:last-child,
+  .prose-shj table td:last-child { padding-right: 1.5rem; }
   .prose-shj th, .prose-shj td {
     padding: 0.8rem 0.9rem;
     border-bottom: 1px solid var(--color-hairline);
@@ -618,4 +650,69 @@
     filter: blur(38px);
     z-index: -1;
   }
+}
+
+/* ==========================================================================
+   MOBILE
+   Audited at 375px across the homepage, city, service, article, FAQ and
+   contact templates. Three real defects were found and are fixed here:
+   29 tap targets under the 44px floor, body-adjacent text down to 10.2px,
+   and markdown tables crushing instead of scrolling (see rehypeWrapTables).
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  /* — Tap targets ————————————————————————————
+     WCAG 2.5.8 asks for 24px minimum; 44px is the practical thumb target and
+     what Lighthouse checks. Inline text links inside prose are exempt — padding
+     them out would wreck the line rhythm — but every standalone link and every
+     navigation/footer link gets there. */
+  footer a,
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  footer li { line-height: 1.2; }
+
+  /* Phone numbers are the single most-tapped element on a phone. */
+  footer a[href^='tel:'],
+  footer a[href^='mailto:'] {
+    min-height: 46px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .btn { min-height: 3.25rem; padding-inline: 1.5rem; }
+
+  /* Logo lockup is 42px tall; pad the anchor to clear the 44px floor. */
+  header a[aria-label] { display: inline-flex; align-items: center; min-height: 46px; }
+
+  /* — Legibility ————————————————————————————
+     Nothing that carries meaning drops below ~12.5px, and definition labels
+     (previously 10.2px) come up to a readable size. */
+  .caps { font-size: 0.74rem; letter-spacing: 0.2em; }
+  .eyebrow { font-size: 0.745rem; letter-spacing: 0.18em; }
+  .pill { font-size: 0.82rem; }
+
+  dl dt { font-size: 0.72rem !important; }
+  dl dd { font-size: 0.9rem !important; }
+
+  /* — Rhythm ————————————————————————————————
+     Desktop section padding is far too generous on a 375px screen; it turns
+     into a lot of scrolling past empty space. */
+  .section { padding-block: 3.75rem; }
+  .container-page { padding-inline: 1.15rem; }
+
+  /* Long unbroken strings (URLs, addresses) must not force a sideways scroll. */
+  h1, h2, h3, p, li, address, dd { overflow-wrap: anywhere; }
+
+  /* Nothing should hide behind the fixed bottom action bar — but only reserve
+     the space on pages that actually have one (contact does not). */
+  body:has(.sticky-cta) { padding-bottom: 4.5rem; }
+}
+
+/* Fine-grained tuning for the narrowest common phones. */
+@media (max-width: 380px) {
+  .container-page { padding-inline: 1rem; }
+  .btn { padding-inline: 1.25rem; font-size: 0.86rem; }
 }

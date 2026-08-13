@@ -243,6 +243,32 @@ const jsonLd = buildGraph(
     margin-top: 1.5rem;
     font-size: 0.8rem; line-height: 1.6; color: var(--color-faint);
   }
+
+  @media (max-width: 767px) {
+    /* iOS Safari zooms the whole page when a focused field is under 16px.
+       This is the single most disruptive form bug on iPhone, and the fix is
+       simply never to go below 16px on a touch device. */
+    .field input,
+    .field select {
+      font-size: 16px;
+      min-height: 3.25rem;
+    }
+
+    /* Radios were 17px tall with 25px labels — well under a thumb. */
+    .radios { gap: 0.25rem; flex-direction: column; }
+    .radio {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 46px;
+      width: 100%;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.95rem;
+    }
+    .radio input { width: 1.35rem; height: 1.35rem; flex-shrink: 0; }
+
+    .chip span { min-height: 2.85rem; font-size: 0.9rem; }
+  }
   .privacy-note a, .inline-link {
     color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px;
   }

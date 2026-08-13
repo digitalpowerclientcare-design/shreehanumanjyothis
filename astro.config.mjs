@@ -8,6 +8,41 @@ import { redirectMap, redirects as redirectRules } from './src/data/redirects.ts
 // pages, and listing them tells Google to crawl URLs we are trying to retire.
 const redirectPaths = new Set(redirectRules.map((r) => r.from));
 
+/**
+ * Wrap every markdown table in a horizontally scrollable container.
+ *
+ * Without this a 3-column table does not overflow the page — it simply crushes,
+ * because tables shrink to fit. At 375px that left cells 75px wide holding
+ * phrases like "Mental and intellectual compatibility". Wrapping lets the table
+ * keep a readable minimum width and scroll inside its own box, so the page body
+ * still never scrolls sideways.
+ */
+function rehypeWrapTables() {
+  /** @param {any} tree */
+  return (tree) => {
+    /** @param {any} child @returns {any} */
+    const wrapIfTable = (child) => {
+      walk(child);
+      if (child.type === 'element' && child.tagName === 'table') {
+        return {
+          type: 'element',
+          tagName: 'div',
+          properties: { className: ['table-scroll'] },
+          children: [child],
+        };
+      }
+      return child;
+    };
+
+    /** @param {any} node */
+    const walk = (node) => {
+      if (!Array.isArray(node.children)) return;
+      node.children = node.children.map(wrapIfTable);
+    };
+    walk(tree);
+  };
+}
+
 // NOTE: `site` must match the final production domain exactly.
 // It drives canonical URLs, sitemap.xml and all absolute JSON-LD @id values.
 export default defineConfig({
@@ -39,6 +74,10 @@ export default defineConfig({
       lastmod: new Date(),
     }),
   ],
+
+  markdown: {
+    rehypePlugins: [rehypeWrapTables],
+  },
 
   vite: {
     plugins: [tailwindcss()],

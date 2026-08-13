@@ -117,6 +117,14 @@ const primary = locations[0];
     border-bottom-color: var(--color-hairline);
     backdrop-filter: blur(18px) saturate(140%);
   }
+  /* On a phone the header sits directly over body copy, and 78% let text bleed
+     through behind the logo. There is far less to see through on mobile, so
+     trade the translucency for legibility. */
+  @media (max-width: 767px) {
+    .site-header.is-scrolled {
+      background: color-mix(in srgb, var(--color-void) 94%, transparent);
+    }
+  }
 
   .nav-link {
     display: inline-flex;
