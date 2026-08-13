@@ -2,7 +2,15 @@
 import { locations, telLink, whatsappLink } from '@/data/business';
 import Logo from '@/components/Logo.astro';
 
-const primary = locations[0];
+/**
+ * The header CTA follows the page's city.
+ *
+ * It previously always used locations[0] (Bengaluru), which meant a visitor on
+ * /hyderabad/ tapping "Call" in the header reached the wrong centre entirely —
+ * a silent conversion leak on every city and city-service page.
+ */
+const firstSegment = Astro.url.pathname.split('/').filter(Boolean)[0];
+const primary = locations.find((l) => l.slug === firstSegment) ?? locations[0];
 ---
 
 <header data-header class="site-header">

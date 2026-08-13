@@ -1,21 +1,26 @@
 ---
-title: Kundli Matching for Marriage
+title: Kundali Matching for Marriage
 order: 1
 tier: 1
 icon: rings
 summary: Guna Milan and dosha assessment for marriage alliances, based on both horoscopes read together rather than a score alone.
-leadAnswer: Kundli matching compares two birth charts to assess compatibility before a marriage alliance. The traditional Ashtakoot method scores eight factors out of 36 points, but the score is only a starting point — the full chart, dasha periods and dosha positions matter more than the number.
-targetKeyword: kundli matching
+leadAnswer: Kundali matching — also written kundli matching or patrika matching — compares two birth charts to assess compatibility before a marriage alliance. The traditional Ashtakoot method scores eight factors out of 36 points, but the score is only a starting point — the full chart, dasha periods and dosha positions matter more than the number.
+targetKeyword: kundali matching
 secondaryKeywords:
+  - kundli matching
+  - kundali matching for marriage
+  - patrika matching
+  - janmakshar matching
+  - match making kundali
   - guna milan
   - 36 guna matching
   - ashtakoot milan
   - horoscope matching for marriage
   - kundali milan
-metaTitle: Kundli Matching for Marriage | Guna Milan & Dosha Check
-metaDescription: Kundli matching with Pandit Sri Pandu Ranga Shastri Ji — Guna Milan, dosha assessment and a plain explanation of what the score does and does not mean.
-h1: Kundli Matching for Marriage
-cityH1Pattern: Kundli Matching for Marriage in {city}
+metaTitle: Kundali Matching for Marriage | Guna Milan & Kundli Milan
+metaDescription: Kundali matching (Kundli Milan) with Pandit Sri Pandu Ranga Shastri Ji — Guna Milan, dosha assessment and a plain explanation of what the score does and does not mean.
+h1: Kundali Matching for Marriage
+cityH1Pattern: Kundali Matching for Marriage in {city}
 relatedServices:
   - jataka-matching
   - mangal-dosha

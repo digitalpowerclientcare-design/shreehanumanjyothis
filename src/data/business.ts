@@ -186,6 +186,7 @@ export const locations: Location[] = [
     tier1Services: [
       'kundli-matching', 'jataka-matching', 'marriage-guidance',
       'kundli-reading', 'vastu-for-home', 'career-astrology',
+      'birth-chart-by-date-of-birth',
     ],
   },
 
@@ -243,6 +244,7 @@ export const locations: Location[] = [
     tier1Services: [
       'kundli-matching', 'jataka-matching', 'marriage-guidance',
       'kundli-reading', 'vastu-for-home', 'career-astrology',
+      'birth-chart-by-date-of-birth',
       // Migration targets — see src/data/redirects.ts
       'relationship-guidance', 'marriage-delay',
       'kaal-sarp-dosha', 'navagraha-shanti-puja',
@@ -290,6 +292,7 @@ export const locations: Location[] = [
     tier1Services: [
       'kundli-matching', 'marriage-guidance', 'kundli-reading',
       'vastu-for-home', 'career-astrology', 'prasna-jyotish',
+      'birth-chart-by-date-of-birth',
     ],
   },
 ];

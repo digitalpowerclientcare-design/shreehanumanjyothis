@@ -4,11 +4,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && npm run verify:migration",
+    "build": "astro build && npm run verify:migration && npm run verify:schema",
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "verify:migration": "tsx scripts/verify-migration.mjs"
+    "verify:migration": "tsx scripts/verify-migration.mjs",
+    "verify:schema": "node scripts/verify-schema.mjs"
   },
   "description": "Sri Hanuman Jyothishyalayam — Astro static site",
   "dependencies": {

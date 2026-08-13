@@ -1,25 +1,30 @@
 ---
-title: Marriage Delay — Astrological Analysis
+title: When Will I Get Married?
 order: 9
 tier: 2
 icon: clock
-summary: An examination of the chart factors behind a delayed marriage, and what the dasha periods indicate about timing.
-leadAnswer: Marriage delay analysis examines the seventh house, Venus, Jupiter and the running dasha periods to identify what the chart indicates about the timing of marriage. It gives an indicative window, not a date — no chart can supply a wedding date for an event that has not been arranged.
-targetKeyword: marriage delay astrology
+summary: Marriage timing read from the seventh house, Venus, Jupiter and your dasha periods — with an honest account of what a chart can and cannot date.
+leadAnswer: A birth chart indicates periods when marriage is more strongly supported, read from the seventh house, its lord, Venus, Jupiter and the running dasha. It gives a window of months, not a date. No chart can supply a wedding date for a marriage that has not yet been arranged.
+targetKeyword: when will i get married
 secondaryKeywords:
+  - marriage prediction by date of birth
+  - meri shadi kab hogi
+  - marriage delay astrology
   - late marriage astrology
-  - when will I get married astrology
   - marriage timing horoscope
-metaTitle: Marriage Delay Astrology | Chart Analysis & Timing Indications
-metaDescription: A calm, chart-based look at marriage delay — the factors involved, what the dasha periods indicate, and honest limits on timing predictions.
-h1: Marriage Delay — Astrological Analysis
-cityH1Pattern: Marriage Delay Astrology in {city}
+  - marriage age prediction
+metaTitle: When Will I Get Married? Marriage Timing by Date of Birth
+metaDescription: What your birth chart indicates about marriage timing — the seventh house, Venus, Jupiter and dasha periods, read plainly. Windows, not dates, and no guarantees.
+h1: When Will I Get Married?
+cityH1Pattern: Marriage Timing & Delay Astrology in {city}
 relatedServices:
   - mangal-dosha
   - kundli-matching
   - marriage-guidance
 complianceNote: Timing indications are given as periods, never as specific dates, and no marriage outcome is guaranteed.
 faqs:
+  - question: When will I get married according to my date of birth?
+    answer: Your chart indicates supportive periods rather than a date. The seventh house and its lord, the position of Venus and Jupiter, and the dasha and antardasha you are running together suggest windows of several months where marriage is more strongly supported. To read this properly we need date, time and place of birth — the time especially, because the seventh house shifts with the lagna.
   - question: Can astrology tell me exactly when I will get married?
     answer: No. It can indicate periods that are more supportive than others, based on dasha, antardasha and the transits of Jupiter and Saturn over the seventh house. Those come as windows of several months. Anyone giving you a specific month and year for a marriage that has not yet been arranged is telling you something the method cannot support.
   - question: Why is my marriage delayed?
