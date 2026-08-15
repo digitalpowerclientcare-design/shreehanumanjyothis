@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CosmicBackground from '@/components/CosmicBackground.astro';
 import ZodiacWheel from '@/components/ZodiacWheel.astro';
+import AnswerBlock from '@/components/AnswerBlock.astro';
 import ServiceIcon from '@/components/ServiceIcon.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import ReviewBlock from '@/components/ReviewBlock.astro';
@@ -171,6 +172,25 @@ const steps = [
 
     <div class="hero-fade"></div>
   </section>
+
+  <!-- ══════════════════════ ANSWER-FIRST (AEO) ══════════════════════
+       Sits immediately after the hero, inside the first 30% of page text,
+       where 44.2% of LLM citations are drawn from. Written to answer the
+       recommendation queries the Search Terms Report actually shows —
+       "best astrologer hyderabad", "genuine astrologer in hyderabad",
+       "best telugu astrologer in hyderabad" — as one liftable paragraph. -->
+  <AnswerBlock
+    question="Who is Pandit Sri Pandu Ranga Shastri Ji?"
+    answer={`${pandit.name} is a Vedic astrologer and Vastu consultant with more than ${pandit.yearsExperience} years of practice. He consults in person from three centres — Sadashiva Nagar in Bengaluru, Kukatpally in Hyderabad and Prabhadevi in Mumbai — and online across India and abroad, in Telugu, Kannada, Hindi, Marathi and English. Fees are shared before any booking, and remedies are suggested only where a chart indicates them.`}
+    facts={[
+      { label: 'Practice', value: `Vedic astrology & Vastu, ${pandit.yearsExperience}+ years` },
+      { label: 'Centres', value: locations.map((l) => `${l.city} (${l.locality})`).join(' · ') },
+      { label: 'Languages', value: 'Telugu, Kannada, Hindi, Marathi, English' },
+      { label: 'Formats', value: 'In person at any centre, or online by call/video' },
+      { label: 'Main services', value: 'Kundali matching, birth chart reading, Vastu, Muhurtha' },
+      { label: 'Fees', value: 'Quoted before booking; no gemstones or products sold' },
+    ]}
+  />
 
   <!-- ══════════════════════ MARQUEE ══════════════════════ -->
   <div class="marquee-band">

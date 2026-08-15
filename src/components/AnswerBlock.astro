@@ -1,0 +1,127 @@
+---
+import { locations, pandit, brand } from '@/data/business';
+
+/**
+ * ============================================================================
+ *  ANSWER-FIRST BLOCK  (AEO / GEO)
+ * ============================================================================
+ *
+ *  Research on 680M LLM citations found 44.2% come from the first 30% of a
+ *  page. An audit of our own built pages showed service and article pages
+ *  landing their answer at 8–12% — but the homepage and the three city hubs had
+ *  no answer-first block at all. Those are exactly the pages an assistant lands
+ *  on for "who is the best astrologer in Hyderabad", which the Search Terms
+ *  Report shows is a real, high-impression query family (568 recommendation
+ *  queries, 2,702 impressions).
+ *
+ *  Two parts, both deliberately structured for extraction:
+ *
+ *  1. A 40–60 word self-contained answer. It must make sense lifted out of the
+ *     page with no surrounding context — that is what gets quoted.
+ *  2. A <dl> of discrete facts. Each row is one atomic claim, which is the
+ *     "semantic chunking" the GEO-SFE research describes: a 120-word block of
+ *     clean facts beats a 3,000-word article for retrieval.
+ *
+ *  Server-rendered, no JS. AI crawlers do not execute JavaScript.
+ * ============================================================================
+ */
+
+interface Fact { label: string; value: string }
+
+interface Props {
+  /** The self-contained answer. 40–60 words. */
+  answer: string;
+  facts?: Fact[];
+  /** Heading rendered above the block; kept as a real question. */
+  question?: string;
+  class?: string;
+}
+
+const { answer, facts = [], question, class: className = '' } = Astro.props;
+---
+
+<section class={`answer-block ${className}`}>
+  <div class="container-page">
+    <div class="answer-inner">
+      {question && <h2 class="answer-q">{question}</h2>}
+
+      <p class="answer-text">{answer}</p>
+
+      {facts.length > 0 && (
+        <dl class="answer-facts">
+          {facts.map((f) => (
+            <div class="answer-fact">
+              <dt>{f.label}</dt>
+              <dd>{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .answer-block {
+    position: relative;
+    z-index: 1;
+    padding-block: 3rem;
+    border-block: 1px solid var(--color-hairline);
+    background: linear-gradient(180deg, var(--color-night), var(--color-void));
+  }
+  @media (min-width: 768px) { .answer-block { padding-block: 4rem; } }
+
+  .answer-inner { max-width: 58rem; margin-inline: auto; }
+
+  .answer-q {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1.2rem + 1vw, 1.95rem);
+    line-height: 1.2;
+    color: var(--color-cream);
+    margin-bottom: 1rem;
+  }
+
+  /* Larger than body copy on purpose — this is the paragraph that gets quoted. */
+  .answer-text {
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.22rem);
+    line-height: 1.68;
+    color: var(--color-cream);
+    padding-inline-start: 1.4rem;
+    border-inline-start: 2px solid var(--color-gold);
+    max-width: 48rem;
+  }
+
+  .answer-facts {
+    display: grid;
+    gap: 0;
+    margin-top: 2.25rem;
+    border-top: 1px solid var(--color-hairline);
+  }
+  @media (min-width: 640px) {
+    .answer-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; }
+  }
+
+  .answer-fact {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .answer-fact dt {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+  .answer-fact dd {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--color-mist);
+    text-align: right;
+  }
+</style>

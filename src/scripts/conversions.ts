@@ -56,27 +56,28 @@ declare global {
 /*  Lookups built at compile time from business.ts                            */
 /* -------------------------------------------------------------------------- */
 
-const digits = (s: string) => s.replace(/\D/g, '');
-
-const phoneToCity = new Map<string, string>();
-const waToCity = new Map<string, string>();
 const mapUrlToCity = new Map<string, string>();
+for (const loc of locations) mapUrlToCity.set(loc.mapUrl, loc.slug);
 
-for (const loc of locations) {
-  phoneToCity.set(digits(loc.phoneE164), loc.slug);
-  waToCity.set(digits(loc.whatsappE164), loc.slug);
-  mapUrlToCity.set(loc.mapUrl, loc.slug);
+/** The centre the visitor is actually looking at, from the URL. */
+function cityFromPath(): string {
+  const seg = location.pathname.split('/').filter(Boolean)[0];
+  return locations.some((l) => l.slug === seg) ? seg : 'none';
 }
 
-/** Which centre does this href belong to? */
+/**
+ * Which centre does this click belong to?
+ *
+ * All three centres share a single phone and WhatsApp line, so the number
+ * cannot identify the centre — attributing by phone would tag every call as
+ * Bengaluru. Page context is the only honest signal for call/WhatsApp.
+ * Map links remain per-centre, so those still resolve from the href.
+ */
 function cityFromHref(href: string): string {
-  if (href.startsWith('tel:')) return phoneToCity.get(digits(href)) ?? 'unknown';
-  if (href.includes('wa.me/')) {
-    const n = digits(href.split('wa.me/')[1]?.split('?')[0] ?? '');
-    return waToCity.get(n) ?? 'unknown';
+  for (const [url, slug] of mapUrlToCity) {
+    if (href.startsWith(url)) return slug;
   }
-  for (const [url, slug] of mapUrlToCity) if (href.startsWith(url)) return slug;
-  return 'unknown';
+  return cityFromPath();
 }
 
 /** Where on the page did the click happen? Useful for judging which CTA works. */

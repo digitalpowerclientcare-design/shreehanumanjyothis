@@ -11,6 +11,7 @@ import ReviewBlock from '@/components/ReviewBlock.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import StickyMobileCTA from '@/components/StickyMobileCTA.astro';
 import Ornament from '@/components/Ornament.astro';
+import AnswerBlock from '@/components/AnswerBlock.astro';
 import { locations, pandit, brand, telLink, whatsappLink, abs } from '@/data/business';
 import {
   buildGraph, organizationSchema, personSchema,
@@ -135,6 +136,27 @@ const jsonLd = buildGraph(
       </div>
     </div>
   </section>
+
+  <!-- ============ ANSWER-FIRST (AEO) ============
+       Targets the recommendation query family the Search Terms Report shows is
+       real — "best astrologer hyderabad" (259 impr), "genuine astrologer in
+       hyderabad", "best telugu astrologer in hyderabad". Written as one
+       self-contained paragraph that still makes sense lifted out of the page,
+       since that is the unit an assistant quotes. -->
+  <AnswerBlock
+    question={`Is there a good astrologer in ${loc.city}?`}
+    answer={`${pandit.name} consults from ${loc.locality} in ${loc.city}, with more than ${pandit.yearsExperience} years of Vedic astrology practice. The centre offers kundali matching, birth chart readings, Vastu and Muhurtha, in ${loc.languages.join(', ')}. The centre is open ${loc.hoursDisplay}. Fees are quoted before booking, and no gemstones or remedy products are sold.`}
+    facts={[
+      { label: 'Astrologer', value: pandit.name },
+      { label: 'Address', value: `${loc.streetAddress}, ${loc.city} ${loc.postalCode}` },
+      { label: 'Landmark', value: loc.landmark },
+      { label: 'Phone', value: loc.phoneDisplay },
+      { label: 'Hours', value: loc.hoursDisplay },
+      { label: 'Languages', value: loc.languages.join(', ') },
+      { label: 'Areas served', value: loc.areasServed.slice(0, 6).join(', ') },
+      { label: 'Also online', value: 'Consultations by call or video across India and abroad' },
+    ]}
+  />
 
   <!-- ============ SERVICES HERE ============ -->
   <section class="section border-y border-hairline bg-night">

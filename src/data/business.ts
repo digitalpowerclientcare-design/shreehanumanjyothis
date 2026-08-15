@@ -153,9 +153,9 @@ export const locations: Location[] = [
     landmark: 'Near Sankey Road, off Bellary Road',
     // TODO(client): CONFIRM. The audit found a conflicting Bengaluru address on
     // Justdial (HSR Layout / Jakkasandra 560102). Only one can be the real centre.
-    phoneDisplay: '+91 63629 92917', // TODO(client): UNVERIFIED — sourced from a Sulekha listing.
-    phoneE164: '+916362992917',
-    whatsappE164: '916362992917',
+    phoneDisplay: '+91 99664 32777',
+    phoneE164: '+919966432777',
+    whatsappE164: '919966432777',
     geo: { lat: 13.0068, lng: 77.5806 }, // TODO(client): confirm from the live GBP pin
     mapUrl: 'https://maps.google.com/?q=Sadashiva+Nagar+Bengaluru+560080', // TODO(client): replace with GBP place URL
     mapEmbedUrl:
@@ -261,9 +261,9 @@ export const locations: Location[] = [
       'No. 6, Kohinoor Corner, Scheme No. IV, Swatantryaveer Savarkar Road, Prabhadevi',
     postalCode: '400025',
     landmark: 'Opposite Siddhivinayak Temple, near Mahim',
-    phoneDisplay: '+91 99454 70667',
-    phoneE164: '+919945470667',
-    whatsappE164: '919945470667',
+    phoneDisplay: '+91 99664 32777',
+    phoneE164: '+919966432777',
+    whatsappE164: '919966432777',
     geo: { lat: 19.0169, lng: 72.8302 }, // TODO(client): confirm from the live GBP pin
     mapUrl: 'https://maps.google.com/?q=Kohinoor+Corner+Prabhadevi+Mumbai+400025',
     mapEmbedUrl:
@@ -309,9 +309,10 @@ export const getLocation = (slug: CitySlug): Location => {
 
 /** Pre-filled WhatsApp deep link for a given centre. */
 export const whatsappLink = (loc: Location, message?: string): string => {
+  // Deliberately does not name a centre — all three share one line, and the
+  // enquiry should read the same wherever on the site it was sent from.
   const text = encodeURIComponent(
-    message ??
-      `Namaste, I would like to book a consultation at your ${loc.city} centre.`,
+    message ?? 'Namaste, I saw your website and would like to book a consultation.',
   );
   return `https://wa.me/${loc.whatsappE164}?text=${text}`;
 };
