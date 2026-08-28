@@ -75,7 +75,7 @@ const jsonLd = buildGraph(
 
 <BaseLayout
   title={`Best Astrologer in ${loc.city} — ${loc.locality} | ${brand.shortName}`}
-  description={`Vedic astrology consultations in ${loc.city} with ${pandit.name}. ${loc.locality} centre — Kundli matching, birth chart analysis and Vastu. ${loc.hoursDisplay}.`}
+  description={`Talk to ${pandit.name}, a trusted ${loc.languagePage?.language ?? 'Vedic'} astrologer in ${loc.city} (${loc.locality}) — kundli matching, jathakam, marriage, career & Vastu guidance. ${loc.hoursDisplay}. Call or WhatsApp.`}
   canonicalPath={`/${loc.slug}/`}
   jsonLd={jsonLd}
   hideStickyCta
@@ -93,7 +93,7 @@ const jsonLd = buildGraph(
         <div>
           <p class="eyebrow enter">{loc.locality}, {loc.city}</p>
           <h1 class="display-lg enter enter-d1 mt-5">
-            Astrology Consultations in {loc.city}
+            Best {loc.languagePage?.language ?? 'Vedic'} Astrologer in {loc.city}
           </h1>
           <p class="enter enter-d2 mt-6 text-lg leading-relaxed text-mist">
             {loc.intro}
