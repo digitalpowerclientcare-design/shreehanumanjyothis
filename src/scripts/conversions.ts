@@ -162,12 +162,10 @@ document.addEventListener(
   { capture: true },
 );
 
-/* Real form submissions only — not focus, not abandonment. */
-document.querySelectorAll<HTMLFormElement>('form[data-lead-form]').forEach((form) => {
-  form.addEventListener('submit', () => {
-    const citySelect = form.querySelector<HTMLSelectElement>('select[name="city"]');
-    emit('form', citySelect?.value || 'unknown', 'form');
-  });
-});
+/*
+ * Forms were removed from the site (Aug 2026) — the business converts on
+ * calls and WhatsApp only, so the two channels above are the entire funnel.
+ * No form_submit is emitted any more.
+ */
 
 export {};
