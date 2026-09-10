@@ -89,7 +89,7 @@ export const brand = {
 
   tagline: 'Vedic astrology guidance, without exaggeration or false promises.',
   domain: 'https://shreehanumanjyothis.in',
-  email: 'info@shreehanumanjyothis.in', // TODO(client): confirm working inbox
+  email: 'shreehanumanjyothis@gmail.com', // client's working inbox
   foundedYear: 1994, // TODO(client): confirm. Site says "30+ years"; directories say 40 and 45.
 
   /** Off-site profiles. Emitted as schema `sameAs` — the strongest entity-

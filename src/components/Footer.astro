@@ -43,6 +43,9 @@ const year = new Date().getFullYear();
         <p class="mt-4 max-w-sm text-[0.92rem] leading-relaxed text-[#b8b1c6]">
           {brand.tagline} Consultations with {pandit.name} across Bengaluru, Hyderabad and Mumbai.
         </p>
+        <p class="mt-4 text-[0.92rem]">
+          <a class="footer-link" href={`mailto:${brand.email}`}>{brand.email}</a>
+        </p>
       </div>
 
       <nav aria-label="Services">
