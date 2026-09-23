@@ -59,6 +59,8 @@ export interface Location {
   areasServed: string[];
   /** Short, genuinely local paragraph. Must be unique per city. */
   intro: string;
+  /** Longer first-hand E-E-A-T narrative for the city hub. Unique per city; optional. */
+  whyTrusted?: string;
   /** Verified review data. Leave `count: null` until confirmed against the live GBP. */
   reviews: { rating: number | null; count: number | null };
   /** Which services get a dedicated city page. Keep this list tight (see doorway-page rule). */
@@ -187,6 +189,17 @@ export const locations: Location[] = [
       'MIG-273, Balaji Nagar, on the Omni Hospital line in Kukatpally - opposite Highly Fresh ' +
       'Supermarket. It is a short ride from KPHB Colony and Nizampet, and consultations here are ' +
       'usually held in Telugu, Hindi or English.',
+    whyTrusted:
+      'Most families who come to the Kukatpally centre have already spoken to two or three ' +
+      'astrologers before us, and they arrive wanting a second reading that is plain rather than ' +
+      'dramatic. That is most of what we do: read the chart as it is, say what is well placed and ' +
+      'what is not, and stop there. Over thirty years in Hyderabad the questions have stayed much ' +
+      'the same - a marriage that is taking longer than the family expected, a jathakam that two ' +
+      'sides want matched properly before they commit, a career that has stalled, a doubt someone ' +
+      'has raised about a house. We answer in Telugu, Hindi or English, quote the fee before ' +
+      'anything is booked, and never present a remedy as the only thing standing between a family ' +
+      'and misfortune. People travel to Balaji Nagar from KPHB, Nizampet, Miyapur, Madhapur and ' +
+      'Kondapur, and a good number now take the same consultation over video from outside the city.',
     reviews: { rating: 4.9, count: 2142 },
     /**
      * Hyderabad carries more city pages than the other two centres, and that is

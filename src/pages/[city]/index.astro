@@ -35,6 +35,17 @@ const crumbs = [
   { name: loc.city, url: `/${loc.slug}/` },
 ];
 
+/* Hyderabad is the primary centre and the site homepage already owns the exact
+   "best astrologer in hyderabad" term. To avoid two pages competing for it, the
+   Hyderabad hub targets the Telugu + Kukatpally local variant instead. Other
+   cities have no competing homepage, so they keep the broad "best astrologer" title. */
+const pageTitle = loc.slug === 'hyderabad'
+  ? `Telugu Astrologer in Hyderabad, ${loc.locality} | ${brand.shortName}`
+  : `Best Astrologer in ${loc.city} - ${loc.locality} | ${brand.shortName}`;
+const pageDescription = loc.slug === 'hyderabad'
+  ? `Consult ${pandit.name}, a trusted Telugu astrologer in Hyderabad (Kukatpally) - jathakam & kundli matching, marriage, career and Vastu guidance in Telugu, Hindi or English. ${loc.hoursDisplay}. Call or WhatsApp.`
+  : `Talk to ${pandit.name}, a trusted ${loc.languagePage?.language ?? 'Vedic'} astrologer in ${loc.city} (${loc.locality}) - kundli matching, jathakam, marriage, career & Vastu guidance. ${loc.hoursDisplay}. Call or WhatsApp.`;
+
 /* Unique per-city FAQs. Deliberately NOT a template with the city name
    swapped - that pattern is what gets location pages filtered as doorways. */
 const faqs = [
@@ -74,8 +85,8 @@ const jsonLd = buildGraph(
 ---
 
 <BaseLayout
-  title={`Best Astrologer in ${loc.city} - ${loc.locality} | ${brand.shortName}`}
-  description={`Talk to ${pandit.name}, a trusted ${loc.languagePage?.language ?? 'Vedic'} astrologer in ${loc.city} (${loc.locality}) - kundli matching, jathakam, marriage, career & Vastu guidance. ${loc.hoursDisplay}. Call or WhatsApp.`}
+  title={pageTitle}
+  description={pageDescription}
   canonicalPath={`/${loc.slug}/`}
   jsonLd={jsonLd}
   hideStickyCta
@@ -157,6 +168,21 @@ const jsonLd = buildGraph(
       { label: 'Also online', value: 'Consultations by call or video across India and abroad' },
     ]}
   />
+
+  <!-- ============ WHY TRUSTED (E-E-A-T, unique per city) ============ -->
+  {loc.whyTrusted && (
+    <section class="section">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <SectionHeading
+            eyebrow="30+ Years in Hyderabad"
+            title={`Why families in ${loc.city} come to Pandit Ji`}
+          />
+          <p class="reveal mt-6 text-lg leading-relaxed text-mist">{loc.whyTrusted}</p>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- ============ SERVICES HERE ============ -->
   <section class="section border-y border-hairline bg-night">

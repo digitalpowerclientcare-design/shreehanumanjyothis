@@ -1,20 +1,22 @@
 ---
-title: Vastu Consultation for Homes
+title: Vastu Consultant
 order: 7
 tier: 1
 icon: house
-summary: Practical Vastu assessment for houses and apartments, with corrections that do not require structural demolition.
-leadAnswer: A home Vastu consultation assesses the directional layout of a house or apartment - entrance, kitchen, bedrooms, water and storage - and identifies corrections. In most homes, particularly apartments, meaningful corrections can be made without any structural change.
+summary: Practical Vastu assessment for homes, apartments and offices, with corrections that do not require structural demolition.
+leadAnswer: A Vastu consultant assesses the directional layout of a house, apartment or workplace - entrance, kitchen, bedrooms, water and storage - and identifies corrections. In most homes, particularly apartments, meaningful corrections can be made without any structural change.
 targetKeyword: vastu consultant
 secondaryKeywords:
+  - vastu consultant in hyderabad
+  - vastu consultant near me
   - vastu for home
   - vastu shastra consultant
   - vastu dosha correction
   - vastu for apartments
   - main door vastu
 metaTitle: Vastu Consultant for Homes | Practical Corrections, No Demolition
-metaDescription: Home and apartment Vastu consultation with Pandit Sri Pandu Ranga Shastri Ji. Site visits and floor-plan reviews, with corrections that avoid structural work.
-h1: Vastu Consultation for Homes
+metaDescription: Vastu consultant Pandit Sri Pandu Ranga Shastri Ji - site visits and floor-plan reviews for homes and apartments, with corrections that avoid structural work.
+h1: Vastu Consultant for Homes and Apartments
 cityH1Pattern: Vastu Consultant in {city}
 relatedServices:
   - vastu-for-office
