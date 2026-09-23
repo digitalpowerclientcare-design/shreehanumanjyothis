@@ -8,6 +8,7 @@ leadAnswer: Kundali matching - also written kundli matching or patrika matching 
 targetKeyword: kundali matching
 secondaryKeywords:
   - kundli matching
+  - kundli matching in hyderabad
   - kundali matching for marriage
   - patrika matching
   - janmakshar matching

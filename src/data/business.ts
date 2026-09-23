@@ -97,7 +97,7 @@ export const brand = {
   tagline: 'Vedic astrology guidance, without exaggeration or false promises.',
   domain: 'https://shreehanumanjyothis.in',
   email: 'shreehanumanjyothis@gmail.com', // client's working inbox
-  foundedYear: 1994, // Consistent with GBP "30+ years". TODO(client): directories say 40 and 45; reconcile off-site.
+  foundedYear: 1994, // Confirmed by client 2026-09-23 ("30+ years"); disregard the 40/45 shown in some directories.
 
   /** Off-site profiles. Emitted as schema `sameAs` - the strongest entity-
    *  disambiguation signal available. Add every claimed profile. */
@@ -119,7 +119,7 @@ export const pandit = {
   /** Name without honorifics, for schema `familyName`/search matching. */
   plainName: 'Pandu Ranga Shastri',
   jobTitle: 'Vedic Astrologer & Vastu Consultant',
-  yearsExperience: 30, // Matches GBP "30+ years". TODO(client): reconcile 40/45 in directories.
+  yearsExperience: 30, // Confirmed: 30+ years, practising since 1994.
   /** 40-60 words. This is the block LLMs quote when asked who he is. */
   bio:
     'Pandit Sri Pandu Ranga Shastri Ji has practised Vedic astrology for more than three decades. ' +
@@ -231,8 +231,8 @@ export const locations: Location[] = [
     streetAddress: '504, 9th Cross Road, 8th Main Road, Sadashiva Nagar',
     postalCode: '560080',
     landmark: 'Near Sankey Road, off Bellary Road',
-    // TODO(client): CONFIRM. The audit found a conflicting Bengaluru address on
-    // Justdial (HSR Layout / Jakkasandra 560102). Only one can be the real centre.
+    // Confirmed real centre by client 2026-09-23 (Sadashiva Nagar). Ignore the
+    // stale HSR Layout / Jakkasandra address on Justdial.
     phoneDisplay: '+91 99664 32777',
     phoneE164: '+919966432777',
     whatsappE164: '919966432777',
