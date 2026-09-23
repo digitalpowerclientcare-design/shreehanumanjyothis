@@ -1,6 +1,6 @@
 ---
 /**
- * Animated zodiac wheel — the signature graphic from the reference designs.
+ * Animated zodiac wheel - the signature graphic from the reference designs.
  * Generated SVG: three counter-rotating rings, sign names on a circular path,
  * glyphs, house numerals and an inner geometric star. Pure CSS rotation.
  */
@@ -92,7 +92,7 @@ const inner = Array.from({ length: 12 }, (_, i) => pt(118, i * 30));
         const p = pt(R_GLYPH, i * 30);
         return (
           <text class="zw-glyph" x={p.x} y={p.y} text-anchor="middle" dominant-baseline="central">
-            {/* U+FE0E forces text presentation — without it the OS emoji font
+            {/* U+FE0E forces text presentation - without it the OS emoji font
                 hijacks the zodiac characters and renders coloured tiles. */}
             {`${s.glyph}︎`}
           </text>

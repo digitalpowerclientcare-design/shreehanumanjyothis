@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- *  URL MIGRATION MAP — WordPress → Astro
+ *  URL MIGRATION MAP - WordPress → Astro
  * ============================================================================
  *
  *  Every URL that exists on the live WordPress site is listed here exactly
@@ -8,7 +8,7 @@
  *  link and every ranking signal pointing at it.
  *
  *  RULES APPLIED
- *  1. One-to-one, topic-for-topic. No bulk redirect to the homepage — Google
+ *  1. One-to-one, topic-for-topic. No bulk redirect to the homepage - Google
  *     treats mass redirects-to-root as soft 404s and discards the equity.
  *  2. Geo relevance is preserved. Every old URL was "<topic> in Hyderabad", so
  *     each target is the Hyderabad city page for that topic, not the
@@ -18,14 +18,14 @@
  *     are deliberately not rebuilt, but their URLs point at the nearest
  *     legitimate page rather than 404ing, so any inbound links still count.
  *  4. Zero-value WordPress artefacts are NOT redirected. `hello-world` and
- *     `category/uncategorized` are left to 404 on purpose — redirecting
+ *     `category/uncategorized` are left to 404 on purpose - redirecting
  *     junk URLs into real pages dilutes relevance.
  *
  *  MECHANISM
  *  Astro emits a meta-refresh + canonical + noindex stub for each entry.
  *  Google honours an instant meta refresh as a permanent redirect, but it is
  *  weaker and slower to consolidate than a real 301. Put Cloudflare in front
- *  of GitHub Pages and mirror this map as Bulk Redirects to get true 301s —
+ *  of GitHub Pages and mirror this map as Bulk Redirects to get true 301s -
  *  see README § Deployment.
  * ============================================================================
  */
@@ -33,7 +33,7 @@
 export interface RedirectRule {
   from: string;
   to: string;
-  /** Why this target — kept so the mapping can be audited later. */
+  /** Why this target - kept so the mapping can be audited later. */
   note: string;
 }
 
@@ -81,7 +81,7 @@ export const redirects: RedirectRule[] = [
   {
     from: '/kaal-sarp-dosh-nivaran-in-hyderabad-puja-remedies/',
     to: '/hyderabad/kaal-sarp-dosha/',
-    note: 'Direct equivalent. "Nivaran" dropped — the framing implied a compulsory remedy.',
+    note: 'Direct equivalent. "Nivaran" dropped - the framing implied a compulsory remedy.',
   },
   {
     from: '/navagraha-shanti-puja-in-hyderabad-graha-dosh-remedies/',
@@ -96,7 +96,7 @@ export const redirects: RedirectRule[] = [
 ];
 
 /**
- * Left to 404 deliberately — default WordPress artefacts with no inbound value.
+ * Left to 404 deliberately - default WordPress artefacts with no inbound value.
  * Documented here so nobody "fixes" them later by pointing them at real pages.
  */
 export const deliberate404s = [

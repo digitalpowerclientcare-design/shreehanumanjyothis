@@ -4,14 +4,14 @@
  * ============================================================================
  *
  *  WHY THIS EXISTS
- *  The Google Ads account records two conversion actions — "Submit lead forms"
- *  (6,690 in 30 days) and "Phone call leads" (4,160) — against roughly 19,600
+ *  The Google Ads account records two conversion actions - "Submit lead forms"
+ *  (6,690 in 30 days) and "Phone call leads" (4,160) - against roughly 19,600
  *  clicks. A 34% form-fill rate is not real. Meanwhile the four actions that
  *  would indicate an actual lead (Book appointment, Contact, Get directions,
  *  Page view) all record zero.
  *
  *  Every campaign runs "Maximize conversions". So Smart Bidding is optimising
- *  toward a fabricated signal — which is why the account bought the bare word
+ *  toward a fabricated signal - which is why the account bought the bare word
  *  "astrology" for ₹23,333 and why terms like "flower moon full moon astrology"
  *  show 56 conversions.
  *
@@ -26,7 +26,7 @@
  *    directions_click  -> import as "Get directions"    (secondary)
  *
  *  Events are pushed to window.dataLayer (GTM) and to gtag() if present.
- *  Nothing here loads a tag manager — that stays the marketing team's call.
+ *  Nothing here loads a tag manager - that stays the marketing team's call.
  * ============================================================================
  */
 
@@ -39,7 +39,7 @@ interface ConversionPayload {
   channel: Channel;
   /** bengaluru | hyderabad | mumbai | unknown */
   city: string;
-  /** Which block on the page produced it — header, hero, sticky_bar… */
+  /** Which block on the page produced it - header, hero, sticky_bar… */
   placement: string;
   page_path: string;
   page_type: string;
@@ -69,7 +69,7 @@ function cityFromPath(): string {
  * Which centre does this click belong to?
  *
  * All three centres share a single phone and WhatsApp line, so the number
- * cannot identify the centre — attributing by phone would tag every call as
+ * cannot identify the centre - attributing by phone would tag every call as
  * Bengaluru. Page context is the only honest signal for call/WhatsApp.
  * Map links remain per-centre, so those still resolve from the href.
  */
@@ -110,7 +110,7 @@ function pageType(): string {
 /*  Emit                                                                      */
 /* -------------------------------------------------------------------------- */
 
-/** One fire per channel+city per pageview — stops double-counting rage clicks. */
+/** One fire per channel+city per pageview - stops double-counting rage clicks. */
 const alreadyFired = new Set<string>();
 
 function emit(channel: Channel, city: string, placement: string) {
@@ -140,7 +140,7 @@ function emit(channel: Channel, city: string, placement: string) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Delegated listener — instruments every CTA, including ones added later     */
+/*  Delegated listener - instruments every CTA, including ones added later     */
 /* -------------------------------------------------------------------------- */
 
 document.addEventListener(
@@ -163,7 +163,7 @@ document.addEventListener(
 );
 
 /*
- * Forms were removed from the site (Aug 2026) — the business converts on
+ * Forms were removed from the site (Aug 2026) - the business converts on
  * calls and WhatsApp only, so the two channels above are the entire funnel.
  * No form_submit is emitted any more.
  */

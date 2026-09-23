@@ -3,8 +3,8 @@ title: Vastu for Offices & Commercial Spaces
 order: 13
 tier: 2
 icon: briefcase
-summary: Vastu assessment for offices, retail premises and workshops — seating, entrance, cabins and storage, without structural work.
-leadAnswer: Commercial Vastu assesses the directional layout of an office, shop or workshop — entrance, seating, cabin placement, accounts and storage zones. Most recommendations involve rearrangement rather than construction, which matters when a lease limits what you can change.
+summary: Vastu assessment for offices, retail premises and workshops - seating, entrance, cabins and storage, without structural work.
+leadAnswer: Commercial Vastu assesses the directional layout of an office, shop or workshop - entrance, seating, cabin placement, accounts and storage zones. Most recommendations involve rearrangement rather than construction, which matters when a lease limits what you can change.
 targetKeyword: vastu for office
 secondaryKeywords:
   - commercial vastu consultant
@@ -12,7 +12,7 @@ secondaryKeywords:
   - office seating vastu
   - factory vastu
 metaTitle: Vastu for Offices & Commercial Spaces | Practical Assessment
-metaDescription: Office, retail and workshop Vastu with Pandit Sri Pandu Ranga Shastri Ji — seating, cabins, entrance and storage, working within lease constraints.
+metaDescription: Office, retail and workshop Vastu with Pandit Sri Pandu Ranga Shastri Ji - seating, cabins, entrance and storage, working within lease constraints.
 h1: Vastu for Offices & Commercial Spaces
 cityH1Pattern: Commercial Vastu Consultant in {city}
 relatedServices:
@@ -24,7 +24,7 @@ faqs:
   - question: Can this be done from a floor plan?
     answer: Yes, and for offices it is often the practical route. Send the plan with north marked, plus photographs of the entrance and main working areas. A site visit adds detail for larger or more complex premises.
   - question: We are on a lease and cannot make structural changes. Is it still worth it?
-    answer: Yes — this is the most common situation and most of the workable correction lies in what you can change anyway. Seating direction, cabin allocation, where accounts and cash are kept, storage placement, reception position and lighting are all typically within a tenant's control.
+    answer: Yes - this is the most common situation and most of the workable correction lies in what you can change anyway. Seating direction, cabin allocation, where accounts and cash are kept, storage placement, reception position and lighting are all typically within a tenant's control.
   - question: Do you work alongside architects and interior designers?
     answer: Yes. Bringing us in at the design stage is considerably more efficient than correcting afterwards, and we are used to working to a drawing set and giving feedback the design team can act on.
   - question: Will this improve my business?
@@ -37,10 +37,10 @@ Main entrance direction and approach · owner and management seating · staff se
 
 ## Types of premises
 
-**Offices** — cabin allocation, seating direction, meeting rooms, reception.
-**Retail** — entrance, billing counter, display orientation, stockroom.
-**Workshops and small industry** — machinery placement, raw material and finished goods storage, fire and water zones.
-**Clinics and consulting rooms** — practitioner seating, waiting area, records.
+**Offices** - cabin allocation, seating direction, meeting rooms, reception.
+**Retail** - entrance, billing counter, display orientation, stockroom.
+**Workshops and small industry** - machinery placement, raw material and finished goods storage, fire and water zones.
+**Clinics and consulting rooms** - practitioner seating, waiting area, records.
 
 ## Working within constraints
 

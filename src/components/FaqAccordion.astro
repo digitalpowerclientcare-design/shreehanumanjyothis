@@ -2,12 +2,12 @@
 import type { Faq } from '@/lib/schema';
 
 /**
- * FAQs are rendered as real, server-side HTML inside <details> — open in the
+ * FAQs are rendered as real, server-side HTML inside <details> - open in the
  * DOM whether or not JS runs. This matters: GPTBot, ClaudeBot and
  * PerplexityBot render JavaScript poorly or not at all, and Q&A pairs are the
  * single most-extracted format for AI answer synthesis.
  *
- * Headings are written as full conversational questions on purpose — those
+ * Headings are written as full conversational questions on purpose - those
  * strings are close to what people actually type into an AI assistant.
  */
 interface Props {

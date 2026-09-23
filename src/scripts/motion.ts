@@ -3,8 +3,8 @@
  *
  * Budget-conscious by design: Lenis (~3KB) + Motion One (~4KB used) are the
  * only libraries, and everything else is a handful of pointer/observer
- * listeners. The heavy lifting — reveals, aurora, starfield, meteors, the
- * zodiac wheel — is native CSS and ships zero bytes of JS.
+ * listeners. The heavy lifting - reveals, aurora, starfield, meteors, the
+ * zodiac wheel - is native CSS and ships zero bytes of JS.
  *
  * Every effect is skipped entirely under prefers-reduced-motion.
  */

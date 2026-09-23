@@ -4,14 +4,14 @@ order: 5
 tier: 1
 icon: heart
 summary: Compatibility analysis and decision clarity for people navigating a relationship, family approval, or a period of separation.
-leadAnswer: Relationship guidance uses both charts to assess compatibility and timing before or during a serious relationship. It helps with decisions — whether to proceed, how to approach family, what a difficult phase indicates. It does not claim to influence another person's feelings or choices.
+leadAnswer: Relationship guidance uses both charts to assess compatibility and timing before or during a serious relationship. It helps with decisions - whether to proceed, how to approach family, what a difficult phase indicates. It does not claim to influence another person's feelings or choices.
 targetKeyword: love problem solution astrologer
 secondaryKeywords:
   - love marriage astrology
   - relationship compatibility astrology
   - love astrology consultation
 metaTitle: Love & Relationship Guidance | Compatibility Consultation
-metaDescription: Chart-based relationship and compatibility guidance with Pandit Sri Pandu Ranga Shastri Ji — honest, confidential, and free of guaranteed-outcome claims.
+metaDescription: Chart-based relationship and compatibility guidance with Pandit Sri Pandu Ranga Shastri Ji - honest, confidential, and free of guaranteed-outcome claims.
 h1: Love & Relationship Guidance
 cityH1Pattern: Love & Relationship Guidance in {city}
 relatedServices:
@@ -25,7 +25,7 @@ faqs:
   - question: Do you offer vashikaran or similar services?
     answer: No, and we do not refer anyone for it. Practices marketed as controlling another person's will sit outside what we do and outside what we consider honest astrological practice. If that is what you are looking for, we are not the right place.
   - question: Can you check compatibility before things get serious?
-    answer: Yes, and it is a sensible time to do it. Send both sets of birth details and we will read the charts together — temperament, communication patterns, likely areas of friction, and the timing indications for both people.
+    answer: Yes, and it is a sensible time to do it. Send both sets of birth details and we will read the charts together - temperament, communication patterns, likely areas of friction, and the timing indications for both people.
   - question: My family is opposed to the relationship. Can astrology help?
     answer: It can give you a clearer picture, and for many families a formal compatibility reading carries weight in the conversation. What it cannot do is guarantee approval or change anyone's position. We will tell you honestly what the charts show, including if what they show is not what you were hoping for.
   - question: Is the consultation private?
@@ -49,10 +49,10 @@ This is worth stating plainly, because the market around this service is full of
 - We do not guarantee that a specific person will return or agree to marry.
 - We do not offer vashikaran or any practice framed as influencing another person's will.
 - We do not sell rituals as a condition for an outcome.
-- We do not use fear — about curses, black magic, or doshas — to move you towards a purchase.
+- We do not use fear - about curses, black magic, or doshas - to move you towards a purchase.
 
 If you have been told any of those things by someone else, that is worth weighing carefully.
 
 ## How the consultation runs
 
-Send your birth details — and your partner's, if you have them — on WhatsApp. The charts are prepared beforehand. The consultation is a conversation: what the charts show, what the current period indicates, and what is genuinely open to you. Where the honest answer is that the chart does not support what you were hoping for, you will be told that.
+Send your birth details - and your partner's, if you have them - on WhatsApp. The charts are prepared beforehand. The consultation is a conversation: what the charts show, what the current period indicates, and what is genuinely open to you. Where the honest answer is that the chart does not support what you were hoping for, you will be told that.

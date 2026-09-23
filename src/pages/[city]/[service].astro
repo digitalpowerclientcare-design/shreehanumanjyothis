@@ -23,7 +23,7 @@ import {
  *   2. City language pages         /hyderabad/telugu-astrologer/
  *
  * The doorway-page rule applies to both. Each page carries the centre's own
- * NAP, landmark, travel notes, timings, languages and its own FAQ set — the
+ * NAP, landmark, travel notes, timings, languages and its own FAQ set - the
  * body copy is shared, the local framing is not. Keep it that way: templated
  * city-name swaps are what get location pages filtered.
  */
@@ -75,10 +75,10 @@ const h1 = isService
 
 const title = isService
   ? `${d!.title} in ${loc.city} | ${loc.locality} | ${brand.shortName}`
-  : `${lang} Astrologer in ${loc.city} — ${loc.locality} | ${brand.shortName}`;
+  : `${lang} Astrologer in ${loc.city} - ${loc.locality} | ${brand.shortName}`;
 
 const description = isService
-  ? `${d!.title} in ${loc.city} with ${pandit.name}. ${loc.locality} centre — ${loc.landmark}. ${loc.hoursDisplay}.`
+  ? `${d!.title} in ${loc.city} with ${pandit.name}. ${loc.locality} centre - ${loc.landmark}. ${loc.hoursDisplay}.`
   : `Astrology consultations in ${lang} at our ${loc.locality} centre in ${loc.city}. Kundli matching, chart readings and Vastu, discussed in your own language.`;
 
 const leadAnswer = isService
@@ -91,7 +91,7 @@ const crumbs = [
   { name: isService ? d!.title : `${lang} Astrologer`, url: path },
 ];
 
-/* Per-city FAQs, written around this centre — not a shared block. */
+/* Per-city FAQs, written around this centre - not a shared block. */
 const localFaqs = isService
   ? [
       {
@@ -215,8 +215,8 @@ const otherCities = locations.filter(
             <h2>Consultations in {lang} at {loc.locality}</h2>
             <p>
               A chart reading is a conversation. When it happens in the language a family
-              actually uses at home, the distinctions that matter — temperament, timing,
-              what a dosha does and does not indicate — come across without having to be
+              actually uses at home, the distinctions that matter - temperament, timing,
+              what a dosha does and does not indicate - come across without having to be
               simplified for translation.
             </p>
             <p>

@@ -5,7 +5,7 @@ import type { CitySlug } from '@/data/business';
  *
  * WHY NOT A WIDGET: the audited site used a Trustindex JavaScript widget, so
  * the review text never appeared in the HTML. Googlebot's cheapest pass and
- * every AI crawler (GPTBot, ClaudeBot, PerplexityBot) therefore saw nothing —
+ * every AI crawler (GPTBot, ClaudeBot, PerplexityBot) therefore saw nothing -
  * the strongest trust content on the site was invisible to exactly the systems
  * we want quoting it. These are plain strings in the DOM instead.
  *
@@ -14,12 +14,11 @@ import type { CitySlug } from '@/data/business';
  * action. The star rating belongs on the Google Business Profile; this page
  * links there so anyone can verify it.
  *
- * ⚠️  TODO(client): REPLACE EVERY ENTRY BELOW.
- *     These are structurally-correct placeholders, not real reviews.
- *     Publishing invented testimonials would be both dishonest and a
- *     direct contradiction of the brand's "no false promises" positioning.
- *     Pull real review text from each Google Business Profile, keep the
- *     reviewer's own words, and get consent for the name format used.
+ * SOURCE: real, verbatim reviews from the owner-managed Hyderabad (Kukatpally)
+ * Google Business Profile (4.9 stars, 2,142 reviews). Reviewer wording is kept
+ * exactly as written. Add more as they come in; keep them real, keep full text,
+ * never invent. Bengaluru and Mumbai carry no reviews here until pulled from
+ * their own verified profiles.
  */
 
 export interface ClientReview {
@@ -28,42 +27,32 @@ export interface ClientReview {
   /** Neighbourhood, if the reviewer gave one. */
   area?: string;
   service: string;
-  /** Full text — never truncate with a "Read more" link. */
+  /** Star rating the reviewer left, 1-5. */
+  rating: number;
+  /** Full text, verbatim - never truncate with a "Read more" link. */
   text: string;
   /** ISO date of the review. */
   date: string;
 }
 
 export const reviews: ClientReview[] = [
-  // ---- PLACEHOLDER DATA — DO NOT PUBLISH AS-IS ---------------------------
   {
-    name: 'Placeholder — replace with a real Bengaluru review',
-    city: 'bengaluru',
-    area: 'Malleswaram',
-    service: 'Kundli Matching',
-    text:
-      'Replace this with the reviewer’s own words, copied from the Google Business Profile. ' +
-      'Keep the full text — do not truncate it behind a “Read more” link, because the ' +
-      'truncated portion is invisible to search engines and AI crawlers.',
-    date: '2026-01-01',
-  },
-  {
-    name: 'Placeholder — replace with a real Hyderabad review',
+    name: 'K. Tharun',
     city: 'hyderabad',
-    area: 'Kukatpally',
-    service: 'Kundli Reading',
+    service: 'Vastu Consultation',
+    rating: 5,
     text:
-      'Replace this with a genuine review pulled from the Hyderabad Google Business Profile.',
-    date: '2026-01-01',
+      'We asked for vastu consult for our house the suggestion was very perfect for our expectation lot layout and did not involve unnecessary changes',
+    date: '2026-09-22',
   },
   {
-    name: 'Placeholder — replace with a real Mumbai review',
-    city: 'mumbai',
-    area: 'Dadar',
-    service: 'Vastu for Home',
+    name: 'Chaitanya',
+    city: 'hyderabad',
+    service: 'Marriage Guidance',
+    rating: 4,
     text:
-      'Replace this with a genuine review pulled from the Mumbai Google Business Profile.',
-    date: '2026-01-01',
+      'It was very helpfull for me it helped for my marriage I am very thankful full for that..',
+    date: '2026-09-09',
   },
 ];
 

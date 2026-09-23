@@ -1,48 +1,48 @@
 @import 'tailwindcss';
 
-/* Self-hosted variable fonts — no CDN request, better CWV, DPDP-friendly. */
+/* Self-hosted variable fonts - no CDN request, better CWV, DPDP-friendly. */
 @import '@fontsource-variable/cormorant-garamond';
 @import '@fontsource-variable/plus-jakarta-sans';
 
 /* ==========================================================================
-   DESIGN TOKENS — "Cosmic Traditional"
+   DESIGN TOKENS - "Cosmic Traditional"
    Deep night-sky base, emerald aura, temple gold. Depth comes from layered
    gradients, glow and grain rather than from borders and boxes.
    ========================================================================== */
 
 @theme {
-  /* — Base surfaces —————————————————————————— */
+  /* - Base surfaces -------------------------- */
   --color-void: #04050a;         /* page base */
   --color-night: #080b16;        /* section base */
   --color-deep: #0d1322;         /* raised panels */
   --color-elevated: #131b2e;     /* cards */
 
-  /* — Aura ————————————————————————————————— */
+  /* - Aura --------------------------------- */
   --color-emerald: #0f7a5a;
   --color-emerald-deep: #06301f;
   --color-violet: #3a2a6b;
   --color-teal: #0c5b62;
 
-  /* — Gold ————————————————————————————————— */
+  /* - Gold --------------------------------- */
   --color-gold: #d9ab5c;
   --color-gold-bright: #f2dca6;
   --color-gold-deep: #a67c33;
 
-  /* — Text ————————————————————————————————— */
+  /* - Text --------------------------------- */
   --color-cream: #f6f2e9;
   --color-mist: #b3bacb;
   --color-faint: #6f7891;
 
-  /* — Utility ——————————————————————————————— */
+  /* - Utility ------------------------------- */
   --color-whatsapp: #25d366;
   --color-hairline: rgb(255 255 255 / 0.09);
   --color-hairline-strong: rgb(255 255 255 / 0.16);
 
-  /* — Type ————————————————————————————————— */
+  /* - Type --------------------------------- */
   --font-display: 'Cormorant Garamond Variable', 'Iowan Old Style', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
 
-  /* — Motion ————————————————————————————————— */
+  /* - Motion --------------------------------- */
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
 
@@ -133,7 +133,7 @@
   @media (min-width: 768px) { .section { padding-block: 8rem; } }
 
   /* ------------------------------------------------------------------
-     TYPE SCALE — large, confident, tightly tracked.
+     TYPE SCALE - large, confident, tightly tracked.
      ------------------------------------------------------------------ */
   .display-hero {
     font-size: clamp(2.6rem, 1.55rem + 4.7vw, 5.4rem);
@@ -157,7 +157,7 @@
     letter-spacing: -0.01em;
   }
 
-  /* Letter-spaced small caps — the "celestial" register from the references. */
+  /* Letter-spaced small caps - the "celestial" register from the references. */
   .caps {
     font-family: var(--font-sans);
     font-size: 0.7rem;
@@ -183,7 +183,7 @@
     background: linear-gradient(90deg, transparent, var(--color-gold));
   }
 
-  /* Gold gradient text — used on the emphasis word in a headline. */
+  /* Gold gradient text - used on the emphasis word in a headline. */
   .text-gold-grad {
     background: linear-gradient(100deg, #f7e6bd 0%, #d9ab5c 42%, #f2dca6 78%, #c1913f 100%);
     -webkit-background-clip: text;
@@ -275,7 +275,7 @@
     border-radius: var(--radius-card);
   }
 
-  /* Cursor-follow spotlight — the Aceternity effect, done with two CSS vars
+  /* Cursor-follow spotlight - the Aceternity effect, done with two CSS vars
      and a 12-line pointer listener instead of a 125KB React bundle. */
   .spotlight {
     position: relative;
@@ -307,7 +307,7 @@
   /* NOTE: children are deliberately NOT given `position: relative` here.
      Doing so made every card heading a containing block, which meant the
      stretched card link (`a::after { inset: 0 }`) covered only the heading
-     instead of the whole card — so most of each card was not tappable. The
+     instead of the whole card - so most of each card was not tappable. The
      z-index:-1 gradient above removes the need to lift children at all. */
 
   /* Stretched card link: sits above the card, below any real controls
@@ -421,7 +421,7 @@
 }
 
 /* ==========================================================================
-   ATMOSPHERE — aurora, grain, starfield, meteors.
+   ATMOSPHERE - aurora, grain, starfield, meteors.
    All pure CSS. Zero image requests, zero JavaScript.
    ========================================================================== */
 
@@ -452,7 +452,7 @@
     background: radial-gradient(circle, rgb(58 42 107 / 0.6), transparent 66%);
   }
   /* On narrow screens a vw-sized blob is too small to read as an aurora at all
-     — scale it up and soften the blur so the glow still registers. */
+     - scale it up and soften the blur so the glow still registers. */
   @media (max-width: 767px) {
     .aurora { filter: blur(60px) saturate(140%); }
     .aurora::before { width: 118vw; height: 118vw; left: -34vw; top: -12vw; }
@@ -471,7 +471,7 @@
     to   { translate: -7vw 7vw; scale: 0.94; }
   }
 
-  /* Film grain. An inline SVG turbulence — no network request. */
+  /* Film grain. An inline SVG turbulence - no network request. */
   .grain::after {
     content: '';
     position: absolute;
@@ -482,7 +482,7 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
   }
 
-  /* Star field — three layered radial-gradient tiles, slowly parallaxing. */
+  /* Star field - three layered radial-gradient tiles, slowly parallaxing. */
   .stars {
     position: absolute;
     inset: 0;
@@ -517,11 +517,11 @@
   }
 
   /* ------------------------------------------------------------------
-     SCROLL-DRIVEN REVEALS — native CSS, no observer, no library.
+     SCROLL-DRIVEN REVEALS - native CSS, no observer, no library.
      ------------------------------------------------------------------ */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      /* RANGE RULE — every reveal must finish inside the `entry` phase.
+      /* RANGE RULE - every reveal must finish inside the `entry` phase.
          The entry phase ends the moment the element's bottom edge has entered
          the viewport, so an element that is fully on screen is guaranteed to
          be fully animated. Ranges that end in `cover` (as an earlier version
@@ -557,7 +557,7 @@
          Each child animates on its own view() timeline, so content is never
          left at opacity:0 waiting on a script that might fail. The cascade
          comes from staggering the END of each child's range within the entry
-         phase — later cards finish later, but all of them finish before the
+         phase - later cards finish later, but all of them finish before the
          row is fully on screen. */
       .stagger > * {
         animation: reveal-up linear both;
@@ -574,7 +574,7 @@
 
   /* No blur in the reveal. A scroll-driven animation can be paused at any
      point by the reader simply stopping, so every intermediate frame has to
-     look deliberate — a half-blurred button just looks broken. Opacity and
+     look deliberate - a half-blurred button just looks broken. Opacity and
      translate degrade gracefully; blur does not. It is also the most
      expensive filter to composite on large images. */
   @keyframes reveal-up {
@@ -592,7 +592,7 @@
     to   { translate: 0 6%; }
   }
 
-  /* Above-the-fold entrance — fires on paint, no scroll timeline needed. */
+  /* Above-the-fold entrance - fires on paint, no scroll timeline needed. */
   @media (prefers-reduced-motion: no-preference) {
     .enter {
       opacity: 1;
@@ -661,10 +661,10 @@
    ========================================================================== */
 
 @media (max-width: 767px) {
-  /* — Tap targets ————————————————————————————
+  /* - Tap targets ----------------------------
      WCAG 2.5.8 asks for 24px minimum; 44px is the practical thumb target and
-     what Lighthouse checks. Inline text links inside prose are exempt — padding
-     them out would wreck the line rhythm — but every standalone link and every
+     what Lighthouse checks. Inline text links inside prose are exempt - padding
+     them out would wreck the line rhythm - but every standalone link and every
      navigation/footer link gets there. */
   footer a,
   .footer-link {
@@ -687,7 +687,7 @@
   /* Logo lockup is 42px tall; pad the anchor to clear the 44px floor. */
   header a[aria-label] { display: inline-flex; align-items: center; min-height: 46px; }
 
-  /* — Legibility ————————————————————————————
+  /* - Legibility ----------------------------
      Nothing that carries meaning drops below ~12.5px, and definition labels
      (previously 10.2px) come up to a readable size. */
   .caps { font-size: 0.74rem; letter-spacing: 0.2em; }
@@ -697,7 +697,7 @@
   dl dt { font-size: 0.72rem !important; }
   dl dd { font-size: 0.9rem !important; }
 
-  /* — Rhythm ————————————————————————————————
+  /* - Rhythm --------------------------------
      Desktop section padding is far too generous on a 375px screen; it turns
      into a lot of scrolling past empty space. */
   .section { padding-block: 3.75rem; }
@@ -706,7 +706,7 @@
   /* Long unbroken strings (URLs, addresses) must not force a sideways scroll. */
   h1, h2, h3, p, li, address, dd { overflow-wrap: anywhere; }
 
-  /* Nothing should hide behind the fixed bottom action bar — but only reserve
+  /* Nothing should hide behind the fixed bottom action bar - but only reserve
      the space on pages that actually have one (contact does not). */
   body:has(.sticky-cta) { padding-bottom: 4.5rem; }
 }

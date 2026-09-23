@@ -4,7 +4,7 @@ order: 7
 tier: 1
 icon: house
 summary: Practical Vastu assessment for houses and apartments, with corrections that do not require structural demolition.
-leadAnswer: A home Vastu consultation assesses the directional layout of a house or apartment — entrance, kitchen, bedrooms, water and storage — and identifies corrections. In most homes, particularly apartments, meaningful corrections can be made without any structural change.
+leadAnswer: A home Vastu consultation assesses the directional layout of a house or apartment - entrance, kitchen, bedrooms, water and storage - and identifies corrections. In most homes, particularly apartments, meaningful corrections can be made without any structural change.
 targetKeyword: vastu consultant
 secondaryKeywords:
   - vastu for home
@@ -25,7 +25,7 @@ faqs:
   - question: Will I have to break walls?
     answer: Almost never, and we treat demolition as a last resort rather than a first recommendation. Most Vastu concerns in modern homes are addressed through placement, use of rooms, direction of sleeping and working, lighting, colour and storage. Where a structural change would genuinely help, we say so along with the alternative, and the decision is yours.
   - question: Does Vastu work for apartments?
-    answer: Yes, and it is what most consultations now involve. You cannot change the direction a flat faces, but the internal layout — which room is used for what, where the bed and desk sit, how the kitchen is arranged, where water and heavy storage go — is almost entirely within your control, and that is where most of the workable correction lies.
+    answer: Yes, and it is what most consultations now involve. You cannot change the direction a flat faces, but the internal layout - which room is used for what, where the bed and desk sit, how the kitchen is arranged, where water and heavy storage go - is almost entirely within your control, and that is where most of the workable correction lies.
   - question: Do you visit the site, or work from a floor plan?
     answer: Both are available. A site visit allows a more complete assessment. A floor-plan review works well for apartments, for properties you are considering buying, and for clients outside the three cities. Send the plan with the compass direction marked and we will tell you what can be assessed remotely.
   - question: Can you check a property before I buy it?
@@ -36,13 +36,13 @@ faqs:
 
 ## What the assessment covers
 
-- **Main entrance** — direction, approach and obstructions
-- **Kitchen** — placement, cooking direction, water and fire zones
-- **Bedrooms** — position, sleeping direction, mirrors and storage
-- **Water** — borewell, sump, overhead tank, bathrooms
-- **Heavy storage and staircases** — weight distribution across the plot
+- **Main entrance** - direction, approach and obstructions
+- **Kitchen** - placement, cooking direction, water and fire zones
+- **Bedrooms** - position, sleeping direction, mirrors and storage
+- **Water** - borewell, sump, overhead tank, bathrooms
+- **Heavy storage and staircases** - weight distribution across the plot
 - **Open space, balconies and light**
-- **Pooja room** — placement and orientation
+- **Pooja room** - placement and orientation
 - **Plot shape and slope**, for independent houses
 
 ## How a consultation works
@@ -57,6 +57,6 @@ You will not be handed a list of thirty changes. The summary orders them: what g
 
 ## What we will not do
 
-We will not tell you that a property is cursed, unlivable, or that misfortune will follow unless you act. That framing is used to sell expensive remedies and it is not how this practice works. Nor do we sell yantras, pyramids or correction products — if a physical item is genuinely useful, you will be told what it is and you can buy it wherever you like.
+We will not tell you that a property is cursed, unlivable, or that misfortune will follow unless you act. That framing is used to sell expensive remedies and it is not how this practice works. Nor do we sell yantras, pyramids or correction products - if a physical item is genuinely useful, you will be told what it is and you can buy it wherever you like.
 
 For commercial premises, see [Vastu for Offices](/services/vastu-for-office/).

@@ -23,11 +23,11 @@ relatedServices:
 complianceNote: Career guidance from a chart is one input among many. It is not a prediction of employment, selection, promotion or income, and it does not replace professional career advice.
 faqs:
   - question: Can astrology tell me which career suits me?
-    answer: It can indicate broad directions. The tenth house, its lord, the position of Saturn and Mercury, and certain yogas point towards categories of work — analytical, administrative, creative, technical, people-facing, independent. What a chart cannot do is name a job title or a company. Treat it as one input alongside your aptitude, training and circumstances, not as a substitute for them.
+    answer: It can indicate broad directions. The tenth house, its lord, the position of Saturn and Mercury, and certain yogas point towards categories of work - analytical, administrative, creative, technical, people-facing, independent. What a chart cannot do is name a job title or a company. Treat it as one input alongside your aptitude, training and circumstances, not as a substitute for them.
   - question: Will I get a government job?
-    answer: Nobody can tell you that from a chart, and you should be wary of anyone who says they can. Certain placements are traditionally associated with government and institutional work, and a chart may show whether a period is broadly supportive of that pursuit. Selection depends on examinations, vacancies and competition — none of which a birth chart determines.
+    answer: Nobody can tell you that from a chart, and you should be wary of anyone who says they can. Certain placements are traditionally associated with government and institutional work, and a chart may show whether a period is broadly supportive of that pursuit. Selection depends on examinations, vacancies and competition - none of which a birth chart determines.
   - question: Is this a good time to change jobs?
-    answer: This is the most common question we get, and it is one a chart handles reasonably well. Dasha periods and current transits indicate whether a change is better supported now or after a particular period. The answer comes as a window — a range of months — not a date.
+    answer: This is the most common question we get, and it is one a chart handles reasonably well. Dasha periods and current transits indicate whether a change is better supported now or after a particular period. The answer comes as a window - a range of months - not a date.
   - question: Can the chart tell me about settling or studying abroad?
     answer: Certain house and planetary combinations are traditionally associated with travel, relocation and foreign connections, and dasha periods indicate when those are most active. It can tell you whether a period supports the attempt. It cannot tell you whether a visa will be granted.
   - question: I have been out of work for a while. Can this help?
@@ -36,10 +36,10 @@ faqs:
 
 ## What the chart is read for
 
-- **The tenth house and its lord** — the principal career indicator
-- **Saturn's position** — discipline, persistence and the shape of long-term work
-- **Mercury and Jupiter** — analytical, advisory and communication-led work
-- **Dasha and antardasha** — when a change is supported and when it is better postponed
+- **The tenth house and its lord** - the principal career indicator
+- **Saturn's position** - discipline, persistence and the shape of long-term work
+- **Mercury and Jupiter** - analytical, advisory and communication-led work
+- **Dasha and antardasha** - when a change is supported and when it is better postponed
 - **Current transits**, particularly of Saturn and Jupiter, against your chart
 
 ## Questions this suits
@@ -48,9 +48,9 @@ Which broad direction fits my chart. Whether to change jobs now or wait. Whether
 
 ## What you will be told honestly
 
-If a period is unfavourable, you will be told, along with roughly when it eases. If the chart is neutral on a question — which happens — you will be told that rather than given a confident answer it does not support.
+If a period is unfavourable, you will be told, along with roughly when it eases. If the chart is neutral on a question - which happens - you will be told that rather than given a confident answer it does not support.
 
-And where the real issue is practical rather than astrological — a skills gap, a market condition, a decision you already know the answer to — we will say so. That is more useful to you than a reading.
+And where the real issue is practical rather than astrological - a skills gap, a market condition, a decision you already know the answer to - we will say so. That is more useful to you than a reading.
 
 ## For business owners
 

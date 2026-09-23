@@ -1,10 +1,10 @@
 ---
-title: Palmistry — Hasta Samudrika
+title: Palmistry - Hasta Samudrika
 order: 18
 tier: 3
 icon: hand
 summary: Traditional hand reading based on Samudrika Shastra, read in person and alongside the birth chart.
-leadAnswer: Palmistry, or Hasta Samudrika Shastra, reads the lines, mounts and shape of the hand. It is traditionally used alongside a birth chart rather than instead of one, and it requires an in-person reading — photographs lose the depth and texture the method relies on.
+leadAnswer: Palmistry, or Hasta Samudrika Shastra, reads the lines, mounts and shape of the hand. It is traditionally used alongside a birth chart rather than instead of one, and it requires an in-person reading - photographs lose the depth and texture the method relies on.
 targetKeyword: palmistry
 secondaryKeywords:
   - hasta samudrika shastra
@@ -30,7 +30,7 @@ faqs:
 
 ## What is read
 
-The **major lines** — heart, head and life. The **mounts** at the base of each finger and their relative development. The **shape and proportion** of the palm and fingers. **Secondary lines and markings** where they are clearly formed.
+The **major lines** - heart, head and life. The **mounts** at the base of each finger and their relative development. The **shape and proportion** of the palm and fingers. **Secondary lines and markings** where they are clearly formed.
 
 ## Read alongside the chart
 

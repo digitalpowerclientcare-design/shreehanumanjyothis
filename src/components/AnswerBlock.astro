@@ -8,7 +8,7 @@ import { locations, pandit, brand } from '@/data/business';
  *
  *  Research on 680M LLM citations found 44.2% come from the first 30% of a
  *  page. An audit of our own built pages showed service and article pages
- *  landing their answer at 8–12% — but the homepage and the three city hubs had
+ *  landing their answer at 8-12% - but the homepage and the three city hubs had
  *  no answer-first block at all. Those are exactly the pages an assistant lands
  *  on for "who is the best astrologer in Hyderabad", which the Search Terms
  *  Report shows is a real, high-impression query family (568 recommendation
@@ -16,8 +16,8 @@ import { locations, pandit, brand } from '@/data/business';
  *
  *  Two parts, both deliberately structured for extraction:
  *
- *  1. A 40–60 word self-contained answer. It must make sense lifted out of the
- *     page with no surrounding context — that is what gets quoted.
+ *  1. A 40-60 word self-contained answer. It must make sense lifted out of the
+ *     page with no surrounding context - that is what gets quoted.
  *  2. A <dl> of discrete facts. Each row is one atomic claim, which is the
  *     "semantic chunking" the GEO-SFE research describes: a 120-word block of
  *     clean facts beats a 3,000-word article for retrieval.
@@ -29,7 +29,7 @@ import { locations, pandit, brand } from '@/data/business';
 interface Fact { label: string; value: string }
 
 interface Props {
-  /** The self-contained answer. 40–60 words. */
+  /** The self-contained answer. 40-60 words. */
   answer: string;
   facts?: Fact[];
   /** Heading rendered above the block; kept as a real question. */
@@ -81,7 +81,7 @@ const { answer, facts = [], question, class: className = '' } = Astro.props;
     margin-bottom: 1rem;
   }
 
-  /* Larger than body copy on purpose — this is the paragraph that gets quoted. */
+  /* Larger than body copy on purpose - this is the paragraph that gets quoted. */
   .answer-text {
     font-size: clamp(1.05rem, 1rem + 0.35vw, 1.22rem);
     line-height: 1.68;

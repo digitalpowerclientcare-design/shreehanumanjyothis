@@ -11,7 +11,7 @@ secondaryKeywords:
   - birth number destiny number
   - business name numerology
 metaTitle: Numerology Guidance | Birth Number, Destiny Number & Name Analysis
-metaDescription: Numerology consultation with Pandit Sri Pandu Ranga Shastri Ji — birth and destiny numbers, name analysis, offered alongside Vedic chart guidance.
+metaDescription: Numerology consultation with Pandit Sri Pandu Ranga Shastri Ji - birth and destiny numbers, name analysis, offered alongside Vedic chart guidance.
 h1: Numerology Guidance
 relatedServices:
   - kundli-reading
@@ -22,7 +22,7 @@ faqs:
   - question: Should I change the spelling of my name?
     answer: Some people choose to, and we will give you the analysis if you ask for it. What we will not do is tell you that a spelling change will alter your career, your marriage or your health. If someone has charged you a significant sum on that basis, treat it sceptically.
   - question: Is numerology separate from astrology?
-    answer: They are different systems with different methods. We treat numerology as supporting — it can add a perspective alongside a chart reading, and where the two disagree, the birth chart carries considerably more weight in how we advise.
+    answer: They are different systems with different methods. We treat numerology as supporting - it can add a perspective alongside a chart reading, and where the two disagree, the birth chart carries considerably more weight in how we advise.
   - question: What do you need for a numerology reading?
     answer: Your date of birth and your full name as currently used. For a business name analysis, the proposed names and the proprietor's date of birth.
 ---

@@ -21,7 +21,7 @@ const services = defineCollection({
     tier: z.union([z.literal(1), z.literal(2), z.literal(3)]).default(2),
     /** Shown on cards and in the services grid. */
     summary: z.string(),
-    /** 40–60 words, answer-first. This is the block LLMs extract. */
+    /** 40-60 words, answer-first. This is the block LLMs extract. */
     leadAnswer: z.string(),
     targetKeyword: z.string(),
     secondaryKeywords: z.array(z.string()).default([]),
@@ -44,7 +44,7 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    /** 40–60 words, answer-first — placed directly under the H1. */
+    /** 40-60 words, answer-first - placed directly under the H1. */
     leadAnswer: z.string(),
     targetKeyword: z.string(),
     publishDate: z.coerce.date(),

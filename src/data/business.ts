@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- *  SINGLE SOURCE OF TRUTH — every NAP fact on this website comes from here.
+ *  SINGLE SOURCE OF TRUTH - every NAP fact on this website comes from here.
  * ============================================================================
  *
  *  RULE: No component, page, or JSON-LD block may hardcode an address, phone
@@ -11,7 +11,12 @@
  *  spellings of the brand across the open web). Fix a fact once, here, and it
  *  propagates to every page and every schema block on the site.
  *
- *  ⚠️  ITEMS MARKED  // TODO(client)  ARE UNVERIFIED PLACEHOLDERS.
+ *  ORDER MATTERS: Hyderabad (Kukatpally) is the primary centre and is listed
+ *  first, because the live Google Ads campaign and the verified Google Business
+ *  Profile are both Hyderabad. Any code using `locations[0]` as the default
+ *  centre therefore defaults to Hyderabad.
+ *
+ *  ITEMS MARKED  // TODO(client)  ARE UNVERIFIED PLACEHOLDERS.
  *      They must be confirmed with the client before launch. Search this file
  *      for "TODO(client)" to find every one of them.
  * ============================================================================
@@ -38,7 +43,7 @@ export interface Location {
   whatsappE164: string;
   /** Lat/long for LocalBusiness geo + map embeds. */
   geo: { lat: number; lng: number };
-  /** Google Maps place link — also used as schema `hasMap`. */
+  /** Google Maps place link - also used as schema `hasMap`. */
   mapUrl: string;
   /** Google Maps embed URL for the click-to-load map. */
   mapEmbedUrl: string;
@@ -50,7 +55,7 @@ export interface Location {
   languages: string[];
   /** The language-targeting page for this city, if any. */
   languagePage?: { slug: string; language: string; label: string };
-  /** Neighbourhoods this centre realistically serves — used in copy, NOT as doorway pages. */
+  /** Neighbourhoods this centre realistically serves - used in copy, NOT as doorway pages. */
   areasServed: string[];
   /** Short, genuinely local paragraph. Must be unique per city. */
   intro: string;
@@ -66,10 +71,10 @@ export interface Location {
 
 export const brand = {
   /**
-   * CANONICAL SPELLING — settled from the client's own logo artwork, whose
+   * CANONICAL SPELLING - settled from the client's own logo artwork, whose
    * wordmark reads "SRI HANUMAN JYOTHISHALAYA".
    *
-   * TODO(client): this now needs to be made consistent OFF-site too — all three
+   * TODO(client): this now needs to be made consistent OFF-site too - all three
    * Google Business Profiles, Justdial, Sulekha, Facebook and WeddingWire still
    * carry the other spellings. Conflicting names are the main reason search
    * engines and LLMs fail to resolve this business as one entity.
@@ -78,7 +83,7 @@ export const brand = {
   shortName: 'Sri Hanuman Jyothishalaya',
   legalName: 'Sri Hanuman Jyothishalaya',
 
-  /** Every other spelling in the wild — emitted as schema `alternateName`
+  /** Every other spelling in the wild - emitted as schema `alternateName`
    *  so search engines and LLMs resolve them all to this single entity. */
   alternateNames: [
     'Sri Hanuman Jyothishyalayam',
@@ -90,9 +95,9 @@ export const brand = {
   tagline: 'Vedic astrology guidance, without exaggeration or false promises.',
   domain: 'https://shreehanumanjyothis.in',
   email: 'shreehanumanjyothis@gmail.com', // client's working inbox
-  foundedYear: 1994, // TODO(client): confirm. Site says "30+ years"; directories say 40 and 45.
+  foundedYear: 1994, // Consistent with GBP "30+ years". TODO(client): directories say 40 and 45; reconcile off-site.
 
-  /** Off-site profiles. Emitted as schema `sameAs` — the strongest entity-
+  /** Off-site profiles. Emitted as schema `sameAs` - the strongest entity-
    *  disambiguation signal available. Add every claimed profile. */
   sameAs: [
     // TODO(client): add verified URLs only. Remove any profile you do not control.
@@ -104,7 +109,7 @@ export const brand = {
 } as const;
 
 // ---------------------------------------------------------------------------
-// THE PERSON — E-E-A-T anchor
+// THE PERSON - E-E-A-T anchor
 // ---------------------------------------------------------------------------
 
 export const pandit = {
@@ -112,14 +117,14 @@ export const pandit = {
   /** Name without honorifics, for schema `familyName`/search matching. */
   plainName: 'Pandu Ranga Shastri',
   jobTitle: 'Vedic Astrologer & Vastu Consultant',
-  yearsExperience: 30, // TODO(client): confirm. "30+" on site vs 40/45 in directories.
-  /** 40–60 words. This is the block LLMs quote when asked who he is. */
+  yearsExperience: 30, // Matches GBP "30+ years". TODO(client): reconcile 40/45 in directories.
+  /** 40-60 words. This is the block LLMs quote when asked who he is. */
   bio:
     'Pandit Sri Pandu Ranga Shastri Ji has practised Vedic astrology for more than three decades. ' +
     'His guidance is based on detailed Kundli analysis, planetary positions and traditional methods ' +
-    'followed across generations in his family. He consults from three centres — Bengaluru, Hyderabad ' +
-    'and Mumbai — and is known for plain, practical explanations rather than predictions delivered as certainties.',
-  /** Topics the Person entity is authoritative on — schema `knowsAbout`. */
+    'followed across generations in his family. He consults from three centres - Bengaluru, Hyderabad ' +
+    'and Mumbai - and is known for plain, practical explanations rather than predictions delivered as certainties.',
+  /** Topics the Person entity is authoritative on - schema `knowsAbout`. */
   knowsAbout: [
     'Vedic astrology',
     'Kundli matching',
@@ -131,17 +136,79 @@ export const pandit = {
     'Hasta Samudrika Shastra',
   ],
   // Supplied by the client from the existing site. Worth reshooting at higher
-  // resolution during the centre photo shoot — these are 1024×768 and carry a
+  // resolution during the centre photo shoot - these are 1024x768 and carry a
   // burnt-in watermark.
   photo: '/images/pandit-ji-1.webp',
   photoAlt: 'Pandit Sri Pandu Ranga Shastri Ji during a consultation',
 } as const;
 
 // ---------------------------------------------------------------------------
-// THE THREE CENTRES
+// THE THREE CENTRES  (Hyderabad first - primary centre)
 // ---------------------------------------------------------------------------
 
 export const locations: Location[] = [
+  {
+    slug: 'hyderabad',
+    city: 'Hyderabad',
+    cityAlt: 'Hyderabad',
+    state: 'Telangana',
+    locality: 'Kukatpally',
+    streetAddress:
+      '3rd Floor, Hanuman General Superstore Building, MIG-273, Omni Hospital Line, Balaji Nagar, Kukatpally',
+    postalCode: '500072',
+    landmark: 'Opposite Highly Fresh Supermarket, on the Omni Hospital line',
+    phoneDisplay: '+91 99664 32777',
+    phoneE164: '+919966432777',
+    whatsappE164: '919966432777',
+    geo: { lat: 17.4948, lng: 78.3996 }, // TODO(client): confirm from the live GBP pin
+    mapUrl: 'https://maps.google.com/?q=Balaji+Nagar+Kukatpally+Hyderabad+500072',
+    mapEmbedUrl:
+      'https://www.google.com/maps?q=17.4948,78.3996&hl=en&z=16&output=embed',
+    // Verified Google Business Profile (owner-managed): 4.9 stars, 2,142 reviews.
+    gbpUrl: 'https://share.google/lG8fmZUELUekvIOpk',
+    hours: [
+      { days: 'Mo,Tu,We,Th,Fr,Sa', opens: '09:00', closes: '20:00' },
+      { days: 'Su', opens: '10:00', closes: '18:00' },
+    ],
+    hoursDisplay: 'Mon-Sat 9:00 AM - 8:00 PM · Sun 10:00 AM - 6:00 PM',
+    languages: ['English', 'Telugu', 'Hindi'],
+    languagePage: {
+      slug: 'telugu-astrologer',
+      language: 'Telugu',
+      label: 'Telugu-speaking consultations',
+    },
+    areasServed: [
+      'Kukatpally', 'Balaji Nagar', 'KPHB Colony', 'Nizampet', 'Miyapur',
+      'Bachupally', 'Hafeezpet', 'Madhapur', 'Hitech City', 'Gachibowli',
+      'Kondapur', 'Ameerpet', 'Secunderabad',
+    ],
+    intro:
+      'Our Hyderabad centre is on the third floor of the Hanuman General Superstore building at ' +
+      'MIG-273, Balaji Nagar, on the Omni Hospital line in Kukatpally - opposite Highly Fresh ' +
+      'Supermarket. It is a short ride from KPHB Colony and Nizampet, and consultations here are ' +
+      'usually held in Telugu, Hindi or English.',
+    reviews: { rating: 4.9, count: 2142 },
+    /**
+     * Hyderabad carries more city pages than the other two centres, and that is
+     * deliberate rather than a doorway-page slip: the old WordPress site had
+     * indexed, geo-targeted pages for each of these topics. Redirecting
+     * "Kaal Sarp Dosh in Hyderabad" to a city-neutral page would preserve the
+     * topic but throw away the location relevance it already earned, so the
+     * last four exist to receive that equity one-to-one.
+     *
+     * Bengaluru and Mumbai have no such history, so they stay at six until
+     * Search Console shows city-qualified impressions for them.
+     */
+    tier1Services: [
+      'kundli-matching', 'jataka-matching', 'marriage-guidance',
+      'kundli-reading', 'vastu-for-home', 'career-astrology',
+      'birth-chart-by-date-of-birth',
+      // Migration targets - see src/data/redirects.ts
+      'relationship-guidance', 'marriage-delay',
+      'kaal-sarp-dosha', 'navagraha-shanti-puja',
+    ],
+  },
+
   {
     slug: 'bengaluru',
     city: 'Bengaluru',
@@ -165,7 +232,7 @@ export const locations: Location[] = [
       { days: 'Mo,Tu,We,Th,Fr,Sa', opens: '09:00', closes: '20:00' },
       { days: 'Su', opens: '10:00', closes: '18:00' },
     ], // TODO(client): confirm real hours per centre
-    hoursDisplay: 'Mon–Sat 9:00 AM – 8:00 PM · Sun 10:00 AM – 6:00 PM',
+    hoursDisplay: 'Mon-Sat 9:00 AM - 8:00 PM · Sun 10:00 AM - 6:00 PM',
     languages: ['English', 'Kannada', 'Telugu', 'Hindi'], // TODO(client): confirm
     languagePage: {
       slug: 'kannada-astrologer',
@@ -191,67 +258,6 @@ export const locations: Location[] = [
   },
 
   {
-    slug: 'hyderabad',
-    city: 'Hyderabad',
-    cityAlt: 'Hyderabad',
-    state: 'Telangana',
-    locality: 'Kukatpally',
-    streetAddress:
-      '3rd Floor, Hanuman General Superstore Building, MIG-273, Omni Hospital Line, Balaji Nagar, Kukatpally',
-    postalCode: '500072',
-    landmark: 'Opposite Highly Fresh Supermarket, on the Omni Hospital line',
-    phoneDisplay: '+91 99664 32777',
-    phoneE164: '+919966432777',
-    whatsappE164: '919966432777',
-    geo: { lat: 17.4948, lng: 78.3996 }, // TODO(client): confirm from the live GBP pin
-    mapUrl: 'https://maps.google.com/?q=Balaji+Nagar+Kukatpally+Hyderabad+500072',
-    mapEmbedUrl:
-      'https://www.google.com/maps?q=17.4948,78.3996&hl=en&z=16&output=embed',
-    gbpUrl: '', // TODO(client): paste the Google Business Profile URL
-    hours: [
-      { days: 'Mo,Tu,We,Th,Fr,Sa', opens: '09:00', closes: '20:00' },
-      { days: 'Su', opens: '10:00', closes: '18:00' },
-    ],
-    hoursDisplay: 'Mon–Sat 9:00 AM – 8:00 PM · Sun 10:00 AM – 6:00 PM',
-    languages: ['English', 'Telugu', 'Hindi'],
-    languagePage: {
-      slug: 'telugu-astrologer',
-      language: 'Telugu',
-      label: 'Telugu-speaking consultations',
-    },
-    areasServed: [
-      'Kukatpally', 'Balaji Nagar', 'KPHB Colony', 'Nizampet', 'Miyapur',
-      'Bachupally', 'Hafeezpet', 'Madhapur', 'Hitech City', 'Gachibowli',
-      'Kondapur', 'Ameerpet', 'Secunderabad',
-    ],
-    intro:
-      'Our Hyderabad centre is on the third floor of the Hanuman General Superstore building at ' +
-      'MIG-273, Balaji Nagar, on the Omni Hospital line in Kukatpally — opposite Highly Fresh ' +
-      'Supermarket. It is a short ride from KPHB Colony and Nizampet, and consultations here are ' +
-      'usually held in Telugu, Hindi or English.',
-    reviews: { rating: null, count: null },
-    /**
-     * Hyderabad carries more city pages than the other two centres, and that is
-     * deliberate rather than a doorway-page slip: the old WordPress site had
-     * indexed, geo-targeted pages for each of these topics. Redirecting
-     * "Kaal Sarp Dosh in Hyderabad" to a city-neutral page would preserve the
-     * topic but throw away the location relevance it already earned, so the
-     * last four exist to receive that equity one-to-one.
-     *
-     * Bengaluru and Mumbai have no such history, so they stay at six until
-     * Search Console shows city-qualified impressions for them.
-     */
-    tier1Services: [
-      'kundli-matching', 'jataka-matching', 'marriage-guidance',
-      'kundli-reading', 'vastu-for-home', 'career-astrology',
-      'birth-chart-by-date-of-birth',
-      // Migration targets — see src/data/redirects.ts
-      'relationship-guidance', 'marriage-delay',
-      'kaal-sarp-dosha', 'navagraha-shanti-puja',
-    ],
-  },
-
-  {
     slug: 'mumbai',
     city: 'Mumbai',
     cityAlt: 'Bombay',
@@ -273,7 +279,7 @@ export const locations: Location[] = [
       { days: 'Mo,Tu,We,Th,Fr,Sa', opens: '09:00', closes: '20:00' },
       { days: 'Su', opens: '10:00', closes: '18:00' },
     ],
-    hoursDisplay: 'Mon–Sat 9:00 AM – 8:00 PM · Sun 10:00 AM – 6:00 PM',
+    hoursDisplay: 'Mon-Sat 9:00 AM - 8:00 PM · Sun 10:00 AM - 6:00 PM',
     languages: ['English', 'Hindi', 'Marathi', 'Telugu'],
     languagePage: {
       slug: 'marathi-astrologer',
@@ -309,7 +315,7 @@ export const getLocation = (slug: CitySlug): Location => {
 
 /** Pre-filled WhatsApp deep link for a given centre. */
 export const whatsappLink = (loc: Location, message?: string): string => {
-  // Deliberately does not name a centre — all three share one line, and the
+  // Deliberately does not name a centre - all three share one line, and the
   // enquiry should read the same wherever on the site it was sent from.
   const text = encodeURIComponent(
     message ?? 'Namaste, I saw your website and would like to book a consultation.',
@@ -319,7 +325,7 @@ export const whatsappLink = (loc: Location, message?: string): string => {
 
 export const telLink = (loc: Location): string => `tel:${loc.phoneE164}`;
 
-/** Absolute URL builder — every schema @id and canonical runs through this. */
+/** Absolute URL builder - every schema @id and canonical runs through this. */
 export const abs = (path: string): string =>
   new URL(path, brand.domain).toString();
 

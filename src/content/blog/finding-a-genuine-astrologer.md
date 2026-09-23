@@ -1,7 +1,7 @@
 ---
-title: Finding a Genuine Astrologer — Seven Questions to Ask First
+title: Finding a Genuine Astrologer - Seven Questions to Ask First
 description: Practical questions to ask before paying anyone for an astrology consultation, and the specific claims that should make you walk away.
-leadAnswer: The most reliable test of an astrologer is whether they will tell you when astrology cannot help. Anyone guaranteeing a marriage, a job or a reconciliation is making a claim the method does not support — and that single test filters out most of the risk.
+leadAnswer: The most reliable test of an astrologer is whether they will tell you when astrology cannot help. Anyone guaranteeing a marriage, a job or a reconciliation is making a claim the method does not support - and that single test filters out most of the risk.
 targetKeyword: how to find a genuine astrologer
 publishDate: 2026-01-28
 category: choosing-an-astrologer
@@ -10,7 +10,7 @@ faqs:
   - question: How do I know if an astrologer is genuine?
     answer: Ask whether they guarantee outcomes. A genuine practitioner will tell you that charts indicate tendencies and timing, not certainties, and will say plainly when a matter needs a doctor, lawyer or counsellor instead. Guaranteed results are the clearest single warning sign in this field.
   - question: Should I pay for a remedy I was told is urgent?
-    answer: Not without a second reading. Urgency is the standard pressure technique — a serious dosha, a narrow window, a large fee. A real remedial suggestion follows a reading, comes with its reasoning explained, and can wait a week while you check it with someone else.
+    answer: Not without a second reading. Urgency is the standard pressure technique - a serious dosha, a narrow window, a large fee. A real remedial suggestion follows a reading, comes with its reasoning explained, and can wait a week while you check it with someone else.
   - question: Is it a problem if the astrologer also sells gemstones?
     answer: It is a conflict of interest worth knowing about. When the person recommending the stone is also selling it, the recommendation is harder to trust. It does not make them dishonest, but it is a reasonable thing to ask about before you buy.
 ---
@@ -52,6 +52,6 @@ Being told something frightening in the first two minutes. Being quoted a remedy
 
 ## What a good consultation actually feels like
 
-Unremarkable, mostly. You are asked for your birth details and what you want to understand. The chart is explained in language you can follow. Difficult periods are described accurately, without drama. Where nothing needs doing, you are told nothing needs doing — and the consultation ends without a sale.
+Unremarkable, mostly. You are asked for your birth details and what you want to understand. The chart is explained in language you can follow. Difficult periods are described accurately, without drama. Where nothing needs doing, you are told nothing needs doing - and the consultation ends without a sale.
 
 If you have been quoted a large sum somewhere for a dosha remedy, take the chart for a second reading before you pay anything. It is the cheapest protection available.

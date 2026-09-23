@@ -36,7 +36,7 @@ const crumbs = [
 ];
 
 /* Unique per-city FAQs. Deliberately NOT a template with the city name
-   swapped — that pattern is what gets location pages filtered as doorways. */
+   swapped - that pattern is what gets location pages filtered as doorways. */
 const faqs = [
   {
     question: `Where exactly is your ${loc.city} centre?`,
@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     question: `Which languages are consultations held in at ${loc.city}?`,
-    answer: `${loc.languages.join(', ')}. Discussing a chart in your own language matters — the distinctions are easy to lose in translation, particularly where a family alliance is being considered.`,
+    answer: `${loc.languages.join(', ')}. Discussing a chart in your own language matters - the distinctions are easy to lose in translation, particularly where a family alliance is being considered.`,
   },
   {
     question: `What are the timings for the ${loc.city} centre?`,
@@ -74,8 +74,8 @@ const jsonLd = buildGraph(
 ---
 
 <BaseLayout
-  title={`Best Astrologer in ${loc.city} — ${loc.locality} | ${brand.shortName}`}
-  description={`Talk to ${pandit.name}, a trusted ${loc.languagePage?.language ?? 'Vedic'} astrologer in ${loc.city} (${loc.locality}) — kundli matching, jathakam, marriage, career & Vastu guidance. ${loc.hoursDisplay}. Call or WhatsApp.`}
+  title={`Best Astrologer in ${loc.city} - ${loc.locality} | ${brand.shortName}`}
+  description={`Talk to ${pandit.name}, a trusted ${loc.languagePage?.language ?? 'Vedic'} astrologer in ${loc.city} (${loc.locality}) - kundli matching, jathakam, marriage, career & Vastu guidance. ${loc.hoursDisplay}. Call or WhatsApp.`}
   canonicalPath={`/${loc.slug}/`}
   jsonLd={jsonLd}
   hideStickyCta
@@ -130,7 +130,7 @@ const jsonLd = buildGraph(
         <div class="reveal lg:sticky lg:top-28">
           <ClickToLoadMap loc={loc} />
           <p class="mt-3 text-center text-[0.82rem] text-faint">
-            The map loads only when you tap it — no third-party request before then.
+            The map loads only when you tap it - no third-party request before then.
           </p>
         </div>
       </div>
@@ -139,7 +139,7 @@ const jsonLd = buildGraph(
 
   <!-- ============ ANSWER-FIRST (AEO) ============
        Targets the recommendation query family the Search Terms Report shows is
-       real — "best astrologer hyderabad" (259 impr), "genuine astrologer in
+       real - "best astrologer hyderabad" (259 impr), "genuine astrologer in
        hyderabad", "best telugu astrologer in hyderabad". Written as one
        self-contained paragraph that still makes sense lifted out of the page,
        since that is the unit an assistant quotes. -->
@@ -209,7 +209,7 @@ const jsonLd = buildGraph(
         </p>
         {loc.languagePage && (
           <p class="reveal mt-5 leading-relaxed text-mist">
-            Consultations here are frequently held in {loc.languagePage.language} —
+            Consultations here are frequently held in {loc.languagePage.language} -
             see <a class="inline-link" href={`/${loc.slug}/${loc.languagePage.slug}/`}>{loc.languagePage.label}</a>.
           </p>
         )}
@@ -237,7 +237,7 @@ const jsonLd = buildGraph(
         <SectionHeading
           eyebrow="Questions"
           title={`Visiting the ${loc.city} centre`}
-          lead={`Anything not covered here — call ${loc.phoneDisplay}.`}
+          lead={`Anything not covered here - call ${loc.phoneDisplay}.`}
         />
         <FaqAccordion faqs={faqs} />
       </div>

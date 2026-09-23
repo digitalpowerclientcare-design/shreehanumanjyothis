@@ -20,7 +20,7 @@ const jsonLd = buildGraph(
   {
     '@type': 'Blog',
     '@id': `${abs('/blog/')}#blog`,
-    name: `${brand.name} — Articles`,
+    name: `${brand.name} - Articles`,
     url: abs('/blog/'),
     publisher: { '@id': abs('/#organization') },
     blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.data.title, url: abs(`/blog/${p.id}/`) })),
@@ -33,7 +33,7 @@ const fmt = (d: Date) =>
 
 <BaseLayout
   title={`Articles | ${brand.shortName}`}
-  description="Vedic astrology explained plainly — kundli matching, doshas, Vastu and how to tell a genuine astrologer from a sales pitch."
+  description="Vedic astrology explained plainly - kundli matching, doshas, Vastu and how to tell a genuine astrologer from a sales pitch."
   canonicalPath="/blog/"
   jsonLd={jsonLd}
 >

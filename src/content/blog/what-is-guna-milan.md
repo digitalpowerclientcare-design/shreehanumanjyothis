@@ -1,7 +1,7 @@
 ---
 title: What Is Guna Milan? The Eight Kootas Explained Simply
-description: A plain-English walkthrough of the 36-point Guna Milan system — what each of the eight Kootas measures, how the points are weighted, and why the total is only a starting point.
-leadAnswer: Guna Milan is the North Indian method of assessing marriage compatibility by comparing eight factors — the Ashtakoot — between two birth charts. Each carries a different weight, totalling 36 points. A score of 18 or above is conventionally treated as acceptable.
+description: A plain-English walkthrough of the 36-point Guna Milan system - what each of the eight Kootas measures, how the points are weighted, and why the total is only a starting point.
+leadAnswer: Guna Milan is the North Indian method of assessing marriage compatibility by comparing eight factors - the Ashtakoot - between two birth charts. Each carries a different weight, totalling 36 points. A score of 18 or above is conventionally treated as acceptable.
 targetKeyword: what is guna milan
 publishDate: 2026-01-14
 category: marriage-and-matching
@@ -33,7 +33,7 @@ Guna Milan compares eight factors between two charts, working from the Moon's Na
 
 ## What the weighting tells you
 
-The point values are not arbitrary, and reading them tells you what the system prioritises. **Nadi and Bhakoot together carry 15 of the 36 points** — nearly half. A pair can align well on six of the eight factors and still land below 18 if those two do not match.
+The point values are not arbitrary, and reading them tells you what the system prioritises. **Nadi and Bhakoot together carry 15 of the 36 points** - nearly half. A pair can align well on six of the eight factors and still land below 18 if those two do not match.
 
 This is worth knowing, because it explains a result that otherwise looks alarming. A low score frequently traces to one heavily-weighted factor rather than to broad incompatibility.
 
@@ -45,7 +45,7 @@ Three things the total does not capture:
 
 **Dosha cancellation.** Many Mangal Dosha placements are cancelled or substantially reduced by other positions in the chart. A software report will often flag the dosha and stop.
 
-**The rest of the chart.** Guna Milan works from the Moon's position. The lagna, the seventh house, the strength of Venus and Jupiter — none of it enters the calculation, and all of it matters.
+**The rest of the chart.** Guna Milan works from the Moon's position. The lagna, the seventh house, the strength of Venus and Jupiter - none of it enters the calculation, and all of it matters.
 
 ## How the number gets misused
 
@@ -55,4 +55,4 @@ Ask which koota produced the shortfall, and whether the placements behind it are
 
 ## If your family follows the South Indian system
 
-Telugu, Kannada and Tamil families generally use **Porutham** rather than Ashtakoot — ten factors, each reported as suitable or not, with Rajju and Dina carrying the most weight. If the two sides of an alliance follow different traditions, both can be prepared and read against each other.
+Telugu, Kannada and Tamil families generally use **Porutham** rather than Ashtakoot - ten factors, each reported as suitable or not, with Rajju and Dina carrying the most weight. If the two sides of an alliance follow different traditions, both can be prepared and read against each other.

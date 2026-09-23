@@ -10,7 +10,7 @@ interface Props {
 }
 const {
   title = 'Speak to Pandit Ji directly',
-  lead = 'Share your birth details and your concern. You will get a clear explanation of what the chart shows — and what it does not.',
+  lead = 'Share your birth details and your concern. You will get a clear explanation of what the chart shows - and what it does not.',
   city,
 } = Astro.props;
 
@@ -31,7 +31,7 @@ const loc = city ? getLocation(city) : null;
 
       {loc ? (
         <div class="mt-9 flex flex-wrap justify-center gap-3">
-          <a class="btn btn-gold" href={telLink(loc)}>Call {loc.city} — {loc.phoneDisplay}</a>
+          <a class="btn btn-gold" href={telLink(loc)}>Call {loc.city} - {loc.phoneDisplay}</a>
           <a class="btn btn-ghost-light" href={whatsappLink(loc)}>Message on WhatsApp</a>
         </div>
       ) : (

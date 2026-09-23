@@ -8,9 +8,9 @@ export async function GET(context) {
   );
 
   return rss({
-    title: `${brand.name} — Articles`,
+    title: `${brand.name} - Articles`,
     description:
-      'Vedic astrology explained plainly — kundli matching, doshas, Vastu, and how to tell a genuine astrologer from a sales pitch.',
+      'Vedic astrology explained plainly - kundli matching, doshas, Vastu, and how to tell a genuine astrologer from a sales pitch.',
     site: context.site,
     items: posts.map((p) => ({
       title: p.data.title,

@@ -4,14 +4,14 @@ order: 14
 tier: 2
 icon: flame
 summary: Traditional Navagraha observances, advised where the chart indicates them and arranged at an appropriate muhurtha.
-leadAnswer: Navagraha Shanti Puja is a traditional observance addressing the nine planetary influences in a birth chart. It is a devotional practice, undertaken where a chart reading indicates it — not a mechanical procedure that produces a guaranteed result.
+leadAnswer: Navagraha Shanti Puja is a traditional observance addressing the nine planetary influences in a birth chart. It is a devotional practice, undertaken where a chart reading indicates it - not a mechanical procedure that produces a guaranteed result.
 targetKeyword: navagraha shanti puja
 secondaryKeywords:
   - navagraha homam
   - graha shanti puja
   - navagraha puja booking
 metaTitle: Navagraha Shanti Puja & Homa | Traditional Observance
-metaDescription: Navagraha Shanti Puja and homa guidance — what the observance involves, when it is appropriate, and how it is arranged at an auspicious time.
+metaDescription: Navagraha Shanti Puja and homa guidance - what the observance involves, when it is appropriate, and how it is arranged at an auspicious time.
 h1: Navagraha Shanti Puja & Homa Guidance
 cityH1Pattern: Navagraha Shanti Puja in {city}
 relatedServices:
@@ -27,12 +27,12 @@ faqs:
   - question: Can family members attend?
     answer: Yes. These observances are usually attended by the family. Let us know the number of people when arranging so seating can be planned.
   - question: Is a puja necessary for me?
-    answer: Only if the chart indicates it, and often it does not. If you have come after being told elsewhere that a puja is urgently required, we will read the chart and tell you honestly what we find — including if we find that nothing is warranted.
+    answer: Only if the chart indicates it, and often it does not. If you have come after being told elsewhere that a puja is urgently required, we will read the chart and tell you honestly what we find - including if we find that nothing is warranted.
 ---
 
 ## What the observance addresses
 
-The Navagraha — Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, Rahu and Ketu. The observance is directed towards the graha or graha indicated by the chart, rather than being a single fixed procedure applied to everyone.
+The Navagraha - Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, Rahu and Ketu. The observance is directed towards the graha or graha indicated by the chart, rather than being a single fixed procedure applied to everyone.
 
 ## When it is suggested
 

@@ -16,9 +16,9 @@
 
 ## Centres
 
-- Bengaluru — 504, 9th Cross Road, 8th Main Road, Sadashiva Nagar, Bengaluru, Karnataka 560080
-- Hyderabad — 3rd Floor, Hanuman General Superstore Building, MIG-273, Omni Hospital Line, Balaji Nagar, Kukatpally, Hyderabad, Telangana 500072
-- Mumbai — No. 6, Kohinoor Corner, Scheme No. IV, Swatantryaveer Savarkar Road, Prabhadevi, Mumbai, Maharashtra 400025
+- Bengaluru - 504, 9th Cross Road, 8th Main Road, Sadashiva Nagar, Bengaluru, Karnataka 560080
+- Hyderabad - 3rd Floor, Hanuman General Superstore Building, MIG-273, Omni Hospital Line, Balaji Nagar, Kukatpally, Hyderabad, Telangana 500072
+- Mumbai - No. 6, Kohinoor Corner, Scheme No. IV, Swatantryaveer Savarkar Road, Prabhadevi, Mumbai, Maharashtra 400025
 
 ## Primary pages
 
@@ -31,9 +31,9 @@
 
 ## Centres
 
-- [Bengaluru — Sadashiva Nagar](https://shreehanumanjyothis.in/bengaluru/)
-- [Hyderabad — Kukatpally](https://shreehanumanjyothis.in/hyderabad/)
-- [Mumbai — Prabhadevi](https://shreehanumanjyothis.in/mumbai/)
+- [Bengaluru - Sadashiva Nagar](https://shreehanumanjyothis.in/bengaluru/)
+- [Hyderabad - Kukatpally](https://shreehanumanjyothis.in/hyderabad/)
+- [Mumbai - Prabhadevi](https://shreehanumanjyothis.in/mumbai/)
 
 ## Services
 

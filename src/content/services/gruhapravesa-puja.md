@@ -11,7 +11,7 @@ secondaryKeywords:
   - housewarming puja date
   - griha pravesh muhurat
 metaTitle: Gruhapravesa Puja Guidance | Muhurtha, Rituals & Vastu Check
-metaDescription: Gruhapravesa guidance — choosing the muhurtha, what the rituals involve, and a Vastu check before you move into the new home.
+metaDescription: Gruhapravesa guidance - choosing the muhurtha, what the rituals involve, and a Vastu check before you move into the new home.
 h1: Gruhapravesa Puja & Muhurtha Guidance
 relatedServices:
   - muhurtha
@@ -19,7 +19,7 @@ relatedServices:
   - navagraha-shanti-puja
 faqs:
   - question: How is the gruhapravesa date chosen?
-    answer: From the Panchanga — tithi, nakshatra, vara and the lagna at the proposed time — checked against the birth chart of the head of the household and, where possible, the family members who will live there. Certain months and periods are traditionally avoided. Three to four weeks' notice is comfortable.
+    answer: From the Panchanga - tithi, nakshatra, vara and the lagna at the proposed time - checked against the birth chart of the head of the household and, where possible, the family members who will live there. Certain months and periods are traditionally avoided. Three to four weeks' notice is comfortable.
   - question: Should the Vastu check happen before or after moving in?
     answer: Before, without question. Corrections are far easier to make in an empty house, and if the property is still being fitted out, several things can be adjusted at almost no cost that would be disruptive afterwards.
   - question: Does this apply to a rented home?
@@ -34,7 +34,7 @@ The muhurtha is selected from the Panchanga and checked against the family's cha
 
 ## The Vastu check
 
-A short assessment before you move in covers the main entrance, kitchen placement, sleeping directions, water positions and the pooja room. Most findings at this stage can be acted on immediately and inexpensively — which is rarely true six months later.
+A short assessment before you move in covers the main entrance, kitchen placement, sleeping directions, water positions and the pooja room. Most findings at this stage can be acted on immediately and inexpensively - which is rarely true six months later.
 
 ## On the day
 

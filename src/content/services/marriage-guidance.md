@@ -4,7 +4,7 @@ order: 4
 tier: 1
 icon: rings
 summary: Chart-based guidance for married couples and families working through recurring conflict, distance or difficult decisions.
-leadAnswer: Marriage guidance uses both partners' birth charts to identify the patterns and timing behind recurring difficulties in a marriage. It offers perspective and clarity for the decision in front of you — it does not replace counselling, mediation or legal advice.
+leadAnswer: Marriage guidance uses both partners' birth charts to identify the patterns and timing behind recurring difficulties in a marriage. It offers perspective and clarity for the decision in front of you - it does not replace counselling, mediation or legal advice.
 targetKeyword: marriage problem solution
 secondaryKeywords:
   - marriage astrology
@@ -36,20 +36,20 @@ faqs:
 
 ## What people usually bring
 
-Recurring arguments that never resolve. A long period of distance. Disagreement about a major decision — a move, a job, a property, a child. Family pressure from either side. A sense that a difficult phase has gone on too long.
+Recurring arguments that never resolve. A long period of distance. Disagreement about a major decision - a move, a job, a property, a child. Family pressure from either side. A sense that a difficult phase has gone on too long.
 
 ## What the charts can show
 
 Reading both charts together, several things become visible that are hard to see from inside the situation:
 
 - **Temperamental differences** that keep producing the same disagreement in different forms
-- **Dasha periods** — where one or both partners are in a phase that is straining the relationship rather than the relationship itself being the problem
-- **Timing** — whether a current difficulty is likely to ease, and roughly when
+- **Dasha periods** - where one or both partners are in a phase that is straining the relationship rather than the relationship itself being the problem
+- **Timing** - whether a current difficulty is likely to ease, and roughly when
 - **Areas of genuine compatibility** that get overlooked when a couple is only focused on the conflict
 
 ## What it does not do
 
-It does not tell you whether to stay or leave. It does not make another person change. It does not guarantee reconciliation. And it is not counselling — where a couple needs a trained counsellor, or where there is any question of safety, that is what we will tell you to seek.
+It does not tell you whether to stay or leave. It does not make another person change. It does not guarantee reconciliation. And it is not counselling - where a couple needs a trained counsellor, or where there is any question of safety, that is what we will tell you to seek.
 
 ## Confidentiality
 

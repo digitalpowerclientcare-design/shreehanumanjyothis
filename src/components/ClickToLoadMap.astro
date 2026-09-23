@@ -5,7 +5,7 @@ import type { Location } from '@/data/business';
  * Click-to-load map. An eagerly-loaded Google Maps iframe is one of the
  * heaviest LCP killers on mobile, and the homepage needs three of them.
  * This renders a lightweight styled placeholder and swaps in the iframe only
- * on interaction — no third-party request until the user asks for one, which
+ * on interaction - no third-party request until the user asks for one, which
  * is also the privacy-preserving default.
  */
 interface Props { loc: Location; class?: string }

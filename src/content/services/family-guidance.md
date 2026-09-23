@@ -11,7 +11,7 @@ secondaryKeywords:
   - property dispute astrology
   - family harmony consultation
 metaTitle: Family Harmony Guidance | Multi-Chart Astrology Consultation
-metaDescription: Confidential family guidance reading several charts together — recurring disagreement, property matters and decisions affecting the whole household.
+metaDescription: Confidential family guidance reading several charts together - recurring disagreement, property matters and decisions affecting the whole household.
 h1: Family Harmony & Household Guidance
 cityH1Pattern: Family Guidance in {city}
 relatedServices:
@@ -21,7 +21,7 @@ relatedServices:
 complianceNote: Where a matter is properly one for a lawyer, doctor, or qualified counsellor, we will tell you so directly. Astrological guidance is not a substitute for any of them.
 faqs:
   - question: Can you look at several family members' charts together?
-    answer: Yes. Reading charts together often shows patterns that are invisible one at a time — particularly where several members are running dasha periods that interact badly. Send birth details for everyone you want included.
+    answer: Yes. Reading charts together often shows patterns that are invisible one at a time - particularly where several members are running dasha periods that interact badly. Send birth details for everyone you want included.
   - question: Is it confidential?
     answer: Yes, including between family members. If you consult alone about a household matter, nothing is repeated to anyone else who consults us, whether or not they arranged your appointment.
   - question: We have a property dispute in the family. Can astrology resolve it?
@@ -36,7 +36,7 @@ Long-running disagreement between generations. Property and inheritance matters.
 
 ## How several charts are read together
 
-Individually first, then against each other — temperament, the dasha period each person is running, and where those periods interact. It is common to find that a household's difficult phase maps onto two or three members simultaneously running hard periods, which reframes the situation usefully.
+Individually first, then against each other - temperament, the dasha period each person is running, and where those periods interact. It is common to find that a household's difficult phase maps onto two or three members simultaneously running hard periods, which reframes the situation usefully.
 
 ## Where we stop
 

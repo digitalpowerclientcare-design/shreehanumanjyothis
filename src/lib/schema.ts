@@ -1,6 +1,6 @@
 /**
  * JSON-LD builders. Every structured-data block on the site is generated here
- * from `business.ts` — nothing is hand-written per page, so the entity graph
+ * from `business.ts` - nothing is hand-written per page, so the entity graph
  * can never drift out of sync with the NAP data.
  *
  * ⚠️  DELIBERATE OMISSION: no AggregateRating / Review markup about our own
@@ -25,7 +25,7 @@ type Json = Record<string, unknown>;
 /**
  * @param withSubOrgs Emit `subOrganization` links to all three centres. Only
  *   pass true on pages that also emit all three LocalBusiness nodes (home,
- *   contact) — otherwise the graph carries @id references that resolve to
+ *   contact) - otherwise the graph carries @id references that resolve to
  *   nothing on that page. The upward `parentOrganization` link on each
  *   LocalBusiness carries the same relationship and is always co-located with
  *   its own node, so nothing is lost elsewhere.
@@ -84,7 +84,7 @@ export const personSchema = (): Json => ({
 export const localBusinessSchema = (loc: Location): Json => ({
   '@type': 'LocalBusiness',
   '@id': ids.localBusiness(loc.slug),
-  name: `${brand.name} — ${loc.city}`,
+  name: `${brand.name} - ${loc.city}`,
   description: loc.intro,
   url: abs(`/${loc.slug}/`),
   parentOrganization: { '@id': ids.organization },
@@ -134,7 +134,7 @@ export interface ServiceSchemaInput {
   name: string;
   description: string;
   url: string;
-  /** Omit for city-neutral pages — they are provided by the Organization. */
+  /** Omit for city-neutral pages - they are provided by the Organization. */
   citySlug?: CitySlug;
   serviceType?: string;
 }
