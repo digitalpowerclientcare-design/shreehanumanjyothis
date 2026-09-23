@@ -73,25 +73,30 @@ export interface Location {
 
 export const brand = {
   /**
-   * CANONICAL SPELLING - settled from the client's own logo artwork, whose
-   * wordmark reads "SRI HANUMAN JYOTHISHALAYA".
+   * CANONICAL SPELLING - "Shree Hanuman Jyothis", confirmed by the client
+   * 2026-09-23 to match the domain (shreehanumanjyothis.in) and the Google
+   * Business Profile exactly. Entity consolidation depends on this exact spelling
+   * being used site-wide; every earlier spelling is carried in alternateNames.
    *
-   * TODO(client): this now needs to be made consistent OFF-site too - all three
-   * Google Business Profiles, Justdial, Sulekha, Facebook and WeddingWire still
-   * carry the other spellings. Conflicting names are the main reason search
+   * TODO(client): make this consistent OFF-site too - rename all three Google
+   * Business Profiles, Justdial, Sulekha, Facebook and WeddingWire to the same
+   * "Shree Hanuman Jyothis", and update the logo artwork wordmark (still reads
+   * "SRI HANUMAN JYOTHISHALAYA"). Conflicting names are the main reason search
    * engines and LLMs fail to resolve this business as one entity.
    */
-  name: 'Sri Hanuman Jyothishalaya',
-  shortName: 'Sri Hanuman Jyothishalaya',
-  legalName: 'Sri Hanuman Jyothishalaya',
+  name: 'Shree Hanuman Jyothis',
+  shortName: 'Shree Hanuman Jyothis',
+  legalName: 'Shree Hanuman Jyothis',
 
   /** Every other spelling in the wild - emitted as schema `alternateName`
    *  so search engines and LLMs resolve them all to this single entity. */
   alternateNames: [
+    'Sri Hanuman Jyothishalaya',
     'Sri Hanuman Jyothishyalayam',
     'Shree Hanuman Jyothishyalayam',
     'Shree Hanuman Jyotishyalayam',
     'Sree Hanuman Jyothisyalayam',
+    'Shree Hanuman Jyothis - Astrologer in Kukatpally',
   ],
 
   tagline: 'Vedic astrology guidance, without exaggeration or false promises.',
@@ -167,7 +172,7 @@ export const locations: Location[] = [
     mapEmbedUrl:
       'https://www.google.com/maps?q=17.4948,78.3996&hl=en&z=16&output=embed',
     // Verified Google Business Profile (owner-managed): 4.9 stars, 2,142 reviews.
-    gbpUrl: 'https://share.google/lG8fmZUELUekvIOpk',
+    gbpUrl: 'https://maps.app.goo.gl/UJv4EwDRfpmbovgE8',
     hours: [
       { days: 'Mo,Tu,We,Th,Fr,Sa', opens: '09:00', closes: '20:00' },
       { days: 'Su', opens: '10:00', closes: '18:00' },
@@ -240,7 +245,7 @@ export const locations: Location[] = [
     mapUrl: 'https://maps.google.com/?q=Sadashiva+Nagar+Bengaluru+560080', // TODO(client): replace with GBP place URL
     mapEmbedUrl:
       'https://www.google.com/maps?q=13.0068,77.5806&hl=en&z=16&output=embed',
-    gbpUrl: '', // TODO(client): paste the Google Business Profile URL
+    gbpUrl: 'https://share.google/b6bvZ0QfuvjfIipJz', // Bengaluru GBP (client-supplied)
     hours: [
       { days: 'Mo,Tu,We,Th,Fr,Sa', opens: '09:00', closes: '20:00' },
       { days: 'Su', opens: '10:00', closes: '18:00' },
@@ -287,7 +292,7 @@ export const locations: Location[] = [
     mapUrl: 'https://maps.google.com/?q=Kohinoor+Corner+Prabhadevi+Mumbai+400025',
     mapEmbedUrl:
       'https://www.google.com/maps?q=19.0169,72.8302&hl=en&z=16&output=embed',
-    gbpUrl: '', // TODO(client): paste the Google Business Profile URL
+    gbpUrl: 'https://share.google/lO5PpzXcPDRBrviDW', // Mumbai GBP (client-supplied)
     hours: [
       { days: 'Mo,Tu,We,Th,Fr,Sa', opens: '09:00', closes: '20:00' },
       { days: 'Su', opens: '10:00', closes: '18:00' },

@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Sri Hanuman Jyothishyalayam
+# Shree Hanuman Jyothis
 #
 # AI crawlers are ALLOWED deliberately. For a local lead-generation business,
 # being citable in ChatGPT / Perplexity / Gemini answers is the point - blocking

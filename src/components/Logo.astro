@@ -5,11 +5,12 @@ import { brand } from '@/data/business';
  * The client's actual logo. Orange/vermilion artwork on transparency, so it
  * sits correctly on the dark palette without a plate behind it.
  *
- * Its wordmark also settles the brand-spelling question the audit raised:
- * "SRI HANUMAN JYOTHISHALAYA" is canonical.
+ * Canonical brand name is now "Shree Hanuman Jyothis" (matches domain + GBP).
+ * NOTE: this raster wordmark still reads "SRI HANUMAN JYOTHISHALAYA" - the alt
+ * text uses the canonical name, but the artwork itself needs updating.
  *
- * TODO(client): supply a vector original if one exists. This is a 1080×425
- * raster, which is fine at header sizes but will soften on very large displays.
+ * TODO(client): supply new logo artwork whose wordmark reads "Shree Hanuman
+ * Jyothis" (ideally a vector original). This is a 1080×425 raster.
  */
 interface Props {
   /** Larger treatment for the footer. */
