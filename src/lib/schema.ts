@@ -82,11 +82,12 @@ export const personSchema = (): Json => ({
  * unrelated entities (or, worse, a duplicate).
  */
 export const localBusinessSchema = (loc: Location): Json => ({
-  '@type': 'LocalBusiness',
+  '@type': ['LocalBusiness', 'ProfessionalService'],
   '@id': ids.localBusiness(loc.slug),
   name: `${brand.name} - ${loc.city}`,
   description: loc.intro,
   url: abs(`/${loc.slug}/`),
+  image: abs(pandit.photo),
   parentOrganization: { '@id': ids.organization },
   employee: { '@id': ids.person },
   telephone: loc.phoneE164,

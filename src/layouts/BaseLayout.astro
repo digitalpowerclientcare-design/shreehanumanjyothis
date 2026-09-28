@@ -3,7 +3,7 @@ import '@/styles/global.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import StickyMobileCTA from '@/components/StickyMobileCTA.astro';
-import { brand, abs } from '@/data/business';
+import { brand, pandit, abs } from '@/data/business';
 
 interface Props {
   title: string;
@@ -16,6 +16,9 @@ interface Props {
   noindex?: boolean;
   /** Hides the sticky mobile bar on pages where it would obstruct (e.g. contact). */
   hideStickyCta?: boolean;
+  /** HTML <meta name="author">. Defaults to the site's one author (the Pandit) -
+   *  override only if a page ever has a different byline. */
+  author?: string;
 }
 
 const {
@@ -23,6 +26,7 @@ const {
   ogImage = '/images/og-default.png',
   noindex = false,
   hideStickyCta = false,
+  author = pandit.name,
 } = Astro.props;
 
 const canonical = abs(canonicalPath);
@@ -53,6 +57,7 @@ const canonical = abs(canonicalPath);
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={author} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
