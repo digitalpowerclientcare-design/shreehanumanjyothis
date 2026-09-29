@@ -204,7 +204,13 @@ export const locations: Location[] = [
       'has raised about a house. We answer in Telugu, Hindi or English, quote the fee before ' +
       'anything is booked, and never present a remedy as the only thing standing between a family ' +
       'and misfortune. People travel to Balaji Nagar from KPHB, Nizampet, Miyapur, Madhapur and ' +
-      'Kondapur, and a good number now take the same consultation over video from outside the city.',
+      'Kondapur, and a good number now take the same consultation over video from outside the city.\n\n' +
+      'What a second opinion here usually sounds like: less certainty, not more. If a chart genuinely ' +
+      'supports a delay or a difficulty, we say that plainly rather than softening it into vague ' +
+      'reassurance. If it does not support what a family has been told elsewhere, we say that too. ' +
+      'No gemstone, yantra or remedy product is sold at this centre - where something is indicated, ' +
+      'you are told what it is and buy it wherever you choose. The 4.9-star rating from 2,142 Google ' +
+      'reviews is the same profile you can read before you call, not a figure we quote and cannot show.',
     reviews: { rating: 4.9, count: 2142 },
     /**
      * Hyderabad carries more city pages than the other two centres, and that is

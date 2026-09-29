@@ -73,6 +73,18 @@ const faqs = [
     question: `Can I consult online instead of visiting ${loc.city}?`,
     answer: `Yes. Consultations are held over call or video, and the same chart preparation applies. The only service that needs you in the room is palmistry, which cannot be read properly from a photograph.`,
   },
+  {
+    question: 'Can I get a Vastu consultation without a site visit?',
+    answer: 'Yes. A floor-plan review works well for apartments and for properties you are considering buying - send the plan with the compass direction marked. A site visit gives a more complete assessment, but it is not the only option.',
+  },
+  {
+    question: 'Does numerology replace a birth chart reading, or add to it?',
+    answer: 'It adds to it. Numerology is offered alongside a chart reading as a second angle on a name or number question - it is not treated as a stand-alone system here.',
+  },
+  {
+    question: 'Is Kundli matching for marriage done the same day?',
+    answer: 'If both sides send their birth details in advance on WhatsApp, yes - the Ashtakoot or Porutham comparison is worked out before the appointment, so the session itself is spent discussing what it means rather than calculating it.',
+  },
 ];
 
 const jsonLd = buildGraph(
@@ -178,11 +190,43 @@ const jsonLd = buildGraph(
             eyebrow="30+ Years in Hyderabad"
             title={`Why families in ${loc.city} come to Pandit Ji`}
           />
-          <p class="reveal mt-6 text-lg leading-relaxed text-mist">{loc.whyTrusted}</p>
+          {loc.whyTrusted.split('\n\n').map((para) => (
+            <p class="reveal mt-6 text-lg leading-relaxed text-mist">{para}</p>
+          ))}
         </div>
       </div>
     </section>
   )}
+
+  <!-- ============ HOW A VISIT WORKS ============ -->
+  <section class="section">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading
+          eyebrow="Before you come in"
+          title={`How a visit to the ${loc.city} centre actually works`}
+        />
+        <ol class="reveal mt-7 grid gap-5">
+          <li>
+            <p class="dt">1. Send your birth details ahead</p>
+            <p class="dd mt-1">Call or WhatsApp {loc.phoneDisplay} with date, time and place of birth. There is nothing else to prepare.</p>
+          </li>
+          <li>
+            <p class="dt">2. The chart is worked out before you arrive</p>
+            <p class="dd mt-1">It is not generated on the spot from software while you wait - it is prepared in advance, so the appointment itself is spent on the conversation.</p>
+          </li>
+          <li>
+            <p class="dt">3. A 45-60 minute session</p>
+            <p class="dd mt-1">In person at {loc.locality} or over video, in {loc.languages.join(', ')}. You ask what you came to ask; nothing is rushed toward a remedy.</p>
+          </li>
+          <li>
+            <p class="dt">4. What you leave with</p>
+            <p class="dd mt-1">A clear verbal explanation, and where corrections or remedies are genuinely indicated, a written summary in order of priority - not thirty suggestions at once.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ SERVICES HERE ============ -->
   <section class="section border-y border-hairline bg-night">
@@ -193,6 +237,34 @@ const jsonLd = buildGraph(
         lead="Each of these has a dedicated page for this centre with local details and timings."
         class="mb-12"
       />
+
+      <div class="mx-auto mb-12 grid max-w-3xl gap-6">
+        <p class="reveal leading-relaxed text-mist">
+          <strong class="text-cream">Marriage compatibility and Kundli matching</strong> is what most
+          families come in for first - both sides' charts read together, not just a Guna score in
+          isolation, whether your family follows Ashtakoot or the South Indian Porutham system.
+        </p>
+        <p class="reveal leading-relaxed text-mist">
+          <strong class="text-cream">Birth chart and Kundli readings</strong> cover career timing,
+          marriage prospects and family questions - the same reading, whether you come with a specific
+          worry or want the full picture.
+        </p>
+        <p class="reveal leading-relaxed text-mist">
+          <strong class="text-cream">Vastu consultations</strong> are available as a site visit or a
+          floor-plan review, which suits most apartments well. Corrections are given in order of what
+          genuinely matters, not a list of thirty changes - see the
+          {' '}<a class="inline-link" href={`/${loc.slug}/vastu-for-home/`}>full Vastu page</a> for what an assessment covers.
+        </p>
+        <p class="reveal leading-relaxed text-mist">
+          <strong class="text-cream">Numerology</strong> is offered alongside a chart reading, not as a
+          replacement for one - it adds a second angle on a name or a number, it does not stand alone.
+        </p>
+        <p class="reveal leading-relaxed text-mist">
+          <strong class="text-cream">Palmistry</strong> is in-person only. A photograph loses the depth
+          and texture the method depends on, so this is the one service that cannot be done online.
+        </p>
+      </div>
+
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {cityServices.map((s) => (
           <ServiceCard
@@ -220,6 +292,36 @@ const jsonLd = buildGraph(
     </div>
   </section>
 
+  <!-- ============ COMMON MISCONCEPTIONS (cross-cluster AEO) ============ -->
+  <section class="section border-y border-hairline bg-night">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading
+          eyebrow="Before you worry"
+          title="Questions families usually get wrong before they come in"
+        />
+        <div class="reveal mt-7 grid gap-6">
+          <div>
+            <p class="dt">Vastu does not mean breaking walls</p>
+            <p class="dd mt-1">Most concerns in modern homes, especially apartments, are addressed through placement and direction rather than demolition. Structural change is a last resort, not a first suggestion.</p>
+          </div>
+          <div>
+            <p class="dt">A difficult period is not a catastrophe</p>
+            <p class="dd mt-1">Charts contain both favourable and difficult periods, and both are described accurately. A hard dasha being presented as an emergency, or an expensive ritual as the only way through it, is a warning sign about who is telling you that - not about your chart.</p>
+          </div>
+          <div>
+            <p class="dt">A Mangal Dosha finding is rarely the whole story</p>
+            <p class="dd mt-1">It is one of the most over-stated findings in Indian astrology. Classical texts list several cancellation conditions, and many charts flagged manglik by an app or a quick reading carry at least one. Bring the chart and we will tell you what is actually there.</p>
+          </div>
+          <div>
+            <p class="dt">Numerology adds a second angle - it does not replace the chart</p>
+            <p class="dd mt-1">A name or number correction is not treated as a stand-alone fix for a career or a relationship. It sits alongside a birth chart reading, not instead of one.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ AREAS SERVED ============ -->
   <section class="section">
     <div class="container-page">
@@ -233,6 +335,19 @@ const jsonLd = buildGraph(
           {' '}{loc.landmark}. If you are coming for the first time and are unsure of the approach,
           call {loc.phoneDisplay} and we will talk you in.
         </p>
+        {loc.slug === 'hyderabad' && (
+          <>
+            <p class="reveal mt-5 leading-relaxed text-mist">
+              Clients from the IT corridor - Madhapur, Hitech City, Gachibowli and Kondapur - tend to ask
+              about career timing more than any other question, and a good number of them prefer a video
+              consultation over a visit given the distance.
+            </p>
+            <p class="reveal mt-5 leading-relaxed text-mist">
+              KPHB, Nizampet and Miyapur are the core walk-in base for this centre, and marriage matters -
+              compatibility, timing, a family alliance under discussion - are what most of that group comes in for.
+            </p>
+          </>
+        )}
         {loc.languagePage && (
           <p class="reveal mt-5 leading-relaxed text-mist">
             Consultations here are frequently held in {loc.languagePage.language} -

@@ -36,16 +36,28 @@ faqs:
     answer: It depends on whether a site visit is involved and the size of the property. Fees are told to you before anything is scheduled, and there are no charges added later. Ask on WhatsApp and you will get a straight figure.
 ---
 
+## What a Vastu dosha actually means
+
+A dosha, in this context, is a directional imbalance - a kitchen in the wrong corner, an entrance that fights the plot's natural energy flow, a toilet positioned where it disrupts an adjoining room. It is not a curse, and it is not treated as one here. Most doshas have a workable correction that does not involve construction: which room a family uses for what, where furniture and heavy items sit, where light and air are allowed to move. A dosha is a starting point for a conversation, not a verdict.
+
 ## What the assessment covers
 
-- **Main entrance** - direction, approach and obstructions
-- **Kitchen** - placement, cooking direction, water and fire zones
+- **Main entrance** - the direction it faces, what it opens onto, and whether anything obstructs the approach. This is usually the single most consequential element in a plot or flat, and the one clients ask about first.
+- **Kitchen** - placement relative to the rest of the home, the direction a person faces while cooking, and how it sits relative to water and storage.
+- **Pooja room** - placement and orientation. In an apartment this is often the room with the least flexibility, so the assessment focuses on what can realistically be done within the space available rather than an ideal that does not fit the flat.
 - **Bedrooms** - position, sleeping direction, mirrors and storage
 - **Water** - borewell, sump, overhead tank, bathrooms
 - **Heavy storage and staircases** - weight distribution across the plot
 - **Open space, balconies and light**
-- **Pooja room** - placement and orientation
 - **Plot shape and slope**, for independent houses
+
+## Apartments and independent houses are assessed differently
+
+In an apartment, the direction the building faces is fixed - nobody can change which way the flat looks out. What is within control is everything inside it: which room becomes the kitchen or the study, where the bed and desk sit, where heavy storage goes, how the pooja corner is oriented within the space available. That is where nearly all of the workable correction lies for flat owners, and it is the majority of what this practice now sees.
+
+An independent house carries more that can genuinely be addressed - plot shape, the position of the main door on the boundary wall, staircase placement, slope and drainage - because the family usually has more say over the structure itself, whether building fresh or renovating.
+
+The two most common concerns raised in apartment consultations are a kitchen and toilet sharing a wall or a vertical alignment between floors, and a compact plot where the entrance direction was fixed by the building's layout rather than chosen. Neither is unusual, and neither typically needs demolition to address - see "What we will not do" below.
 
 ## How a consultation works
 
