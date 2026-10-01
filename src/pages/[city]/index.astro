@@ -292,32 +292,108 @@ const jsonLd = buildGraph(
     </div>
   </section>
 
-  <!-- ============ COMMON MISCONCEPTIONS (cross-cluster AEO) ============ -->
+  <!-- ============ DECISION GUIDE ============ -->
+  <section class="section">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading
+          eyebrow="Not sure where to start"
+          title="Which consultation is right for you?"
+        />
+        <div class="reveal mt-7 grid gap-3">
+          {[
+            ['Marriage getting delayed, or a match under discussion', 'Marriage Guidance · Kundli Matching'],
+            ['A career decision or job change you are weighing', 'Birth Chart Reading'],
+            ['Confused about a home, office or a property you are considering', 'Vastu Consultation'],
+            ['Considering a name spelling or a business name', 'Numerology'],
+            ['Wanting a full picture, not one specific question', 'Birth Chart Reading'],
+            ['Curious about character and tendencies', 'Palmistry, in person'],
+          ].map(([situation, service]) => (
+            <div class="flex flex-col gap-1 border-b border-hairline pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span class="text-[0.95rem] text-mist">{situation}</span>
+              <span class="shrink-0 text-[0.9rem] font-semibold text-gold">{service}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ METHODOLOGY (E-E-A-T) ============
+       TODO(client): a competitor names specific classical texts (Brihat
+       Parashara Hora Shastra, Brihat Jataka, Jaimini Sutras etc.) as an
+       authority/credential signal. We deliberately do NOT invent which texts
+       Pandit Ji follows - if he can confirm a specific tradition/text, naming
+       it here would be a real, verifiable E-E-A-T upgrade. Ask before adding. -->
   <section class="section border-y border-hairline bg-night">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading
+          eyebrow="Methodology"
+          title="How a birth chart is actually read"
+        />
+        <p class="reveal mt-6 leading-relaxed text-mist">
+          A Vedic birth chart maps the planetary positions at the moment of birth. Reading begins with
+          the Lagna (ascendant), since it sets the orientation of every house in the chart. From there,
+          the placement and relationships of the nine grahas are considered, followed by the relevant
+          dasha period and any current transits - this is what determines timing, not just possibility.
+        </p>
+        <p class="reveal mt-4 leading-relaxed text-mist">
+          For a compatibility reading, both charts are read together rather than reduced to a single
+          Guna score, and any dosha found is checked against its known cancellation conditions before
+          it is treated as significant.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMMON MISCONCEPTIONS (cross-cluster AEO) ============ -->
+  <section class="section">
     <div class="container-page">
       <div class="mx-auto max-w-3xl">
         <SectionHeading
           eyebrow="Before you worry"
           title="Questions families usually get wrong before they come in"
         />
-        <div class="reveal mt-7 grid gap-6">
-          <div>
-            <p class="dt">Vastu does not mean breaking walls</p>
-            <p class="dd mt-1">Most concerns in modern homes, especially apartments, are addressed through placement and direction rather than demolition. Structural change is a last resort, not a first suggestion.</p>
-          </div>
-          <div>
-            <p class="dt">A difficult period is not a catastrophe</p>
-            <p class="dd mt-1">Charts contain both favourable and difficult periods, and both are described accurately. A hard dasha being presented as an emergency, or an expensive ritual as the only way through it, is a warning sign about who is telling you that - not about your chart.</p>
-          </div>
-          <div>
-            <p class="dt">A Mangal Dosha finding is rarely the whole story</p>
-            <p class="dd mt-1">It is one of the most over-stated findings in Indian astrology. Classical texts list several cancellation conditions, and many charts flagged manglik by an app or a quick reading carry at least one. Bring the chart and we will tell you what is actually there.</p>
-          </div>
-          <div>
-            <p class="dt">Numerology adds a second angle - it does not replace the chart</p>
-            <p class="dd mt-1">A name or number correction is not treated as a stand-alone fix for a career or a relationship. It sits alongside a birth chart reading, not instead of one.</p>
-          </div>
+        <div class="reveal mt-7 overflow-hidden rounded-xl border border-hairline">
+          {[
+            ['A good astrologer will give a guaranteed date.', 'A responsible reading discusses likely timing and tendencies, not a fixed guarantee.'],
+            ['Vastu correction means breaking walls.', 'Most concerns in modern apartments are addressed through placement and direction. Structural change is a last resort, not a first suggestion.'],
+            ['A Mangal Dosha finding is final.', 'Classical texts list several cancellation conditions, and many charts flagged manglik by an app carry at least one. Bring the chart and we will tell you what is actually there.'],
+            ['A difficult chart period means something bad will happen.', 'Charts contain difficult periods as well as favourable ones, and both are described accurately - not presented as an emergency.'],
+            ['Numerology replaces a birth chart reading.', 'It adds a second angle on a name or number. It is not treated as a stand-alone fix on its own.'],
+          ].map(([myth, fact], i) => (
+            <div class={`grid gap-1 p-5 sm:grid-cols-[1fr_1.2fr] sm:gap-6 ${i > 0 ? 'border-t border-hairline' : ''}`}>
+              <p class="text-[0.9rem] font-semibold text-faint">{myth}</p>
+              <p class="text-[0.92rem] leading-relaxed text-mist">{fact}</p>
+            </div>
+          ))}
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PREPARING FOR YOUR CONSULTATION ============ -->
+  <section class="section border-y border-hairline bg-night">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading
+          eyebrow="Before you call"
+          title="Preparing for your consultation"
+        />
+        <ul class="reveal mt-7 grid gap-3">
+          {[
+            'Keep your exact date, time and place of birth ready - for a compatibility reading, the same three for both people.',
+            'Note the specific questions or areas you want to discuss, so the session is spent on them rather than general background.',
+            'If joining by video, choose a quiet space where the conversation will not be interrupted.',
+            'Bring or share any earlier chart or reading you have, if it is relevant to your question.',
+          ].map((item) => (
+            <li class="flex gap-3 text-[0.95rem] leading-relaxed text-mist">
+              <span class="mt-1 text-gold" aria-hidden="true">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
